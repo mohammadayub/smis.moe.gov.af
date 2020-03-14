@@ -17,6 +17,30 @@ namespace Clean.Common
                 return builder.Build();
             }
         }
+        public static string BaseConnectionString
+        {
+            get
+            {
+                return AppSettings["BaseConnectionString"];
+            }
+        }
+
+        public static string DocumentsPath
+        {
+            get
+            {
+                return AppSettings["DocumentsPath"];
+            }
+        }
+
+        public static string IdentityConnectionString
+        {
+            get
+            {
+                return AppSettings["IdentityConnectionString"];
+            }
+        }
+
         public static string ApplicationTitle
         {
             get
@@ -24,6 +48,7 @@ namespace Clean.Common
                 return AppSettings["AppName"];
             }
         }
+
 
         public static string ApplicationLogo
         {
@@ -47,14 +72,6 @@ namespace Clean.Common
             {
                 return AppSettings["Formats"];
             }
-        }
-        public static string PMSConnectionString
-        {
-            get
-            {
-                return AppSettings["PMSConnectionString"];
-            }
-
         }
         public static string SystemPhotosPath
         {

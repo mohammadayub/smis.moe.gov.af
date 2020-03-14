@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Clean.Domain\Clean.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NModels\" />
+  </ItemGroup>
+
 </Project>

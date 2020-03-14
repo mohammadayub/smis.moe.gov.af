@@ -1,4 +1,6 @@
-﻿using Clean.Domain.Entity.look;
+﻿using Clean.Common;
+using Clean.Domain.Entity.look;
+using Clean.Domain.Entity.prc;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,7 +32,7 @@ namespace Clean.Persistence.Identity
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost; Database=MPRS; Username=postgres; Password=qwer");
+                optionsBuilder.UseNpgsql(AppConfig.IdentityConnectionString);
             }
         }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -97,6 +99,11 @@ namespace Clean.Persistence.Identity
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("character varying");
+
+                entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnName("TitleEN")
+                    .HasColumnType("character varying");
             });
 
             builder.Entity<Office>(entity =>
@@ -121,6 +128,97 @@ namespace Clean.Persistence.Identity
             });
 
 
+            builder.Entity<Process>(entity =>
+            {
+                entity.ToTable("Process", "prc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.Property(e => e.Name).HasMaxLength(200);
+
+                entity.Property(e => e.ScreenId).HasColumnName("ScreenID");
+
+                entity.Property(e => e.Sorter).HasMaxLength(10);
+
+                entity.HasOne(d => d.Screen)
+                    .WithMany(p => p.Process)
+                    .HasForeignKey(d => d.ScreenId)
+                    .HasConstraintName("_Process__FK");
+            });
+
+            builder.Entity<ProcessConnection>(entity =>
+            {
+                entity.ToTable("ProcessConnection", "prc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ProcessId).HasColumnName("ProcessID");
+
+                entity.HasOne(d => d.ConnectedToNavigation)
+                    .WithMany(p => p.ProcessConnectionConnectedToNavigation)
+                    .HasForeignKey(d => d.ConnectedTo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_ProcessConnection__FK_1");
+
+                entity.HasOne(d => d.Process)
+                    .WithMany(p => p.ProcessConnectionProcess)
+                    .HasForeignKey(d => d.ProcessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_ProcessConnection__FK");
+            });
+
+            builder.Entity<ProcessTracking>(entity =>
+            {
+                entity.ToTable("ProcessTracking", "prc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.ModuleId).HasColumnName("ModuleID");
+
+                entity.Property(e => e.ProcessId).HasColumnName("ProcessID");
+
+                entity.Property(e => e.RecordId).HasColumnName("RecordID");
+
+                entity.Property(e => e.ReferedProcessId).HasColumnName("ReferedProcessID");
+
+                entity.Property(e => e.Remarks).HasMaxLength(1000);
+
+                entity.Property(e => e.StatusId).HasColumnName("StatusID");
+
+                entity.Property(e => e.ToUserId).HasColumnName("ToUserID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Module)
+                    .WithMany(p => p.ProcessTracking)
+                    .HasForeignKey(d => d.ModuleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_ProcessTracking__FK_2");
+
+                entity.HasOne(d => d.Process)
+                    .WithMany(p => p.ProcessTrackingProcess)
+                    .HasForeignKey(d => d.ProcessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_ProcessTracking__FK");
+
+                entity.HasOne(d => d.ReferedProcess)
+                    .WithMany(p => p.ProcessTrackingReferedProcess)
+                    .HasForeignKey(d => d.ReferedProcessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_ProcessTracking__FK_1");
+            });
+
+
 
             builder.Entity<Module>(entity =>
             {
@@ -142,6 +240,10 @@ namespace Clean.Persistence.Identity
             builder.Entity<Screen>(entity =>
             {
                 entity.ToTable("Screen", "Look");
+
+                entity.HasIndex(e => e.ModuleId);
+
+                entity.HasIndex(e => e.ParentId);
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")

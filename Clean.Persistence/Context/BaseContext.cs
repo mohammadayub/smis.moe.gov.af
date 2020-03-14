@@ -1,5 +1,6 @@
 ﻿using Clean.Common.Service;
 using Clean.Domain.Entity.au;
+using Clean.Domain.Entity.doc;
 using Clean.Domain.Entity.look;
 using Clean.Domain.Entity.prc;
 using Clean.Persistence.Identity;
@@ -35,6 +36,12 @@ namespace Clean.Persistence.Context
         public virtual DbSet<ProcessConnection> ProcessConnection { get; set; }
         public virtual DbSet<ProcessTracking> ProcessTracking { get; set; }
         #endregion
+
+        public virtual DbSet<ScreenDocument> ScreenDocuments { get; set; }
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<Documents> Documents { get; set; }
+
+        public virtual DbSet<SystemStatus> SystemStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -173,6 +180,187 @@ namespace Clean.Persistence.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("_ProcessTracking__FK_1");
             });
+
+            modelBuilder.Entity<Screen>(entity =>
+            {
+                entity.ToTable("Screen", "Look");
+
+                entity.HasIndex(e => e.ModuleId);
+
+                entity.HasIndex(e => e.ParentId);
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.DirectoryPath)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Icon)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.ModuleId).HasColumnName("ModuleID");
+
+                entity.Property(e => e.ParentId).HasColumnName("ParentID");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.HasOne(d => d.Module)
+                    .WithMany(p => p.Screen)
+                    .HasForeignKey(d => d.ModuleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("screen_fk");
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.InverseParent)
+                    .HasForeignKey(d => d.ParentId)
+                    .HasConstraintName("screen_parent_fk");
+            });
+
+            modelBuilder.Entity<Module>(entity =>
+            {
+                entity.ToTable("Module", "Look");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<SystemStatus>(entity =>
+            {
+                entity.ToTable("SystemStatus", "Look");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Sorter)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.StatusType)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.TypeId).HasColumnName("TypeID");
+            });
+
+            modelBuilder.Entity<ScreenDocument>(entity =>
+            {
+                entity.ToTable("ScreenDocument", "doc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.DocumentTypeId).HasColumnName("DocumentTypeID");
+
+                entity.Property(e => e.ScreenId).HasColumnName("ScreenID");
+
+                entity.HasOne(d => d.DocumentType)
+                    .WithMany(p => p.ScreenDocument)
+                    .HasForeignKey(d => d.DocumentTypeId)
+                    .HasConstraintName("_ScreenDocument__FK");
+
+                entity.HasOne(d => d.Screen)
+                    .WithMany(p => p.ScreenDocument)
+                    .HasForeignKey(d => d.ScreenId)
+                    .HasConstraintName("_ScreenDocument__FK_1");
+            });
+            modelBuilder.Entity<DocumentType>(entity =>
+            {
+                entity.ToTable("DocumentType", "doc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Category).HasColumnType("character varying");
+
+                entity.Property(e => e.Description).HasColumnType("character varying");
+
+                entity.Property(e => e.Name).HasColumnType("character varying");
+            });
+
+            modelBuilder.Entity<Documents>(entity =>
+            {
+                entity.ToTable("Documents", "doc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ContentType)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.DocumentDate).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.DocumentNumber).HasMaxLength(100);
+
+                entity.Property(e => e.DocumentSource).HasMaxLength(100);
+
+                entity.Property(e => e.DocumentTypeId).HasColumnName("DocumentTypeID");
+
+                entity.Property(e => e.EncryptionKey).HasMaxLength(500);
+
+                entity.Property(e => e.FileName)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.LastDownloadDate).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.ObjectName).HasMaxLength(100);
+
+                entity.Property(e => e.ObjectSchema).HasMaxLength(100);
+
+                entity.Property(e => e.Path)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.RecordId).HasColumnName("RecordID");
+
+                entity.Property(e => e.Root).HasMaxLength(200);
+
+                entity.Property(e => e.ScreenId).HasColumnName("ScreenID");
+
+                entity.Property(e => e.StatusId).HasColumnName("StatusID");
+
+                entity.Property(e => e.UploadDate).HasColumnType("timestamp with time zone");
+
+                entity.HasOne(d => d.DocumentType)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.DocumentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_Documents__FK");
+            });
+
 
             base.OnModelCreating(modelBuilder);
         }

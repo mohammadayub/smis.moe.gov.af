@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Clean.Domain.Entity.look;
+using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Clean.Domain.Entity.prc
 {
@@ -14,8 +14,8 @@ namespace Clean.Domain.Entity.prc
         public string Remarks { get; set; }
         public int ModuleId { get; set; }
         public DateTime CreatedOn { get; set; }
-        public string UserId { get; set; }
-        public string ToUserId { get; set; }
+        public int UserId { get; set; }
+        public int? ToUserId { get; set; }
 
         public virtual Module Module { get; set; }
         public virtual Process Process { get; set; }

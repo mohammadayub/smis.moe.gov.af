@@ -1,4 +1,5 @@
-﻿using Clean.Domain.Entity.prc;
+﻿using Clean.Domain.Entity.doc;
+using Clean.Domain.Entity.prc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Clean.Domain.Entity.look
             InverseParent = new HashSet<Screen>();
             Process = new HashSet<Process>();
             RoleScreen = new HashSet<RoleScreen>();
+            ScreenDocument = new HashSet<ScreenDocument>();
         }
 
         public int Id { get; set; }
@@ -28,5 +30,6 @@ namespace Clean.Domain.Entity.look
         public virtual ICollection<Screen> InverseParent { get; set; }
         public virtual ICollection<Process> Process { get; set; }
         public virtual ICollection<RoleScreen> RoleScreen { get; set; }
+        public virtual ICollection<ScreenDocument> ScreenDocument { get; set; }
     }
 }

@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using App.Persistence.Context;
 using Clean.Application.System.Queries;
 using Clean.Common;
 using Clean.Common.Service;
+using Clean.Persistence.Context;
 using Clean.Persistence.Identity;
 using Clean.Persistence.Identity.Policies;
 using Clean.Persistence.Services;
@@ -92,8 +94,9 @@ namespace Clean.UI
             services.AddMediatR(typeof(GetScreens).GetTypeInfo().Assembly);
 
             services.AddAntiforgery(option => option.HeaderName = "XSRF-TOKEN");
-            
-            //services.AddDbContext<PMSContext>();
+
+            services.AddDbContext<AppDbContext>();
+            services.AddDbContext<BaseContext, AppDbContext>();
             
             services.AddDbContext<AppIdentityDbContext>();
             services.AddSession(option => { option.Cookie.IsEssential = true; });
@@ -144,7 +147,7 @@ namespace Clean.UI
 
 
                         //options.AllowMappingHeadRequestsToGetHandler = true;
-                        //  options.Conventions.AllowAnonymousToPage("/Security/Register");
+                        options.Conventions.AllowAnonymousToPage("/Security/Register");
                     }
 
                 );

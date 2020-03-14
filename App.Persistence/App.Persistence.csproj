@@ -28,10 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clean.Domain\Clean.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Context\" />
+    <ProjectReference Include="..\Clean.Persistence\Clean.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

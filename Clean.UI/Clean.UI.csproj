@@ -29,6 +29,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Persistence\App.Persistence.csproj" />
     <ProjectReference Include="..\Clean.Application\Clean.Application.csproj" />
     <ProjectReference Include="..\Clean.Common\Clean.Common.csproj" />
     <ProjectReference Include="..\Clean.Persistence\Clean.Persistence.csproj" />
