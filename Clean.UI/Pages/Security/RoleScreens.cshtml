@@ -1,0 +1,69 @@
+﻿@page "{handler?}/{id?}"
+@model Clean.UI.Pages.Security.RoleScreensModel
+@{
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+
+
+<div class="panel panel-flat" style="direction: rtl;">
+    <div class="panel-heading">
+        <h1 class="panel-title">صفحات مربوط به نقش</h1>
+    </div>
+
+    <div class="panel-body">
+        <form id="dv_Security_RolesScreen" class="form sub-form page-component" parent="dv_Security_Roles" parentcol="RoleId" type="form" prefix="he">
+            <fieldset class="content-group">
+                <legend class="text-bold">صفحات مرتبط</legend>
+                <div class="row">
+
+
+
+                    <div class="col-md-8 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                صفحه
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="hescreenid" name="heScreenID" asp-items="@Model.ListOfScreens" class="select" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <hr />
+
+
+            <div class="row div-form-control main-form-details">
+                <div class="col-md-12">
+                    <div class="form-group actions">
+                        <button type="button" class="btn btn-primary" action="save"><i class="icon-floppy-disk position-right"></i>ثبت </button>
+                        <button type="button" class="btn btn-primary" action="search"><i class="icon-search4 position-right"></i>جستجو </button>
+                        <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-right"></i>صفحه جدید </button>
+                        @*<button type="button" class="btn  pull-left" style="background-color:rgba(239, 0, 0, 0.8); color:white" action="delete"><i class=" icon-floppy-disk position-right"></i>حذف صفحه برای نقش</button>*@
+                    </div>
+                </div>
+            </div>
+            <div class="div-grid-control" style="display:none;">
+                <a href="javascript:void(0);" class="grid-action" style="color:orangered;" action="remove"><i class="icon-cross3" style="color:orangered;"></i>حذف</a>
+            </div>
+            <div class="form-grid main-form-details">
+                <table style="direction: rtl;">
+                    <thead>
+                        <tr>
+                            <th colname="RoleName">نقش</th>
+                            <th colname="ScreenName">صفحه</th>
+                            <th colname="singleaction">عملیات</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@page "{handler?}/{id?}"
+@model Clean.UI.Pages.Security.UserRolesModel
+
+@{
+    ViewData["Title"] = "UserInRole";
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+`
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h1 class="panel-title">تعین حقوق و نقش های کاربر</h1>
+    </div>
+    <div class="panel-body">
+        <form id="dv_Security_UserInRole" class="form sub-form page-component" parent="dv_Security_Register" parentcol="UserId" type="form" prefix="ur">
+            <fieldset class="content-group">
+
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                حقوق و نقش ها
+                                <span class="text-danger"></span>
+                            </label>
+                            <select asp-items="@Model.ListOfRoles" id="urroleid" name="urRoleID" class="select">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="row div-form-control">
+                <div class="col-md-12">
+                    <div class="form-group actions">
+                        <button type="button" class="btn btn-primary" action="save"><i class="icon-floppy-disk position-right"></i>ثبت </button>
+                        <button type="button" class="btn btn-primary" action="search"><i class="icon-search4 position-right"></i>جستجو </button>
+                    </div>
+                </div>
+            </div>
+            <div class="div-grid-control" style="display:none; color:orangered;">
+                <a href="javascript:void(0);" class="grid-action" style="color:orangered;" action="remove"><i style="color:orangered;" class="icon-cross3"></i>حذف</a>
+            </div>
+            <div class="form-grid main-form-details">
+                <table style="direction: rtl;">
+                    <thead>
+                        <tr>
+                            <th colname="UserName">کابر</th>
+                            <th colname="RoleName">نقش در سیستم</th>
+                            <th colname="singleaction">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>

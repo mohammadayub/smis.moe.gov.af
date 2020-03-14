@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@{
+    var C = System.Globalization.CultureInfo.CurrentCulture;
+}
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-git-compare"></i>
+        <span class="ml-2">تغییر زبان</span>
+        <i class="caret"></i>
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-right">
+        <li class=" @(C.Name.Equals("prs-AF") ? " active" : "")">
+            <a asp-controller="language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="prs-AF" class="dropdown-item">
+                <i class="icon-code"></i>دری
+            </a>
+        </li>
+        <li class="@(C.Name.Equals("ps-AF") ? " active" : "")">
+            <a asp-controller="language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="ps-AF" class="dropdown-item">
+                <i class="icon-code"></i>پښتو
+            </a>
+        </li>
+
+        <li class="@(C.Name.Equals("eng-US") ? " active" : "")">
+            <a asp-controller="language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="eng-AF" class="dropdown-item">
+                <i class="icon-code"></i>English
+            </a>
+        </li>
+
+    </ul>
+</li>

@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Clean.Persistence.Identity;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{ 
+    AppUser user = await UserManager.GetUserAsync(User);
+    string fullName = user.FirstName + " " + user.LastName;
+<li class="dropdown dropdown-user">
+    <a class="dropdown-toggle" data-toggle="dropdown">
+        <i class="caret"></i>
+        <span> @fullName</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right">
+        <li>
+            <a asp-page="/Security/ChangePassword"><i class="icon-cog5"></i>تغییر رمز</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a asp-page="/Security/Logout">
+                <i class="icon-switch2"></i> خروج از سیستم
+            </a>
+        </li>
+    </ul>
+</li>
+}
+
+else
+{
+<div class="dropdown-toggle" data-toggle="dropdown">
+    <i class="caret"></i>
+    <a asp-page="/Security/Login">ورود به سیستم</a>
+</div>
+}
+
+
+
+
+

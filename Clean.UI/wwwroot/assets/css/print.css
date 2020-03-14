@@ -1,0 +1,92 @@
+﻿body {
+    background:#f1f1f1;
+}
+.printonly {
+    display:none;
+}
+.page-holder {
+    width: 8.27in;
+    display:block;
+    margin:0 auto;
+    padding:4px;
+    box-sizing:content-box;
+    border:solid 2px #ddd;
+    background:#fff;
+}
+.page-content {
+    
+}
+@media print {
+    .A4 {
+        width:100%;
+        display:block;
+        padding:0;
+        margin:0 auto;
+    }
+   .noPrint {
+       display:none;
+   }
+    body {
+        font-family: Calibri;
+        background-color:transparent;
+    }
+   .printonly {
+        display:block;
+    }
+    /**
+        Print only
+        */
+    .printonly .banner {
+        height:110px;
+        display:flex;
+        color:#444444 !important;
+        padding-bottom:20px;
+    }
+    .printonly .logo {
+        background:transparent url("../logo/logo.png") no-repeat scroll center 0px / 74px auto;
+        order:0;
+        width:100px;
+    }
+    .printonly .titles {
+        padding-top:10px;
+    }
+    .printonly .titles h1, .printonly .titles h2, .printonly .titles h3 {
+        color:#0314ad !important;
+    }
+    .printonly hr {
+        background-color: #0314ad;
+        border-color: #0314ad;
+        color: #0314ad;
+        height: 3px;
+        margin-bottom: 20px;
+        width: 97%;
+    }
+
+    /*
+        Form contents
+        */
+    #header, #left-bar, #sidebar, .grid, button, input[type=button], input[type=submit], .div-form-control, .sidebar *, .head-spacer {
+        display:none !important;
+    }
+    .div-form h2 {
+        display:none;
+    }
+    
+    .div-form *  {
+        border-color:transparent;
+        border-width:0px;
+        background-color:transparent;
+    }
+    input {
+        border:none;
+    }
+    .div-form {
+        left:10px !important;
+        width:100%;
+        box-shadow:none;
+    }
+    
+    .div-row input[type="text"], .div-row input[type="number"] {
+        border-color:transparent;
+    }
+}
