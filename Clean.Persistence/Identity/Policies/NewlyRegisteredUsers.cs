@@ -26,6 +26,11 @@ namespace Clean.Persistence.Identity.Policies
         }
         protected async override Task HandleRequirementAsync(AuthorizationHandlerContext context, NewlyRegisteredUsers requirement)
         {
+            //if (!context.User.Identity.IsAuthenticated)
+            //{
+            //    context.Fail();
+            //    return;
+            //}
             AppUser currentUser = await _userManager.FindByNameAsync(context.User.Identity.Name);
 
             if (currentUser.PasswordChanged == requirement._PasswordMustNotBeChanged)

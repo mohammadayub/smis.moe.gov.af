@@ -100,11 +100,14 @@ namespace Clean.UI
             
             services.AddDbContext<AppIdentityDbContext>();
             services.AddSession(option => { option.Cookie.IsEssential = true; });
-            services.AddIdentity<AppUser, AppRole>(options => { options.User.RequireUniqueEmail = true; })
-                                    .AddRoles<AppRole>()
-                                    .AddErrorDescriber<IdentityLocalizedErrorDescribers>()
-                                    .AddEntityFrameworkStores<AppIdentityDbContext>()
-                                    .AddDefaultTokenProviders();
+            services.AddIdentity<AppUser, AppRole>(options => { 
+                options.User.RequireUniqueEmail = true; 
+                
+            })
+                    .AddRoles<AppRole>()
+                    .AddErrorDescriber<IdentityLocalizedErrorDescribers>()
+                    .AddEntityFrameworkStores<AppIdentityDbContext>()
+                    .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -157,6 +160,8 @@ namespace Clean.UI
                 (
                     options =>
                     {
+                        options.Cookie.IsEssential = true;
+                        options.Cookie.SameSite = SameSiteMode.None;
                         options.LoginPath = "/Security/Login";
                         options.AccessDeniedPath = "/Security/AccessDenied";
                     }
@@ -186,8 +191,26 @@ namespace Clean.UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager)
         {
+            //userManager.CreateAsync(new AppUser
+            //{
+            //    FirstName = "Admin",
+            //    LastName = "Admin",
+            //    FatherName = "Admin",
+            //    Email = "admin@nsia.gov.af",
+            //    EmailConfirmed = true,
+            //    Disabled = false,
+            //    OfficeID = 1,
+            //    OrganizationID = 1,
+            //    UserName = "Admin",
+            //    PhoneNumber = "0744744744",
+            //    PhoneNumberConfirmed = true,
+            //    SuperAdmin = true,
+            //    PasswordChanged = false,
+                
+            //},"admin@123").Wait();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -215,6 +238,7 @@ namespace Clean.UI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseCookiePolicy();
