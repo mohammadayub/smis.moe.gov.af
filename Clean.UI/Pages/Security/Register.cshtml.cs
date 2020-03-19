@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Application.Lookup.Queries;
 using Clean.Application.Accounts.Commands;
 using Clean.Application.Accounts.Queries;
 using Clean.Application.Lookup.Queries;
@@ -26,7 +27,6 @@ namespace Clean.UI.Pages.Security
                          <li><a href='#' data='$id' page='$path' class='sidebar-items' action='subscreen'><i class='$icon'></i>$title</a></li>";
 
 
-
         private readonly UserManager<AppUser> _userManager;
         public int? SignedInUserOrganizationID { get; set; }
         public RegisterModel(UserManager<AppUser> userManager)
@@ -39,13 +39,16 @@ namespace Clean.UI.Pages.Security
             
             // 1
             // Get organizations from database.  
-            var organizations_db = await Mediator.Send(new GetOrganiztionQuery() { Id = null });
+            var organizations_db = await Mediator.Send(new App.Application.Lookup.Queries.GetOrganiztionQuery() { Id = null });
 
             // Define and build the list of organization to be bound in the select element of the page.
             ListOfOrganization = new List<SelectListItem>();
             foreach (var o in organizations_db)
-                ListOfOrganization.Add(new SelectListItem() { Text = o.NameDari, Value = o.Id.ToString() });
+                ListOfOrganization.Add(new SelectListItem() { Text = o.Dari, Value = o.Id.ToString() });
 
+            ListOfOffices = new List<SelectListItem>();
+            var offices = await Mediator.Send(new GetOfficesQuery());
+            offices.ForEach(f => ListOfOffices.Add(new SelectListItem { Value = f.ID.ToString(), Text = String.Concat(f.Code, " - ", f.Title) }));
 
             // get list of subscreens
             string Screen = EncryptionHelper.Decrypt(HttpContext.Request.Query["p"]);

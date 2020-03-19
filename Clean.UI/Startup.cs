@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using App.Application.Lookup.Queries;
 using App.Persistence.Context;
 using Clean.Application.System.Queries;
 using Clean.Common;
@@ -56,16 +57,16 @@ namespace Clean.UI
             // configuring the localization service 
             services.Configure<RequestLocalizationOptions>(o =>
             {
-                var supportedCultures = new List<CultureInfo>
-                {
-                    new CultureInfo("prs-AF"),
-                    new CultureInfo("ps-AF")
-                    //,
-                    //new CultureInfo("en-US")
-                   
-
+                var dti = new DateTimeFormatInfo();
+                dti.Calendar = new System.Globalization.GregorianCalendar();
+                var da = new CultureInfo("prs-AF");
+                var ps = new CultureInfo("ps-AF");
+                da.DateTimeFormat = dti;
+                ps.DateTimeFormat = dti;
+                var supportedCultures = new List<CultureInfo> {
+                    da,ps
                 };
-                o.DefaultRequestCulture = new RequestCulture("prs-AF");
+                o.DefaultRequestCulture = new RequestCulture(da);
                 o.SupportedCultures = supportedCultures;
                 o.SupportedUICultures = supportedCultures;
             });
@@ -91,7 +92,7 @@ namespace Clean.UI
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             // Register MediatR Supporting Assemblies
-            services.AddMediatR(typeof(GetScreens).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetScreens).Assembly,typeof(GetOfficesQuery).Assembly);
 
             services.AddAntiforgery(option => option.HeaderName = "XSRF-TOKEN");
 
@@ -191,25 +192,9 @@ namespace Clean.UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager,RoleManager<AppRole> role,BaseContext ctx,AppIdentityDbContext identityDbContext)
         {
-            //userManager.CreateAsync(new AppUser
-            //{
-            //    FirstName = "Admin",
-            //    LastName = "Admin",
-            //    FatherName = "Admin",
-            //    Email = "admin@nsia.gov.af",
-            //    EmailConfirmed = true,
-            //    Disabled = false,
-            //    OfficeID = 1,
-            //    OrganizationID = 1,
-            //    UserName = "Admin",
-            //    PhoneNumber = "0744744744",
-            //    PhoneNumberConfirmed = true,
-            //    SuperAdmin = true,
-            //    PasswordChanged = false,
-                
-            //},"admin@123").Wait();
+            Initializer.InitializeAsync(userManager, role, identityDbContext, ctx).Wait();
 
             if (env.IsDevelopment())
             {
@@ -222,14 +207,18 @@ namespace Clean.UI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            var supportedCultures = new[]
-            {
-                new CultureInfo("prs-AF"),
-                new CultureInfo("ps-AF")
+            var dti = new DateTimeFormatInfo();
+            dti.Calendar = new System.Globalization.GregorianCalendar();
+            var da = new CultureInfo("prs-AF");
+            var ps = new CultureInfo("ps-AF");
+            da.DateTimeFormat = dti;
+            ps.DateTimeFormat = dti;
+            var supportedCultures = new List<CultureInfo> {
+                da,ps
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("prs-AF"),
+                DefaultRequestCulture = new RequestCulture(da),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures,
             });

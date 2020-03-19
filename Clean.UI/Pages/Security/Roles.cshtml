@@ -8,63 +8,64 @@
 }
 
 @Html.AntiForgeryToken()
+    <div class="panel panel-flat" style="direction: rtl;">
+        <div class="panel-heading">
+            <h1 class="panel-title">تنظیمات حقوق و نقش ها</h1>
+        </div>
+        <div class="panel-body">
 
-<div class="panel-heading">
-    <h1 class="panel-title">تنظیمات حقوق و نقش ها</h1>
-</div>
-<div class="panel-body">
-
-    <form id="dv_Security_Roles" class="form main-form page-component" type="form" prefix="ux">
-        <fieldset class="content-group">
-            <legend>برای ایجاد نقش ها از این فورم استفاده نمائید</legend>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-
-
+            <form id="dv_Security_Roles" class="form main-form page-component" type="form" prefix="ux">
+                <fieldset class="content-group">
+                    <legend>برای ایجاد نقش ها از این فورم استفاده نمائید</legend>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
 
 
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">
-                            نام نقش
-                            <span class="text-danger">&nbsp;*</span>
-                        </label>
-                        <input id="uxrolename" name="uxRoleName" type="text" class="form-control search" placeholder='نام نقش' required />
-                        <div class="form-control-feedback">
-                            <i class="icon-search4 text-size-base"></i>
+
+
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label class="text-bold">
+                                    نام نقش
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input id="uxrolename" name="uxRoleName" type="text" class="form-control search" placeholder='نام نقش' required />
+                                <div class="form-control-feedback">
+                                    <i class="icon-search4 text-size-base"></i>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                </fieldset>
+                <div class="row div-form-control">
+                    <div class="col-md-12">
+                        <div class="form-group actions">
 
+                            <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i> ثبت @ViewData["Title"]  </button>
+                            <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو @ViewData["Title"]</button>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-        <div class="row div-form-control">
-            <div class="col-md-12">
-                <div class="form-group actions">
 
-                    <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i> ثبت @ViewData["Title"]  </button>
-                    <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو @ViewData["Title"]</button>
 
+                <div class="form-grid main-form-details">
+                    <table style="direction:rtl" bindonclick="true">
+                        <thead>
+                            <tr>
+                                <th colname="rolename">نام نقش</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
-            </div>
+            </form>
+
         </div>
 
-
-        <div class="form-grid main-form-details">
-            <table style="direction:rtl" bindonclick="true">
-                <thead>
-                    <tr>
-                        <th colname="rolename">نام نقش</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <div class="page-sidebar page-component" type="actionmenu">
+            <ul class="navigation navigation-alt navigation-accordion">
+                @Html.Raw(@Model.SubScreens)
+            </ul>
         </div>
-    </form>
-
-</div>
-
-<div class="page-sidebar page-component" type="actionmenu">
-    <ul class="navigation navigation-alt navigation-accordion">
-        @Html.Raw(@Model.SubScreens)
-    </ul>
-</div>
+    </div>

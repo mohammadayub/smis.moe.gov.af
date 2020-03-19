@@ -14,5 +14,9 @@ namespace Clean.Domain.Entity.look
         public DateTime CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public string TitleEn { get; set; }
+        public int CurrencyId { get; set; }
+        public int OrganizationId { get; set; }
+        public int OfficeTypeId { get; set; }
     }
 }

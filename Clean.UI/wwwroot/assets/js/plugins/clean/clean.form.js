@@ -155,6 +155,55 @@ var clean = window.clean = window.clean || {};
                     self.loadDynamicLists($thisVal, c);
                 }
             });
+            self.el.find('input[type=text][lang]').each(function (i, item) {
+                new clean.LanguageInput({
+                    el: $(item),
+                    lang: $(item).attr('lang')
+                });
+            });
+            //self.el.find('input[type=text].lang').on('keydown', function (e) {
+            //    var PashtoKeyCodes = {
+            //        58: 'ک', 59: 'ک', 65: 'ش', 66: 'ذ',
+            //        67: 'ز', 68: 'ی', 69: 'ث', 70: 'ب',
+            //        71: 'ل', 72: 'ا', 73: 'ه', 74: 'ت',
+            //        75: 'ن', 76: 'م', 77: 'ړ', 78: 'د',
+            //        79: 'خ', 80: 'ح', 81: 'ض', 82: 'ق',
+            //        83: 'س', 84: 'ف', 85: 'ع', 86: 'ر',
+            //        87: 'ص', 88: 'ط', 89: 'غ', 90: 'ظ',
+            //        186: 'ک', 188: 'و', 190: 'ږ', 219: 'چ',
+            //        220: 'پ', 221: 'ج', 222: 'گ'
+            //    };
+                
+            //    var SpecialKeyCodes = {
+            //        //48 : ')',57 : '('
+            //    }
+            //    var PashtoKeyCodesShift = {
+            //        65: 'ښ', 66: '‌', 67: 'ژ', 68: 'ي', 69: '',
+            //        70: 'پ', 71: 'أ', 72: 'آ', 73: '', 74: 'ټ',
+            //        75: 'ڼ', 76: 'ة', 77: 'ؤ', 78: 'ډ', 79: 'ځ',
+            //        80: 'څ', 81: '', 82: '', 83: 'ۍ', 84: '',
+            //        85: '', 86: 'ء', 87: '', 89: '', 88: 'ې',
+            //        90: 'ئ', 190: '.'
+            //    };
+            //    var charCode = e.keyCode || e.charCode;
+            //    if (charCode === 8 || charCode === 32 || charCode === 9 || charCode === 39 || charCode === 37) {
+            //        return true;
+            //    }
+            //    else if (e.shiftKey && PashtoKeyCodesShift[charCode]) {
+            //        $(this).val($(this).val() + PashtoKeyCodesShift[charCode]);
+            //    }
+            //    else if (PashtoKeyCodes[charCode]) {
+            //        $(this).val($(this).val() + PashtoKeyCodes[charCode]);
+            //    }
+            //    else if (e.shiftKey && SpecialKeyCodes[charCode]) {
+            //        $(this).val($(this).val() + SpecialKeyCodes[charCode]);
+            //    }
+            //    else {
+            //        $(this).val($(this).val() + '');
+            //    }
+            //    $(this).get(0).scrollLeft = $(this).get(0).scrollWidth;
+            //    return false;
+            //});
 
             $('.bar-reader').click(function () {
                 $(this).val('');
@@ -1301,3 +1350,202 @@ var clean = window.clean = window.clean || {};
     };
 }
 )();
+
+(function () {
+    clean.LanguageInput = function (opt) {
+        this.el = opt.el;
+        this.lang = this.el.attr('lang');
+        this.specialCharsEnabled = this.el.get(0).attributes.hasOwnProperty('special-chars');
+        this.UpperCase = this.el.get(0).attributes.hasOwnProperty('uppercase');
+        this.NumberShift = this.el.get(0).attributes.hasOwnProperty('numbershift');
+        this.AllowedChars = [];
+        if (this.el.get(0).attributes.hasOwnProperty('allowedchars')) {
+            var acs = this.el.attr('allowedchars');
+            this.AllowedChars = acs.split(',').map(e => e.trim()).filter(e => e.length > 0);
+        }
+        this.init();
+        this.el.data('LangInput', this);
+    }
+    clean.LanguageInput.prototype = {
+        NumbersKeyCodes : {
+            48: '0',49: '1',50: '2', 51: '3', 52: '4',
+            53: '5', 54: '6', 55: '7', 56: '8', 57: '9',
+            96: '0',97: '1',98: '2',99: '3',100: '4',
+            101: '5',102: '6',103: '7',104: '8',105: '9'
+        },
+        NumbersShiftKeyCodes: {
+            48: { ps: '(', dr: '(', en: ')' },
+            49: { ps: '!', dr: '!', en: '!' },
+            50: { ps: '٬', dr: '٬', en: '@' },
+            51: { ps: '٫', dr: '٫', en: '#' },
+            52: { ps: '؋', dr: 'ریال', en: '$' },
+            53: { ps: '٪', dr: '٪', en: '%' },
+            54: { ps: '×', dr: '×', en: '^' },
+            55: { ps: '»', dr: '،', en: '&' },
+            56: { ps: '«', dr: '*', en: '*' },
+            57: { ps: ')', dr: ')', en: '(' },
+        },
+        IgnoreKeys: {
+            8: 'BACK-SPACE',
+            9: 'TAB',
+            32: 'SPACE',
+            37: 'LEFT-ARROW',
+            38: 'UP-ARROW',
+            39: 'RIGHT-ARROW',
+            40: 'DOWN-ARROW'
+        },
+        InvalidCharacters: [':'],
+        KeyCodes: {
+            65: {ps : 'ش',dr : 'ش',en : 'a'},
+            66: {ps : 'ذ',dr : 'ذ',en : 'b'},
+            67: {ps : 'ز',dr : 'ز',en : 'c'},
+            68: {ps : 'ی',dr : 'ی',en : 'd'},
+            69: {ps : 'ث',dr : 'ث',en : 'e'},
+            70: {ps : 'ب',dr : 'ب',en : 'f'},
+            71: {ps : 'ل',dr : 'ل',en : 'g'},
+            72: {ps : 'ا',dr : 'ا',en : 'h'},
+            73: {ps : 'ه',dr : 'ه',en : 'i'},
+            74: {ps : 'ت',dr : 'ت',en : 'j'},
+            75: {ps : 'ن',dr : 'ن',en : 'k'},
+            76: {ps : 'م',dr : 'م',en : 'l'},
+            77: {ps : 'ړ',dr : 'پ',en : 'm'},
+            78: {ps : 'د',dr : 'د',en : 'n'},
+            79: {ps : 'خ',dr : 'خ',en : 'o'},
+            80: {ps : 'ح',dr : 'ح',en : 'p'},
+            81: {ps : 'ض',dr : 'ض',en : 'q'},
+            82: {ps : 'ق',dr : 'ق',en : 'r'},
+            83: {ps : 'س',dr : 'س',en : 's'},
+            84: {ps : 'ف',dr : 'ف',en : 't'},
+            85: {ps : 'ع',dr : 'ع',en : 'u'},
+            86: {ps : 'ر',dr : 'ر',en : 'v'},
+            87: {ps : 'ص',dr : 'ص',en : 'w'},
+            88: {ps : 'ط',dr : 'ط',en : 'x'},
+            89: {ps : 'غ',dr : 'غ',en : 'y'},
+            90: { ps: 'ظ', dr: 'ظ', en: 'z' },
+
+            174: { ps: 'چ', dr: 'چ', en: ']' },
+            175: { ps: 'ج', dr: 'ج', en: '[' },
+            219: { ps: 'چ', dr: 'چ',en : '['},
+            221: { ps: 'ج', dr: 'ج',en : ']'},
+
+            58: { ps: 'ک', dr: 'ک', en: ';' },
+            59: { ps: 'ک', dr: 'ک', en: ';' },
+            222: { ps: 'ګ', dr: 'گ', en: '\'' },
+
+            188: {ps : 'و',dr : 'و',en : ','},
+            62: { ps: 'و', dr: 'و', en: ',' },
+            190: { ps: 'ږ', dr: '.', en: '.' },
+
+            220: { ps: 'پ', dr: 'پ', en: '\\' },
+            
+        },
+        ShiftKeyCodes: {
+            65: { ps: 'ښ', dr: 'ؤ', en: 'A' },
+            66: { ps: '‌', dr: '‌', en: 'B' },
+            67: { ps: 'ژ', dr: 'ژ', en: 'C' },
+            68: { ps: 'ي', dr: 'ي', en: 'D' },
+            69: { ps: 'ٍ', dr: '', en: 'E' },
+            70: { ps: 'پ', dr: 'إ', en: 'F' },
+            71: { ps: 'أ', dr: 'أ', en: 'G' },
+            72: { ps: 'آ', dr: 'آ', en: 'H' },
+            73: { ps: 'ّ', dr: '', en: 'I' },
+            74: { ps: 'ټ', dr: 'ة', en: 'J' },
+            75: { ps: 'ڼ', dr: '»', en: 'K' },
+            76: { ps: 'ة', dr: '«', en: 'L' },
+            77: { ps: 'ؤ', dr: 'ء', en: 'M' },
+            78: { ps: 'ډ', dr: 'ٔ', en: 'N' },
+            79: { ps: 'ځ', dr: ']', en: 'O' },
+            80: { ps: 'څ', dr: '[', en: 'P' },
+            81: { ps: 'ْ', dr: 'ْ', en: 'Q' },
+            82: { ps: 'ً', dr: 'ً', en: 'R' },
+            83: { ps: 'ۍ', dr: 'ئ', en: 'S' },
+            84: { ps: 'ُ', dr: 'ُ', en: 'T' },
+            85: { ps: 'َ', dr: 'َ', en: 'U' },
+            86: { ps: 'ء', dr: 'ٰ', en: 'V' },
+            87: { ps: 'ٌ', dr: 'ٌ', en: 'W' },
+            88: { ps: 'ئ', dr: 'ط', en: 'X' },
+            89: { ps: 'ِ', dr: 'ِ', en: 'Y' },
+            90: { ps: 'ئ', dr: 'ك', en: 'Z' },
+
+            174: { ps: '[', dr: '{', en: '}' },
+            175: { ps: ']', dr: '}', en: '{' },
+            219: { ps: ']', dr: '}', en: '{' },
+            221: { ps: '[', dr: '{', en: '}' },
+
+            58: { ps: ':', dr: ':', en: ':' },
+            59: { ps: ':', dr: ':', en: ':' },
+            222: { ps: '؛', dr: '؛', en: '"' },
+
+            188: { ps: '،', dr: '>', en: '<' },
+            62: { ps: '،', dr: '>', en: '<' },
+            190: { ps: '.', dr: '<', en: '>' },
+
+            220: { ps: '*', dr: '|', en: '|' },
+
+        },
+
+        init: function () {
+            this.el.on('keydown', {self : this}, this.KeyDownPressed);
+        },
+        KeyDownPressed: function (e) {
+            var self = e.data['self'];
+            var charCode = e.keyCode || e.charCode;
+            if (self.IgnoreKeys.hasOwnProperty(charCode)) {
+                return true;
+            }
+            else if (e.shiftKey && self.ShiftKeyCodes[charCode]) {
+                let v = self.ShiftKeyCodes[charCode][self.lang];
+                if (self.specialCharsEnabled) {
+                    $(this).val($(this).val() + v);
+                }
+                else {
+                    if (self.AllowedChars.includes(v)) {
+                        $(this).val($(this).val() + v);
+                    }
+                    else if (!self.InvalidCharacters.includes(v)) {
+                        $(this).val($(this).val() + v);
+                    }
+                }
+                
+            }
+            else if (self.KeyCodes[charCode]) {
+                let v = self.KeyCodes[charCode][self.lang];
+                if (self.UpperCase) {
+                    v = v.toUpperCase();
+                }
+                if (self.specialCharsEnabled) {
+                    $(this).val($(this).val() + v);
+                }
+                else {
+                    if (self.AllowedChars.includes(v)) {
+                        $(this).val($(this).val() + v);
+                    }
+                    else if (!self.InvalidCharacters.includes(v)) {
+                        $(this).val($(this).val() + v);
+                    }
+                }
+            }
+            else if (e.shiftKey && self.NumbersShiftKeyCodes[charCode]) {
+                if (self.NumberShift) {
+                    let v = self.NumbersShiftKeyCodes[charCode][self.lang];
+                    if (self.AllowedChars.includes(v)) {
+                        $(this).val($(this).val() + v);
+                    }
+                    else if (!self.InvalidCharacters.includes(v)) {
+                        $(this).val($(this).val() + v);
+                    }
+                }
+            }
+            else if (self.NumbersKeyCodes[charCode]) {
+                let v = self.NumbersKeyCodes[charCode];
+                $(this).val($(this).val() + v);
+            }
+            else {
+                $(this).val($(this).val() + '');
+            }
+
+            return false;
+        }
+    }
+
+})();

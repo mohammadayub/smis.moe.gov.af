@@ -40,11 +40,8 @@ namespace Clean.Application.Accounts.Commands
 
             AppUser CurrentUser = await _userManager.FindByNameAsync(request.UserName.Trim());
 
-
-
             if (CurrentUser != null)
             {
-
                 if (!request.ResetOperation)
                 {
                     if (request.NewPassword != request.NewPasswordConfirmation)

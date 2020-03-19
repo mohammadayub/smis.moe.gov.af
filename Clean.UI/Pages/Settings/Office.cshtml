@@ -1,0 +1,121 @@
+﻿@page "{handler?}/{id?}"
+@model Clean.UI.Pages.Settings.OfficeModel
+@{
+    ViewData["Title"] = "ثبت دفاتر مربوطه";
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+<div class="panel panel-flat" style="direction: rtl;">
+    <div class="panel-heading">
+        <h1 class="panel-title">تنظیمات نمایندگی‌ها</h1>
+    </div>
+    <div class="panel-body">
+
+        <form id="dv_Settings_Office" class="form sub-form page-component" type="form" parent="dv_Settings_Organization" parentcol="OrganizationId" prefix="uxo">
+            <fieldset class="content-group">
+                <legend>جهت ثبت نماندگی‌های مربوطه از این صفحه استفاده نمائید</legend>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                نام
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxotitle" name="uxoTitle" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                نام (انگلیسی)
+                            </label>
+                            <input type="text" id="uxotitleen" name="uxoTitleEN" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                کود
+                            </label>
+                            <input type="text" id="uxocode" name="uxoCode" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                نوعیت
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxoofficetypeid" name="uxoOfficeTypeID" asp-items="@Model.ListOfOfficeTypes" class="select search" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                کشور
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxocountryid" name="uxoCountryID" child="uxoprovinceid" asp-items="@Model.ListOfCountry" class="select search" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                ولایت
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxoprovinceid" name="uxoProvinceID" data-type="Province"  class="select search" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                اسعار
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxocurrencyid" name="uxoCurrencyID" asp-items="@Model.ListOfCurrency" class="select search" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            <hr />
+            <div class="row div-form-control">
+                <div class="col-md-12">
+                    <div class="form-group actions">
+                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>ثبت کاربر</button>
+                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>جدید</button>
+                        <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid main-form-details">
+                <table style="direction:rtl" bindonclick="true">
+                    <thead>
+                        <tr>
+                            <th colname="code">کود</th>
+                            <th colname="title">نام</th>
+                            <th colname="country">کشور</th>
+                            <th colname="province">ولایت</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>
+

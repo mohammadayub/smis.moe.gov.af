@@ -1,187 +1,175 @@
-﻿@page
+﻿@page "{handler?}"
 @model Clean.UI.Pages.Security.RegisterModel
 @{
     Layout = "~/Pages/Shared/_MasterLayout.cshtml";
 }
 
 @Html.AntiForgeryToken()
+    <div class="panel panel-flat" style="direction: rtl;">
+        <div class="panel-heading">
+            <h1 class="panel-title">تنظیمات کاربری</h1>
+        </div>
+        <div class="panel-body">
 
-<div class="panel-heading">
-    <h1 class="panel-title">تنظیمات کاربری</h1>
-</div>
-<div class="panel-body">
+            <form id="dv_Security_Register" class="form main-form page-component" type="form" prefix="ux">
+                <fieldset class="content-group">
+                    <input type="hidden" id="uxcurrentuser" name="cpUserName" value="@Model.CurrentUser" />
 
-    <form id="dv_Security_Register" class="form main-form page-component" type="form" prefix="ux">
-        <fieldset class="content-group">
-            <input type="hidden" id="uxcurrentuser" name="cpUserName" value="@Model.CurrentUser" />
+                    <legend>جهت ثبت کاربر های سیستم و تعین حقوق و نقش ها از این صفحه استفاده نمائید</legend>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    نام
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxfirstname" name="uxFirstName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    تخلص
+                                </label>
+                                <input type="text" id="uxlastname" name="uxLastName" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    نام پدر
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxfathername" name="uxFatherName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label class="text-bold">
+                                    ارگان
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxorganizationid" name="uxOrganizationID" asp-items="@Model.ListOfOrganization" class="select search" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label class="text-bold">
+                                    ایمیل آدرس
+                                </label>
+                                <input id="uxemail" name="uxEmail" class="form-control" />
+                                <div class="form-control-feedback">
+                                    <i class="icon-mail5 text-size-base">
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
 
-            <legend>جهت ثبت کاربر های سیستم و تعین حقوق و نقش ها از این صفحه استفاده نمائید</legend>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group">
-                        <label class="text-bold">
-                            نام
-                            <span class="text-danger">&nbsp;*</span>
-                        </label>
-                        <input type="text" id="uxfirstname" name="uxFirstName" class="form-control" required>
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label class="text-bold">
+                                    نام کاربری
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+
+                                <input id="uxusername" name="uxUserName" class="form-control search" required />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group">
-                        <label class="text-bold">
-                            تخلص
-                        </label>
-                        <input type="text" id="uxlastname" name="uxLastName" class="form-control">
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label class="text-bold">
+                                    بخش مربوطه
+                                </label>
+                                <select id="uxofficeid" name="uxOfficeID" asp-items="@Model.ListOfOffices" class="select">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group has-feedback has-feedback-left">
+                                <label class="text-bold">فعال | ‌غیر فعال</label>
+                                <input type="checkbox" class="checkbox" id="uxactive" name="uxActive" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group">
-                        <label class="text-bold">
-                            نام پدر
-                            <span class="text-danger">&nbsp;*</span>
-                        </label>
-                        <input type="text" id="uxfathername" name="uxFatherName" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">
-                            ارگان
-                            <span class="text-danger">&nbsp;*</span>
-                        </label>
-                        <select id="uxorganizationid" name="uxOrganizationID" asp-items="@Model.ListOfOrganization" class="select search" required>
-                            <option></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">
-                            ایمیل آدرس
-                        </label>
-                        <input id="uxemail" name="uxEmail" class="form-control" />
-                        <div class="form-control-feedback">
-                            <i class="icon-mail5 text-size-base">
-                            </i>
+                </fieldset>
+                <hr />
+                <div class="row div-form-control">
+                    <div class="col-md-12">
+                        <div class="form-group actions">
+
+                            <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>ثبت کاربر</button>
+                            <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>جدید</button>
+                            <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو به اساس ارگان و نام کاربری</button>
+                            <button id="btnResetPassword" type="button" class="btn btn-primary"><i class="icon-reset position-right"></i>تنظیم مجدد رمز عبور</button>
+
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">
-                            نام کاربری
-                            <span class="text-danger">&nbsp;*</span>
-                        </label>
+                <div class="form-grid main-form-details">
+                    <table style="direction:rtl" bindonclick="true">
+                        <thead>
+                            <tr>
+                                <th colname="firstname">نام</th>
+                                <th colname="lastname">تخلص</th>
+                                <th colname="username">نام کاربری</th>
+                                <th colname="email">آدرس الکترونیکی</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
-                        <input id="uxusername" name="uxUserName" class="form-control search" required />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">
-                            بخش مربوطه
-                        </label>
-                        <select id="uxusercategoryid" name="uxUserCategoryID"  class="select">
-                            <option></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">فعال | ‌غیر فعال</label>
-                        <input type="checkbox" class="checkbox" id="uxactive" name="uxActive" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="form-group has-feedback has-feedback-left">
-                        <label class="text-bold">
-                            پروسه
-                        </label>
-                        <select id="uxprocessid" name="uxProcessID" asp-items="@Model.ListOfProcesses" class="select">
-                            <option></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-        <hr />
-        <div class="row div-form-control">
-            <div class="col-md-12">
-                <div class="form-group actions">
-
-                    <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>ثبت کاربر</button>
-                    <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>جدید</button>
-                    <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو به اساس ارگان و نام کاربری</button>
-                    <button id="btnResetPassword" type="button" class="btn btn-primary"><i class="icon-reset position-right"></i>تنظیم مجدد رمز عبور</button>
-
-                </div>
-            </div>
+            </form>
         </div>
 
-        <div class="form-grid main-form-details">
-            <table style="direction:rtl" bindonclick="true">
-                <thead>
-                    <tr>
-                        <th colname="firstname">نام</th>
-                        <th colname="lastname">تخلص</th>
-                        <th colname="username">نام کاربری</th>
-                        <th colname="email">آدرس الکترونیکی</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="page-sidebar page-component" type="actionmenu">
+            <ul class="navigation navigation-alt navigation-accordion">
+
+                @Html.Raw(@Model.SubScreens)
+            </ul>
         </div>
+    </div>
+        @section PageScripts  {
+            <script>
+                $(document).ready(function () {
+                    $('#btnResetPassword').on('click', function () {
 
-    </form>
-</div>
+                        let path = '/Security/Register/ResetPassword';
+                        let data = {};
+                        data.id = $('#' + $('#dv_Security_Register').attr('prefix') + 'id').val();
+                        data.username = $('#' + $('#dv_Security_Register').attr('prefix') + 'username').val();
 
-<div class="page-sidebar page-component" type="actionmenu">
-    <ul class="navigation navigation-alt navigation-accordion">
+                        if (!$.isEmptyObject(data.id)) {
+                            let conf = confirm("آیا مطئن هستید که رمز عبور کاربر انتخاب شده تغییر کند؟");
+                            if (conf) {
+                                clean.data.post({
+                                    async: false, url: path, data: clean.data.json.write(data), datatype: 'json',
+                                    success: function (result) {
+                                        if (result.status > 0) {
 
-        @Html.Raw(@Model.SubScreens)
-    </ul>
-</div>
-
-@section PageScripts  {
-    <script>
-        $(document).ready(function () {
-            $('#btnResetPassword').on('click', function () {
-
-                let path = '/Security/Register/ResetPassword';
-                let data = {};
-                data.id = $('#' + $('#dv_Security_Register').attr('prefix') + 'id').val();
-                data.username = $('#' + $('#dv_Security_Register').attr('prefix') + 'username').val();
-
-                if (!$.isEmptyObject(data.id)) {
-                    let conf = confirm("آیا مطئن هستید که رمز عبور کاربر انتخاب شده تغییر کند؟");
-                    if (conf) {
-                        clean.data.post({
-                            async: false, url: path, data: clean.data.json.write(data), datatype: 'json',
-                            success: function (result) {
-                                if (result.status > 0) {
-
-                                    clean.widget.success(result.text, result.description, 300000);
-                                }
-                                else {
-                                    clean.widget.warn(result.text, result.description, 60000);
-                                }
+                                            clean.widget.success(result.text, result.description, 300000);
+                                        }
+                                        else {
+                                            clean.widget.warn(result.text, result.description, 60000);
+                                        }
+                                    }
+                                });
                             }
-                        });
-                    }
-                }
-                else {
-                    clean.widget.warn('کوشش خلاف اصول', 'لطفا ابتدا کاربر را انتخاب نموده سپس گزرواژه آن را تغییر دهید.')
-                }
-            });
-        });
-    </script>
-}
+                        }
+                        else {
+                            clean.widget.warn('کوشش خلاف اصول', 'لطفا ابتدا کاربر را انتخاب نموده سپس گزرواژه آن را تغییر دهید.')
+                        }
+                    });
+                });
+            </script>
+        }

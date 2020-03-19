@@ -28,6 +28,7 @@ namespace Clean.Persistence.Identity
     public class AppUserRole : IdentityUserRole<int>
     {
         public virtual AppRole Role { get; set; }
+        public virtual AppUser User { get; set; }
     }
     public class AppUserLogin : IdentityUserLogin<int>
     {

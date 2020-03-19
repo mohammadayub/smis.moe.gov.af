@@ -29,17 +29,17 @@
 
             var options = [];
             for (var i = 1; i <= 60; i++) {
-                options.push("<option val='" + i + "'>" + i + "</option>");
+                options.push("<option value='" + i + "'>" + i + "</option>");
             }
             var jdn = dropdowns.replace('$width', '3').replace('$Label', 'نمبر جلد').replace('$id', 'jdn').replace('$g-class', 'old').replace('$name', 'JuldN').replace('$Options', options.join(''));
             self.row.append(jdn);
             self.juldNumber = self.row.find('#jdn');
 
             options = [];
-            options.push('<option val="1">قلم انداز</option>');
-            options.push("<option val='2'>متفرقه</option>");
-            options.push("<option val='3'>اصل اساس</option>");
-            options.push("<option val='4'>تولدات</option>");
+            options.push('<option value="1">قلم انداز</option>');
+            options.push("<option value='2'>متفرقه</option>");
+            options.push("<option value='3'>اصل اساس</option>");
+            options.push("<option value='4'>تولدات</option>");
 
             var jdt = dropdowns.replace('$width', '3').replace('$Label', 'نوعیت جلد').replace('$id', 'jdt').replace('$g-class', 'old').replace('$name', 'JuldT').replace('$Options', options.join(''));
             self.row.append(jdt);

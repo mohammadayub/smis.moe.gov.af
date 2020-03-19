@@ -118,6 +118,10 @@ namespace Clean.Persistence.Identity
                     .IsRequired()
                     .HasMaxLength(5);
 
+                entity.Property(e => e.OfficeTypeId).HasColumnName("OfficeTypeID");
+
+                entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
+
                 entity.Property(e => e.CountryId).HasColumnName("CountryID");
 
                 entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
@@ -318,6 +322,10 @@ namespace Clean.Persistence.Identity
                 ent.HasOne(e => e.Role)
                     .WithMany()
                     .HasForeignKey(e => e.RoleId);
+
+                ent.HasOne(e => e.User)
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId);
             });
         }
     }

@@ -1,0 +1,146 @@
+﻿@page "{handler?}"
+@model Clean.UI.Pages.Settings.Country.ProvinceModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewData["Title"] = "Province";
+}
+
+@Html.AntiForgeryToken()
+    <div class="panel panel-flat" style="direction: rtl;">
+        <div class="panel-heading">
+            <h1 class="panel-title">@_localizer["ثبت واحدهای اداری اولی"]</h1>
+        </div>
+        <div class="panel-body">
+            <form id="dv_Settings_Country_Province" class="form main-form page-component" type="form" prefix="or">
+                <fieldset class="content-group">
+                    <legend class="text-bold">@_localizer["ثبت و ویرایش واحدهای اداری اولی"]</legend>
+                    <div class="col-md-12 pull-right">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <label class="text-bold">
+                                        @_localizer["کشور"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="orcountryid" name="orCountryID" asp-items="@Model.ListOfCountry" class="select search" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 pull-right">
+                                <div class="form-group has-feedback has-feedback-left">
+                                    <label class="text-bold">
+                                        @_localizer["کود"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <input type="text" id="orcode" name="orCode" class="form-control search" required />
+                                </div>
+                            </div>
+                            <div class="col-md-3 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نام واحد اداری"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <input type="text" id="ortitle" name="orTitle" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-3 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نام واحد اداری (انگلیسی)"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <input type="text" id="ortitleen" name="orTitleEN" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <hr />
+                <div class="row div-form-control main-form-details">
+                    <div class="col-md-12">
+                        <div class="form-group actions">
+                            <button type="button" class="btn btn-primary" action="save"><i class="icon-floppy-disk position-right"></i>ثبت معلومات</button>
+                            <button type="button" class="btn btn-primary" action="search"><i class="icon-search4 position-right"></i>جستجو </button>
+                            <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-right"></i>صفحه جدید </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-grid main-form-details" style="">
+                    <table style="direction: rtl;" bindonclick="true">
+                        <thead>
+                            <tr>
+                                <th colname="code">@_localizer["کود"]</th>
+                                <th colname="country">@_localizer["نام کشور"]</th>
+                                <th colname="title">@_localizer["نام"]</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    
+    <div class="dependent-screens">
+
+        <div class="panel panel-flat" style="direction: rtl;">
+            <div class="panel-heading">
+                <h1 class="panel-title">@_localizer["واحدهای اداری دومی"]</h1>
+            </div>
+            <div class="panel-body">
+
+                <form id="dv_Settings_Country_District" class="form sub-form page-component" type="form" parent="dv_Settings_Country_Province" parentcol="ProvinceId" prefix="uxd">
+                    <fieldset class="content-group">
+                        <legend>@_localizer["ثبت واحدهای اداری دومی"]</legend>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نام"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <input type="text" id="uxdtitle" name="uxdTitle" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نام (انگلیسی)"]
+                                    </label>
+                                    <input type="text" id="uxdtitleen" name="uxdTitleEN" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <hr />
+                    <div class="row div-form-control">
+                        <div class="col-md-12">
+                            <div class="form-group actions">
+                                <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>ثبت کاربر</button>
+                                <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>جدید</button>
+                                <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid main-form-details">
+                        <table style="direction:rtl" bindonclick="true">
+                            <thead>
+                                <tr>
+                                    <th colname="title">@_localizer["نام"]</th>
+                                    <th colname="titleen">@_localizer["نام انگلیسی"]</th>
+                                    <th colname="province">@_localizer["ولایت"]</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>

@@ -71,6 +71,10 @@ namespace Clean.UI.Types
             else
             {
                 DescriptionBuilder.Append("\n").Append(ex.Message);
+                if(ex.InnerException != null)
+                {
+                    DescriptionBuilder.Append("\n INEX : ").Append(ex.InnerException.Message);
+                }
             }
 
             return DescriptionBuilder.ToString();

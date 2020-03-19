@@ -13,9 +13,8 @@ namespace Clean.Application.Accounts.Queries
 {
     public class GetUserRolesQuery : IRequest<List<SearchedUserInRoleModel>>
     {
-        public int? Id { get; set; }
         public int? UserID { get; set; }
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
     }
     public class GetUserInRoleQueryHandler : IRequestHandler<GetUserRolesQuery, List<SearchedUserInRoleModel>>
     {
@@ -29,39 +28,29 @@ namespace Clean.Application.Accounts.Queries
         public async Task<List<SearchedUserInRoleModel>> Handle(GetUserRolesQuery request, CancellationToken cancellationToken)
         {
             List<SearchedUserInRoleModel> fresult = new List<SearchedUserInRoleModel>();
+            var query = _dbContext.UserRoles
+                .Include(e => e.Role)
+                .Include(e => e.User)
+                .AsQueryable();
 
             if (request.UserID.HasValue)
             {
-                fresult = await (from r in _dbContext.UserRoles
-                                 join u in _dbContext.Users on r.UserId equals u.Id
-                                 join role in _dbContext.Roles on r.RoleId equals role.Id
-                                 where r.UserId == request.UserID
-                                 select new SearchedUserInRoleModel
-                                 {
-                                     Id = r.UserId + "_" + r.RoleId,
-                                     UserId = r.UserId,
-                                     RoleId = r.RoleId,
-                                     UserName = u.UserName,
-                                     RoleName = role.Name
-                                 }).ToListAsync(cancellationToken);
+                query = query.Where(e => e.UserId == request.UserID);
 
             }
             else
             {
-                fresult = await (from r in _dbContext.UserRoles
-                                 join u in _dbContext.Users on r.UserId equals u.Id
-                                 join role in _dbContext.Roles on r.RoleId equals role.Id
-                                 where r.RoleId == request.RoleId
-                                 select new SearchedUserInRoleModel
-                                 {
-                                     Id = r.UserId + "_" + r.RoleId,
-                                     UserId = r.UserId,
-                                     RoleId = r.RoleId,
-                                     UserName = u.UserName,
-                                     RoleName = role.Name
-                                 }).ToListAsync(cancellationToken);
-
+                query = query.Where(e => e.RoleId == request.RoleId);
             }
+
+            fresult = query.Select(e => new SearchedUserInRoleModel
+            {
+                Id = String.Concat( e.UserId , "_" , e.RoleId),
+                UserId = e.UserId,
+                RoleId = e.RoleId,
+                UserName = e.User.UserName,
+                RoleName = e.Role.Name
+            }).ToList();
 
 
             return fresult;
