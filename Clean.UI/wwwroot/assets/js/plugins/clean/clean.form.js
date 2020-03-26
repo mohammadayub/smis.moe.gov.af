@@ -14,7 +14,10 @@ var clean = window.clean = window.clean || {};
         this.attachrecord = this.el.attr('attachrecord');
         this.record = {};
         this.uploaders = {};
-        this.uploaders.photo = {};
+        // NEW CHANGES FOR FILE UPLOAD
+        this.uploaders.types = [];
+        this.uploaders.keys = [];
+        //this.uploaders.photo = {};
         this.uploaders.document = {};
         this.master = {};
         this.tazkira = {};
@@ -53,6 +56,9 @@ var clean = window.clean = window.clean || {};
                 if (self[act]) self[act]();
                 return false;
             });
+
+            window.CleanForms = window.CleanForms || {};
+            window.CleanForms[self.el.attr('id')] = self;
 
             if (!clean.isEmpty(self.OnInit))
                 clean.invoke(self.OnInit, self);
@@ -138,6 +144,7 @@ var clean = window.clean = window.clean || {};
             self.el.find('input.search:text, select.search').after('<div class="form-control-feedback"><i class="icon-search4 text-size-base"></i></div>');
             self.el.find('select').select2({
                 placeholder: "--",
+                minimumResultsForSearch: 10,
                 allowClear: true
             });
 
@@ -161,49 +168,7 @@ var clean = window.clean = window.clean || {};
                     lang: $(item).attr('lang')
                 });
             });
-            //self.el.find('input[type=text].lang').on('keydown', function (e) {
-            //    var PashtoKeyCodes = {
-            //        58: 'ک', 59: 'ک', 65: 'ش', 66: 'ذ',
-            //        67: 'ز', 68: 'ی', 69: 'ث', 70: 'ب',
-            //        71: 'ل', 72: 'ا', 73: 'ه', 74: 'ت',
-            //        75: 'ن', 76: 'م', 77: 'ړ', 78: 'د',
-            //        79: 'خ', 80: 'ح', 81: 'ض', 82: 'ق',
-            //        83: 'س', 84: 'ف', 85: 'ع', 86: 'ر',
-            //        87: 'ص', 88: 'ط', 89: 'غ', 90: 'ظ',
-            //        186: 'ک', 188: 'و', 190: 'ږ', 219: 'چ',
-            //        220: 'پ', 221: 'ج', 222: 'گ'
-            //    };
-                
-            //    var SpecialKeyCodes = {
-            //        //48 : ')',57 : '('
-            //    }
-            //    var PashtoKeyCodesShift = {
-            //        65: 'ښ', 66: '‌', 67: 'ژ', 68: 'ي', 69: '',
-            //        70: 'پ', 71: 'أ', 72: 'آ', 73: '', 74: 'ټ',
-            //        75: 'ڼ', 76: 'ة', 77: 'ؤ', 78: 'ډ', 79: 'ځ',
-            //        80: 'څ', 81: '', 82: '', 83: 'ۍ', 84: '',
-            //        85: '', 86: 'ء', 87: '', 89: '', 88: 'ې',
-            //        90: 'ئ', 190: '.'
-            //    };
-            //    var charCode = e.keyCode || e.charCode;
-            //    if (charCode === 8 || charCode === 32 || charCode === 9 || charCode === 39 || charCode === 37) {
-            //        return true;
-            //    }
-            //    else if (e.shiftKey && PashtoKeyCodesShift[charCode]) {
-            //        $(this).val($(this).val() + PashtoKeyCodesShift[charCode]);
-            //    }
-            //    else if (PashtoKeyCodes[charCode]) {
-            //        $(this).val($(this).val() + PashtoKeyCodes[charCode]);
-            //    }
-            //    else if (e.shiftKey && SpecialKeyCodes[charCode]) {
-            //        $(this).val($(this).val() + SpecialKeyCodes[charCode]);
-            //    }
-            //    else {
-            //        $(this).val($(this).val() + '');
-            //    }
-            //    $(this).get(0).scrollLeft = $(this).get(0).scrollWidth;
-            //    return false;
-            //});
+            
 
             $('.bar-reader').click(function () {
                 $(this).val('');
@@ -226,29 +191,45 @@ var clean = window.clean = window.clean || {};
             self.el.parents('.panel').append(self.grid.template);
 
             if (self.el.find('.img-uploader').length) {
-                var ouput = self.el.find('.img-uploader').siblings('.output').attr('id');
-                var croppicContainerModalOptions = {
-                    uploadUrl: self.path + '/Upload',
-                    cropUrl: self.path + '/Crop',
-                    downloadUrl: self.path + '/Download',
-                    outputUrlId: ouput,
-                    modal: true,
-                    imgEyecandy: true,
-                    doubleZoomControls: false,
-                    rotateControls: false,
-                    imgEyecandyOpacity: 0.4,
-                    loaderHtml: '<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-                    onBeforeImgUpload: function () { console.log('onBeforeImgUpload'); },
-                    onAfterImgUpload: function () { console.log('onAfterImgUpload'); },
-                    onImgDrag: function () { console.log('onImgDrag'); },
-                    onImgZoom: function () { console.log('onImgZoom'); },
-                    onBeforeImgCrop: function () { console.log('onBeforeImgCrop'); },
-                    onAfterImgCrop: function () { console.log('onAfterImgCrop'); },
-                    onReset: function () { console.log('onReset'); },
-                    onError: function (errormessage) { console.log('onError:' + errormessage); }
-                };
-                self.uploaders.PhotoRequired = !self.el.find('.img-uploader').hasClass('optional');
-                self.uploaders.photo = new Croppic(self.prefix + 'Photo', croppicContainerModalOptions);
+                self.el.find('.img-uploader').each(function (i, item) {
+                    let cur = $(item);
+                    let type = cur.attr('data-type');
+                    let ref = cur.attr('data-ref');
+                    let curUploader = {};
+                    curUploader.el = cur;
+                    curUploader.type = type;
+                    curUploader.ref = ref;
+                    var croppicContainerModalOptions = {
+                        cropData: {
+                            "UploadType": type
+                        },
+                        uploadData: {
+                            "UploadType": type
+                        },
+                        uploadUrl: self.path + '/Upload',
+                        cropUrl: self.path + '/Crop',
+                        downloadUrl: self.path + '/Download',
+                        outputUrlId: curUploader.ref,
+                        modal: true,
+                        imgEyecandy: true,
+                        doubleZoomControls: false,
+                        rotateControls: false,
+                        imgEyecandyOpacity: 0.4,
+                        loaderHtml: '<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+                        onBeforeImgUpload: function () {  },
+                        onAfterImgUpload: function () {  },
+                        onImgDrag: function () {  },
+                        onImgZoom: function () {  },
+                        onBeforeImgCrop: function () {  },
+                        onAfterImgCrop: function () {  },
+                        onReset: function () {  },
+                        onError: function (errormessage) { console.error('Croppic Uploader Error :' + errormessage); }
+                    };
+                    curUploader.uploader = new Croppic(cur.attr('id'), croppicContainerModalOptions);
+                    curUploader.required = !cur.hasClass('optional');
+                    self.uploaders.types.push(curUploader);
+                    self.uploaders.keys.push(ref);
+                });
             }
             if (self.el.find('.file-attachment').length) {
                 var el = self.el.find('.file-attachment');
@@ -263,10 +244,9 @@ var clean = window.clean = window.clean || {};
             }
             self.validationrule = self.validation();
 
-            if (self.el.hasClass("sub-form") && self.parent.record) {
+            if (self.el.hasClass("sub-form") && !$.isEmptyObject(self.parent.record)) {
                 self.search();
             }
-
 
         },
         initiateFileUpload: function (e) {
@@ -320,7 +300,6 @@ var clean = window.clean = window.clean || {};
                 });
             });
         },
-
         save: function () {
             var self = this;
             if (self.el.hasClass('sub-form')) {
@@ -335,27 +314,23 @@ var clean = window.clean = window.clean || {};
                 _tazkira = self.tazkira.validate();
                 if (_tazkira) {
                     self.tazkira.el.val(self.tazkira.val());
-                    //$('#uxnid').val(self.tazkira.val());
                 }
             }
             else {
                 _tazkira = true;
             }
 
-            var _photovalid = false;
-            if (self.uploaders.PhotoRequired) {
-                if (self.uploaders.photo.hasOwnProperty('options')) {
-                    _photovalid = self.uploaders.photo.validate();
-                    if (!_photovalid) {
-                        clean.widget.error('عکس اپلود نگردیده', 'کاربر محترم، لطفاً عکس کارمند را انتخاب نماید. دیتا کارمندان بدون عکس ثبت نمیگردد');
+            var _photovalid = true;
+            if (self.uploaders.types.length > 0) {
+                for (var i = 0; i < self.uploaders.types.length; i++) {
+                    let cur = self.uploaders.types[i];
+                    if (cur.required) {
+                        _photovalid = cur.uploader.validate();
                     }
                 }
-                else {
-                    _photovalid = true;
-                }
             }
-            else {
-                _photovalid = true;
+            if (!_photovalid) {
+                clean.widget.error('عکس اپلود نگردیده', 'کاربر محترم، لطفاً عکس‌های مورد ضرورت را انتخاب نماید. دیتا بدون عکس ثبت نمیگردد');
             }
             if (self.el.valid() && _photovalid && _tazkira) {
                 var path = self.path + '/save';
@@ -424,7 +399,7 @@ var clean = window.clean = window.clean || {};
                                 clean.widget.warn("تشریحات", "ریکارد پیدا نشد!");
                                 for (let i in self.page.subforms) {
                                     let cur = self.page.subforms[i];
-                                    cur.new();
+                                    cur.cleanFields();
                                     cur.clearGrid();
                                 }
                             } else {
@@ -439,6 +414,13 @@ var clean = window.clean = window.clean || {};
             });
         },
         new: function (opt) {
+            let self = this;
+            self.cleanFields(opt);
+            if (self.OnNew && window[self.OnNew]) {
+                window[self.OnNew](self);
+            }
+        },
+        cleanFields: function (opt) {
             var self = this;
             self.fields.each(function () {
                 var fld = $(this);
@@ -458,9 +440,11 @@ var clean = window.clean = window.clean || {};
                 }
             });
             self.el.find('.auto-gen-hidden').remove();
-            if (!$.isEmptyObject(self.uploaders.photo)) {
-                self.uploaders.photo.destroy();
-                self.uploaders.photo.init();
+            
+            for (var i = 0; i < self.uploaders.types.length; i++) {
+                let cur = self.uploaders.types[i];
+                cur.uploader.destroy();
+                cur.uploader.init();
             }
             if (!$.isEmptyObject(self.uploaders.document)) {
                 if (self.el.find('.file-attachment').length) {
@@ -468,12 +452,9 @@ var clean = window.clean = window.clean || {};
                     self.el[0].reset();
                 }
             }
-            if (self.OnNew && window[self.OnNew]) {
-                window[self.OnNew](self);
-            }
             self.getfields();
         },
-        test: function (r) {
+        test: function () {
             alert('test');
         },
         configure: function (opt) {
@@ -485,7 +466,7 @@ var clean = window.clean = window.clean || {};
         bindtoform: function (d) {
             var self = this;
             self.record = d;
-            self.new();
+            self.cleanFields();
             for (var key in d) {
                 var control = $('#' + (self.prefix + key).toLowerCase());
                 if (control.attr('nobinding') == "true")
@@ -524,9 +505,17 @@ var clean = window.clean = window.clean || {};
                         self.tazkira.val(d[key]);
                 }
 
-                if (key == 'photoPath' && d[key] != null) {
-                    self.uploaders.photo.bind(d[key]);
+                if (self.uploaders.keys.includes(self.prefix + key.toLowerCase())) {
+                    if (d[key] != null) {
+                        for (var i = 0; i < self.uploaders.types.length; i++) {
+                            let cur = self.uploaders.types[i];
+                            if (cur.ref == self.prefix + key.toLowerCase()) {
+                                cur.uploader.bind(d[key]);
+                            }
+                        }
+                    }
                 }
+
 
                 if (key == 'path') {
                     if (!self.el.find($('#' + self.prefix + key)).length)
@@ -536,15 +525,34 @@ var clean = window.clean = window.clean || {};
             }
 
             if (self.el.attr('subform')) {
-                self.subform = [];
+                if (!self.subform) {
+                    self.subform = [];
+                    let path = self.path + "/GetSubForms?pageid="+self.page.parameter('p');
+                    clean.data.post({
+                        async: false, url: path, data: clean.data.json.write({}), dataType: 'json',
+                        success: function (msg) {
+                            if (msg.status > 0) {
+                                var list = msg.data.list;
+                                if (list && list.length) {
+                                    $.each(list, function (i, item) {
+                                        self.subform.push({
+                                            id: item.id,
+                                            path: item.path
+                                        });
+                                    }); 
+                                }
+                            }
+                            else {
+                                clean.widget.warn(msg.text, msg.description);
+                            }
+                        }
+                    });
+                }
                 $('.dependent-screens').empty();
+                
                 self.children = self.el.attr('subform').split('|');
-                $.each(self.children, function (i, v) {
-                    var rout = self.el.attr('id');
-                    var subrouts = rout.split('_');
-                    var last = subrouts.pop();
-                    subrouts.push(v);
-                    self.page.loadsubscreens(subrouts.join('_'));
+                $.each(self.subform, function (i, cur) {
+                    self.page.loadsubscreens(cur.path,cur.id);
                 });
 
                 //var formname = self.el.attr('subform');
@@ -566,7 +574,7 @@ var clean = window.clean = window.clean || {};
                 if (form.attr('parent') == self.el.attr('id')) {
                     $.each(self.page.subforms, function (index, sub) {
                         if (sub.el.attr('id') == form.attr('id')) {
-                            sub.new();
+                            sub.cleanFields();
                             sub.clearGrid();
                             sub.search();
                         }
@@ -802,9 +810,13 @@ var clean = window.clean = window.clean || {};
         },
         attach: function () {
             var self = this;
-            if (!$.isEmptyObject(self.record)) {
+            if ($.isEmptyObject(self.EncryptedID))
+                self.EncryptedID = $('#' + self.prefix + 'pageid').val();
 
-                path = "/Document/Document/Get"; 
+            if (!$.isEmptyObject(self.record)) {
+                var patharray = self.attachmentpath.split('_');
+                path = "/" + patharray.join('/') + "/Get";// "/Document/Document/Get";
+
                 var modalid = self.prefix + self.el.attr('id') + '_Modal';
                 if ($.isEmptyObject(self.modal)) {
                     var modal = '<div id="' + modalid + '" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>';
@@ -812,7 +824,6 @@ var clean = window.clean = window.clean || {};
                     $('.dependent-screens').append(modal);
                     self.modal = $('#' + modalid);
                     var data = { ScreenID: self.EncryptedID };
-
                     clean.data.get({
                         async: false, url: path, data: data, dataType: 'html',
                         success: function (msg) {
@@ -887,6 +898,7 @@ var clean = window.clean = window.clean || {};
                         email: true
                     },
                     SerialNumber: {
+                        digits: true,
                         maxlength: 15
                     },
                     Juld: {
@@ -926,7 +938,7 @@ var clean = window.clean = window.clean || {};
             var temp = {};
             temp.id = row.attr('data');
             temp.parentId = 0;
-            self.new();
+            self.cleanFields();
 
             if (row.attr('data-tt-parent-id')) {
                 temp.parentId = row.attr('data-tt-parent-id');
@@ -970,7 +982,7 @@ var clean = window.clean = window.clean || {};
             var row = b.parents('tr');
             var parentid;
             if (row.attr('data-tt-parent-id')) {
-                self.new();
+                self.cleanFields();
                 parentid = row.attr('data-tt-parent-id');
                 if (!self.el.find($('#' + self.prefix + 'parentid')).length) {
                     self.el.append("<input type='hidden' class='auto-gen-hidden' id='" + self.prefix + "parentid' value='" + parentid + "' />");
@@ -1146,7 +1158,7 @@ var clean = window.clean = window.clean || {};
             var b = $(v);
             var row = b.parents('tr');
             var parentid = row.attr('data');
-            self.new();
+            self.cleanFields();
             if (!self.el.find($('#' + self.prefix + 'parentid')).length) {
                 self.el.append("<input type='hidden' class='auto-gen-hidden' id='" + self.prefix + "parentid' value='" + parentid + "' />");
                 self.getfields();
@@ -1161,9 +1173,9 @@ var clean = window.clean = window.clean || {};
             var self = this;
             var b = $(v);
             var row = b.parents('tr');
-            var data = {};
             var recordid = row.attr('data');
             var path = self.path + '/remove';
+            var data = {};
             data.id = recordid;
             clean.data.post({
                 async: false, url: path, data: clean.data.json.write(data), dataType: 'json',
@@ -1187,7 +1199,7 @@ var clean = window.clean = window.clean || {};
             if (!self.el.hasClass('sub-form'))
                 ScreenID = self.page.parameter('p');
             else
-                ScreenID = self.el.find('#pageid').val();
+                ScreenID = self.el.find('#' + self.prefix + 'pageid').val();
             // Use the record to be processed instead of the record id of the form. ADDED
             if (self.el.attr('hasprocessrecordid'))
                 self.record.id = $('#toprocessrecordid').val();
@@ -1288,34 +1300,6 @@ var clean = window.clean = window.clean || {};
 
         },
 
-        //delete: function () {
-        //    var self = this;
-        //    self.getfields();
-        //    var path = self.path + '/delete';
-        //    var data = {};
-        //    data.id = $('#' + $('#dv_Security_RolesScreen').attr('prefix') + 'id').val();
-        //    if (!$.isEmptyObject(data.id)) {
-
-
-        //        clean.data.post({
-        //            async: false, url: path, data: clean.data.json.write(data), datatype: 'json',
-        //            success: function (result) {
-        //                if (result.status > 0) {
-
-        //                    clean.widget.success(result.text, result.description);
-        //                }
-        //                else {
-        //                    clean.widget.warn(result.text, result.description);
-        //                }
-        //            }
-        //        });
-
-        //    }
-        //    else {
-        //        clean.widget.warn('کوشش خلاف اصول', 'لطفا ریکارد را انتخاب نموده بعدا حذف نمایید')
-        //    }
-
-        //},
 
         print: function () {
             var self = this;

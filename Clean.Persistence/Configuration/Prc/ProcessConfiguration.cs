@@ -26,7 +26,7 @@ namespace Clean.Persistence.Configuration.Prc
             entity.Property(e => e.Sorter).HasMaxLength(10);
 
             entity.HasOne(d => d.Screen)
-                .WithMany()
+                .WithMany(e => e.Process)
                 .HasForeignKey(d => d.ScreenId)
                 .HasConstraintName("_Process__FK");
         }

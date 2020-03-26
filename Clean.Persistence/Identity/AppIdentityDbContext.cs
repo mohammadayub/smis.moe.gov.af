@@ -209,17 +209,6 @@ namespace Clean.Persistence.Identity
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("_ProcessTracking__FK_2");
 
-                entity.HasOne(d => d.Process)
-                    .WithMany(p => p.ProcessTrackingProcess)
-                    .HasForeignKey(d => d.ProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("_ProcessTracking__FK");
-
-                entity.HasOne(d => d.ReferedProcess)
-                    .WithMany(p => p.ProcessTrackingReferedProcess)
-                    .HasForeignKey(d => d.ReferedProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("_ProcessTracking__FK_1");
             });
 
 

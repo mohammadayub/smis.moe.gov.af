@@ -38,7 +38,7 @@ namespace Clean.Application.System.Queries
                                  where r.UserId == request.UserID
                                  select new SearchedUserInRoleModel
                                  {
-                                     Id = r.UserId + "_" + r.RoleId,
+                                     Id = String.Concat( r.UserId , "_" , r.RoleId),
                                      UserId = r.UserId,
                                      RoleId = r.RoleId,
                                      UserName = u.UserName,
@@ -54,7 +54,7 @@ namespace Clean.Application.System.Queries
                                  where r.RoleId == request.RoleId
                                  select new SearchedUserInRoleModel
                                  {
-                                     Id = r.UserId + "_" + r.RoleId,
+                                     Id = String.Concat( r.UserId , "_" , r.RoleId),
                                      UserId = r.UserId,
                                      RoleId = r.RoleId,
                                      UserName = u.UserName,

@@ -25,6 +25,28 @@ namespace Clean.Common
             }
         }
 
+        public static bool EncryptionEnabled
+        {
+            get
+            {
+                return false;
+            }
+        }
+        
+        public static string ImagesPath
+        {
+            get
+            {
+                return AppSettings["ImagesPath"];
+            }
+        }
+        public static string SignaturesPath
+        {
+            get
+            {
+                return AppSettings["SignaturesPath"];
+            }
+        }
         public static string DocumentsPath
         {
             get
@@ -127,11 +149,11 @@ namespace Clean.Common
             }
         }
 
-        public static string DocumentPath
+        public static string AttachmentsPath
         {
             get
             {
-                return AppSettings["Document"];
+                return AppSettings["AttachmentsPath"];
             }
         }
     }

@@ -1,0 +1,245 @@
+﻿@page
+@model Clean.UI.Pages.Passport.Register.Prints.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>پرنت فرمه درخواست متقاضی</title>
+
+    <link href="~/assets/css/page.css" rel="stylesheet" /> 
+    <link href="~/assets/css/print.css" rel="stylesheet" />
+    <link href="~/assets/css/printing.css" rel="stylesheet" />
+    
+    <script src="~/assets/js/core/libraries/jquery.min.js"></script>
+    <script src="~/assets/js/plugins/barcode/jquery-barcode.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#dvBarcode").html("").barcode('@Model.Barcode', 'code39', { barWidth: 1, barHeight: 40 });
+        });
+
+    </script>
+
+</head>
+<body >
+
+    <div id="form" class="div-mainform div-form" style="margin-right:auto; margin-left:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th align="center" width="10%">
+                        <img src="~/assets/img/MoFA.png" style="width:110px; height:110px;" />
+                    </th>
+                    <th align="center" valign="middle">
+                        <br /><br />
+                        <h3>دولت جمهوری اسلامی افغانستان</h3>
+                        <h3>وزارت امورخارجه</h3><br />
+                        <div id="dvBarcode" class="barcode" style="font-family:sans-serif; height:20%; width:30%; margin-right:auto; margin-left:auto;"></div>
+                    </th>
+                    <th align="center" width="10%">
+                        <img src="~/assets/img/afghanistan.png" style="width:110px; height:110px;" />
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td colspan="3" align="center">
+                        <table width="100%">
+
+                            <tr>
+                                <td colspan="4" dir="rtl">
+                                    <label>بخش اول: شهرت و معلومات متقاضی</label>
+                                    <hr />
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td dir="rtl" valign="top">
+                                    <div class="">
+                                        <div>
+                                            <img src="@Model.ProfilePhoto" style="width:120px; height:140px;" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="90%" valign="top">
+
+                                    <table dir="rtl" width="100%" class="table-bordered" style="margin:2px; padding:20px;">
+                                        <tr>
+                                            <td><label>اسم</label> :  <span>@Model.Name</span></td>
+
+                                            <td> <label> تخلص</label> :  <span>@Model.LastName</span></td>
+
+                                            <td><label>ولد</label> :  <span>@Model.FatherName</span></td>
+
+                                            <td><label>ولدیت </label> :  <span>@Model.GrandFatherName</span></td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td><label> جنس </label> :  <span>@Model.Gender</span></td>
+
+                                            <td><label> حالت مدنی</label> :  <span>@Model.MaritalStatus</span></td>
+
+                                            <td><label>محل تولد</label> :  <span>@Model.BirthLocation</span></td>
+
+                                            <td><label>تاریخ تولد </label> :  <span>@Model.DoB</span></td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <td colspan="4"><label> تذکره</label> : <span>@Model.Tazkira </span></td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2"><label> دلیل درخواست</label> :  <span>@Model.ApplicationReason</span></td>
+                                            <td colspan="2">
+                                                <label> نوعیت تثبیت </label> : <span>@Model.RegistrationType</span>
+                                            </td>
+                                        </tr>
+
+
+
+
+                                    </table>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table dir="rtl" width="100%">
+                                        <tr>
+                                            <td colspan="4" dir="rtl">
+
+                                                <label>بخش دوهم: معلومات وظیفه</label>
+                                                <hr />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                <table width="100%" class="table-bordered" style="margin:2px; padding:20px;">
+
+                                                    <tr>
+                                                        <td><label> کتگوری وظیفه </label> :  <span>@Model.Category</span></td>
+
+                                                        <td><label>وزارت/نهاد</label> :  <span>@Model.Orgnization</span></td>
+
+                                                        <td><label> رتبه</label> :  <span>@Model.Rank</span></td>
+
+                                                    </tr>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="4" dir="rtl">
+                                                <br />
+                                                <label>بخش سوم: جزئیات آدرس</label>
+                                                <hr />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                <table width="100%" class="table-bordered" style="margin:2px; padding:20px;">
+                                                    <tr>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="4">
+                                                <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" dir="rtl">
+
+                                                <label>بخش چهارم: درخواستی متقاضی</label>
+                                                <hr />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td dir="rtl" valign="top">
+
+                                    <div class="">
+                                        <div>
+                                            <img src="@Model.FirstHeritagePhoto" style="width:120px; height:140px;" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="90%" valign="top">
+                                    <table width="100%" class="table-bordered" style="margin:2px; padding:20px;" dir="rtl">
+
+                                        <tr>
+                                            <td><label>اسم</label> :  <span>@Model.FirstHeritageName</span></td>
+
+                                            <td> <label> تخلص</label> :  <span>@Model.FirstHeritageLastName</span></td>
+
+                                            <td><label>ولد</label> :  <span>@Model.FirstHeritageFatherName</span></td>
+
+                                            <td><label>ولدیت </label> :  @Model.FirstHeritageGrandFatherName</td>
+
+                                        </tr>
+
+
+
+                                    </table><br />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <br /><hr /><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <label>امر تثبیت</label><br />
+                        <label>( ........................... )</label>
+                    </td>
+
+                    <td align="center">
+                        <label>کارمند تثبیت</label><br />
+                        <label>( ........................... )</label>
+                    </td>
+                    <td align="center">
+                        <label>کارمند  راجستر</label><br />
+                        <label>( ........................... )</label>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+
+
+
+
+    </div>
+
+
+</body>
+</html>

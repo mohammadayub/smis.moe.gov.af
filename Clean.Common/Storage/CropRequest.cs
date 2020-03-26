@@ -42,5 +42,9 @@ namespace Clean.Common.Storage
         /// cropped image height
         /// </summary>
         public double cropH { get; set; }
+        /// <summary>
+        /// Type Of File Upload
+        /// </summary>
+        public string uploadType { get; set; }
     }
 }

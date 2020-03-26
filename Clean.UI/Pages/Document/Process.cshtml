@@ -21,7 +21,7 @@
                                 لست مراحل
                                 <span class="text-danger">&nbsp;*</span>
                             </label>
-                            <select id="uxpdreferedprocessid" name="uxpdreferedprocessid" asp-items="@Model.ListOfProcessesConnection" class="select" required>
+                            <select id="uxpdreferedprocessid" name="uxpdreferedprocessid" asp-items="@Model.ListOfProcessesConnection" class="select no-disabled" required>
                                 <option></option>
                             </select>
                         </div>
@@ -31,7 +31,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12 pull-right">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">ملاحضات </label>
-                            <textarea id="uxpdremarks" name="uxpdremarks" rows="2" cols="2" class="form-control remarks" nobinding="true"></textarea>
+                            <textarea id="uxpdremarks" name="uxpdremarks" rows="2" cols="2" class="form-control  no-disabled remarks" nobinding="true"></textarea>
                         </div>
                     </div>
                 </div>

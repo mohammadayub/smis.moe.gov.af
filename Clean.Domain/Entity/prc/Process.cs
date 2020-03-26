@@ -11,7 +11,6 @@ namespace Clean.Domain.Entity.prc
             ProcessConnectionConnectedToNavigation = new HashSet<ProcessConnection>();
             ProcessConnectionProcess = new HashSet<ProcessConnection>();
             ProcessTrackingProcess = new HashSet<ProcessTracking>();
-            ProcessTrackingReferedProcess = new HashSet<ProcessTracking>();
         }
 
         public int Id { get; set; }
@@ -25,6 +24,5 @@ namespace Clean.Domain.Entity.prc
         public virtual ICollection<ProcessConnection> ProcessConnectionConnectedToNavigation { get; set; }
         public virtual ICollection<ProcessConnection> ProcessConnectionProcess { get; set; }
         public virtual ICollection<ProcessTracking> ProcessTrackingProcess { get; set; }
-        public virtual ICollection<ProcessTracking> ProcessTrackingReferedProcess { get; set; }
     }
 }

@@ -27,6 +27,8 @@ namespace App.Persistence.Configuration.Prf
 
             entity.Property(e => e.OccupationId).HasColumnName("OccupationID");
 
+            entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
+
             entity.Property(e => e.PrevEmployer).HasColumnType("character varying");
 
             entity.Property(e => e.PrevEmployerAddress).HasColumnType("character varying");
@@ -42,6 +44,12 @@ namespace App.Persistence.Configuration.Prf
                 .HasForeignKey(d => d.OccupationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("job_occ_fk");
+
+            entity.HasOne(d => d.Organization)
+                .WithMany()
+                .HasForeignKey(d => d.OrganizationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_job_organization");
 
             entity.HasOne(d => d.Profile)
                 .WithMany(p => p.Job)

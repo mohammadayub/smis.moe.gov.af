@@ -25,6 +25,16 @@ namespace Clean.UI.Types
 
         [BindProperty]
         public string PageID { get; set; }
+        public List<SelectListItem> ListOfAttachmentType;
+        public List<SelectListItem> ListOfPaymentMethod;
+        public List<SelectListItem> ListOfRequestType;
+        public List<SelectListItem> ListOfPaymentPenalty;
+        public List<SelectListItem> ListOfDiscount;
+        public List<SelectListItem> ListOfPaymentCategory;
+        public List<SelectListItem> ListOfPassportType;
+        public List<SelectListItem> ListOfDiscountType;
+        public List<SelectListItem> ListOfCrimeType;
+        public List<SelectListItem> ListOfOccupation;
         public List<SelectListItem> ListOfAddressType;
         public List<SelectListItem> ListOfTitles;
         public List<SelectListItem> ListOfEyeColors;

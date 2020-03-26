@@ -36,7 +36,7 @@ namespace Clean.Persistence.Configuration.Prc
             entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Module)
-                .WithMany()
+                .WithMany(p => p.ProcessTracking)
                 .HasForeignKey(d => d.ModuleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("_ProcessTracking__FK_2");
@@ -47,11 +47,6 @@ namespace Clean.Persistence.Configuration.Prc
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("_ProcessTracking__FK");
 
-            entity.HasOne(d => d.ReferedProcess)
-                .WithMany(p => p.ProcessTrackingReferedProcess)
-                .HasForeignKey(d => d.ReferedProcessId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("_ProcessTracking__FK_1");
         }
     }
 }

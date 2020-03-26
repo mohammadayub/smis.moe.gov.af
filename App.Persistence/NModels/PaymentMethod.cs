@@ -12,7 +12,7 @@ namespace App.Persistence.NModels
 
         public int Id { get; set; }
         public string Title { get; set; }
-        public bool? HasReceipt { get; set; }
+        public bool HasReceipt { get; set; }
 
         public virtual ICollection<PassportApplication> PassportApplication { get; set; }
     }

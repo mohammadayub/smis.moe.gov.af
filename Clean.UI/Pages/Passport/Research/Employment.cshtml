@@ -1,0 +1,104 @@
+﻿@page "{handler?}/{id?}"
+@model Clean.UI.Pages.Passport.Research.EmploymentModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewData["Title"] = "Employment";
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+<div class="panel panel-flat" style="direction: rtl;">
+    <div class="panel-heading">
+        <h1 class="panel-title">@_localizer["ثبت معلومات وظیفه"]</h1>
+    </div>
+    <div class="panel-body">
+        <form id="dv_Passport_Research_Employment" class="form sub-form page-component" type="form" parent="dv_Passport_Research_Profile" parentcol="ProfileId" prefix="uxem">
+            <fieldset class="content-group">
+                <legend>@_localizer["جهت ثبت معلومات وظیفه از این بخش استفاده نمایید"]</legend>
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["اداره‌ی مربوطه"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxemorganizationid" name="uxemOrganizationID" child="uxemoccupationid" asp-items="@Model.ListOfOrganization" class="select" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["وظیفه"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxemoccupationid" name="uxemOccupationID" data-type="Occupation" asp-items="@Model.ListOfOccupation" class="select" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["کارگزار فعلی"]
+                            </label>
+                            <input type="text" id="uxememployer" name="uxemEmployer" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["آدرس کارگزار فعلی"]
+                            </label>
+                            <input type="text" id="uxememployeraddress" name="uxemEmployerAddress" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["کارگزار قبلی"]
+                            </label>
+                            <input type="text" id="uxemprevemployer" name="uxemPrevEmployer" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["آدرس کارگزار قبلی"]
+                            </label>
+                            <input type="text" id="uxemprevemployeraddress" name="uxemPrevEmployerAddress" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+            </fieldset>
+            <hr />
+            <div class="row div-form-control">
+                
+            </div>
+
+            <div class="form-grid main-form-details">
+                <table style="direction:rtl" bindonclick="true">
+                    <thead>
+                        <tr>
+                            <th colname="organization">@_localizer["اداره"]</th>
+                            <th colname="occupation">@_localizer["وظیفه"]</th>
+                            <th colname="employer">@_localizer["کارگزار"]</th>
+                            <th colname="prevemployer">@_localizer["کارگزار قبلی"]</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -235,7 +235,7 @@
 
         },
         loadExistingImage: function () {
-            var that = this;
+            let that = this;
             if ($.isEmptyObject(that.croppedImg)) {
                 if (that.options.onBeforeImgUpload) that.options.onBeforeImgUpload.call(that);
 
@@ -271,7 +271,7 @@
 
         },
         afterUpload: function (data) {
-            var that = this;
+            let that = this;
             response = typeof data == 'object' ? data : jQuery.parseJSON(data);
             if (response.status == 'success') {
                 var file = {};
@@ -282,32 +282,32 @@
                 if (that.options.modal) { that.createModal(); }
                 if (!$.isEmptyObject(that.croppedImg)) { that.croppedImg.remove(); }
 
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', that.options.downloadUrl, true);
-                xhr.setRequestHeader("XSRF-TOKEN",
-                    $('input:hidden[name="__RequestVerificationToken"]').val());
-                xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        //img.src = "data:" + xhr.getResponseHeader("Content-Type") + ";base64," + btoa(String.fromCharCode.apply(null, new Uint8Array(xhr.response)));
-                        var blob = new Blob([xhr.response], {
-                            type: xhr.getResponseHeader("Content-Type")
-                        });
-                        var imgUrl = window.URL.createObjectURL(blob);
-                        var img = $('<img src="' + imgUrl + '">');
-                        that.imgUrl = imgUrl;
-                        that.obj.append(img);
-                        img.load(function () {
-                            that.imgInitW = that.imgW = this.naturalWidth;
-                            that.imgInitH = that.imgH = this.naturalHeight;
-                            that.initCropper();
-                            that.hideLoader();
-                            if (that.options.onAfterImgUpload) that.options.onAfterImgUpload.call(that);
-                        });
+                var imgTemp = $('<img src="" >');
+
+                imgTemp.load(function () {
+                    that.imgInitW = that.imgW = this.naturalWidth;
+                    that.imgInitH = that.imgH = this.naturalHeight;
+                    that.initCropper();
+                    that.hideLoader();
+                    if (that.options.onAfterImgUpload) that.options.onAfterImgUpload.call(that);
+                });
+                imgTemp.error(function () {
+                    console.error(arguments);
+                    console.error("Image Load Error");
+                    that.croppedImg = '';
+                    that.init();
+                    that.hideLoader();
+                });
+                var src = that.options.downloadUrl + "?file=" + file.Name;
+                for (var key in that.options.uploadData) {
+                    if (that.options.uploadData.hasOwnProperty(key)) {
+                        src += "&"+ key + "=" + that.options.uploadData[key];
                     }
                 }
-                xhr.responseType = "arraybuffer";
-                xhr.send(JSON.stringify(file));
+                imgTemp.attr('src', src + "&v=" + Math.random());
+                that.imgUrl = src;
+                that.obj.append(imgTemp);
+
                 if (that.options.onAfterImgUpload) that.options.onAfterImgUpload.call(that);
             }
 
@@ -659,6 +659,7 @@
                 for (var key in that.options.cropData) {
                     if (that.options.cropData.hasOwnProperty(key)) {
                         formData.append(key, that.options.cropData[key]);
+                        cropData[key] = that.options.cropData[key];
                     }
                 }
                 $.ajax({
@@ -681,7 +682,7 @@
             //
         },
         afterCrop: function (data) {
-            var that = this;
+            let that = this;
             try {
                 response = jQuery.parseJSON(data);
             }
@@ -693,34 +694,38 @@
                 if (that.options.imgEyecandy)
                     that.imgEyecandy.hide();
                 that.destroy();
+
                 that.file = {};
                 that.file.Name = response.url;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', that.options.downloadUrl, true);
-                xhr.setRequestHeader("XSRF-TOKEN",
-                    $('input:hidden[name="__RequestVerificationToken"]').val());
-                xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var blob = new Blob([xhr.response], {
-                            type: xhr.getResponseHeader("Content-Type")
-                        });
-                        var imgUrl = window.URL.createObjectURL(blob);
-                        var img = $('<img class="croppedImg" src="' + imgUrl + '">');
-                        that.imgUrl = imgUrl;
-                        that.obj.append(img);
-                        img.load(function () {
-                            if (that.options.outputUrlId !== '') { $('#' + that.options.outputUrlId).val(that.file.Name); }
-                            that.croppedImg = that.obj.find('.croppedImg');
-                            that.init();
-                            that.hideLoader();
-                            that.validate();
-                            if (that.options.onAfterImgCrop) that.options.onAfterImgCrop.call(that, response);
-                        });
+                var ImgID = "uxR" + Math.random();
+                var imgTemp = $('<img class="croppedImg" id="' + ImgID + '" >');
+
+                imgTemp.load(function () {
+                    
+                    that.croppedImg = that.obj.find('#' + ImgID + '.croppedImg');
+                    that.init();
+                    that.hideLoader();
+                    that.validate();
+                    if (that.options.onAfterImgCrop)
+                        that.options.onAfterImgCrop.call(that, response);
+                });
+                imgTemp.error(function () {
+                    that.croppedImg = '';
+                    that.init();
+                    that.hideLoader();
+                });
+                var src = that.options.downloadUrl + "?file=" + that.file.Name;
+                for (var key in that.options.cropData) {
+                    if (that.options.cropData.hasOwnProperty(key)) {
+                        src += "&" + key + "=" + that.options.cropData[key]; 
                     }
                 }
-                xhr.responseType = "arraybuffer";
-                xhr.send(JSON.stringify(that.file));
+                imgTemp.attr('src', src + "&v=" + Math.random());
+                that.imgUrl = src;
+                if (that.options.outputUrlId !== '') {
+                    $('#' + that.options.outputUrlId).val(that.file.Name);
+                }
+                that.obj.append(imgTemp);
             }
             if (response.status == 'error') {
                 if (that.options.onError) that.options.onError.call(that, response.message);
@@ -740,36 +745,38 @@
             return _valid
         },
         bind: function (img) {
-            that = this;
+            let that = this;
             that.showLoader();
             that.destroy();
             that.file = {};
             that.file.Name = img;
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', that.options.downloadUrl, true);
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-            xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var blob = new Blob([xhr.response], {
-                        type: xhr.getResponseHeader("Content-Type")
-                    });
-                    var imgUrl = window.URL.createObjectURL(blob);
-                    var img = $('<img class="croppedImg" src="' + imgUrl + '">');
-                    that.imgUrl = imgUrl;
-                    that.obj.append(img);
-                    img.load(function () {
-                        if (that.options.outputUrlId !== '') { $('#' + that.options.outputUrlId).val(that.file.Name); }
-                        that.croppedImg = that.obj.find('.croppedImg');
-                        that.init();
-                        that.hideLoader();
-
-                    });
+            let ImgID = that.id + Math.random();
+            var imgTemp = $(`<img  class="croppedImg" id="${ImgID}">`);
+            imgTemp.data('self', that);
+            imgTemp.load(function () {
+                //let that = imgTemp.data('self');
+                that.croppedImg = that.obj.find('#' + ImgID + '.croppedImg');
+                that.init();
+                that.hideLoader();
+            });
+            imgTemp.error(function () {
+                console.log(that);
+                that.croppedImg = '';
+                that.init();
+                that.hideLoader();
+            });
+            var src = that.options.downloadUrl + "?file=" + img;
+            for (var key in that.options.cropData) {
+                if (that.options.cropData.hasOwnProperty(key)) {
+                    src += "&" + key + "=" + that.options.cropData[key];
                 }
             }
-            xhr.responseType = "arraybuffer";
-            xhr.send(JSON.stringify(that.file));
+            imgTemp.attr('src', src + "&v=" + Math.random());
+            that.imgUrl = src;
+            if (that.options.outputUrlId !== '') {
+                $('#' + that.options.outputUrlId).val(that.file.Name);
+            }
+            that.obj.append(imgTemp);
         },
         showLoader: function () {
             var that = this;

@@ -23,8 +23,10 @@ namespace App.Persistence.NModels
         public DateTime? ModifiedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public string ReferenceNo { get; set; }
+        public int OrganizationId { get; set; }
 
         public virtual Occupation Occupation { get; set; }
+        public virtual Organization Organization { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual ICollection<PassportApplication> PassportApplication { get; set; }
     }

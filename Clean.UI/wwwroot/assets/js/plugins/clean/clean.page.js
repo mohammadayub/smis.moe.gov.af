@@ -32,7 +32,7 @@
                     this.parent = self.mainform;
                     var prefix = this.el.attr('prefix');
                     var sub = new clean[this.el.attr('type')](this);
-                    sub.EncryptedID = sub.el.find("#" + prefix + 'PageID').val();
+                    sub.EncryptedID = sub.el.find("#" + prefix + 'pageid').val();
                     self.subforms.push(sub);
                 }
                 else if (this.el.attr('type') === 'actionmenu') {
@@ -54,7 +54,7 @@
         },
         loadsubscreens: function (formname, id) {
             var self = this;
-            var path = '/' + formname.substring(formname.indexOf("_") + 1).replace(/_/g, '/') + '/Get';
+            var path = '/' + formname.substring(formname.indexOf("_") + 1).replace(/_/g, '/') + '/Get/' + id;
             var data = {};
             clean.data.get({
                 async: false, url: path, data: clean.data.json.write(data), dataType: 'html',
@@ -106,14 +106,16 @@
                             }
                         }
 
+                        if ($('.panel.viewonly').length == 0) {
+                            //scrolling to subform
+                            var scrollTo = $('#' + formname).attr('scrollto') == undefined ? $('#' + formname) : $('#' + ( $('#' + formname).attr('scrollto')));
 
-                        //scrolling to subform
-                        var scrollTo = $('#' + formname).attr('scrollto') == undefined ? $('#' + formname) : $('#' + ( $('#' + formname).attr('scrollto')));
+                            var container = $('body');
+                            $('html,body').animate({
+                                scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop() -140
+                            });
+                        }
 
-                        var container = $('body');
-                        $('html,body').animate({
-                            scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop() -140
-                        });
                     }
                 });
             }
@@ -121,7 +123,6 @@
                 clean.widget.error('فورم اصلی خالی میباشد', 'لطفاً برای اینکه صفحه های فرعی را مشاهده نمائید، ریکارد فورم اصلی را مشخص سازید');
             }
         },
-
         parameter: function (name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');

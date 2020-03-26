@@ -1,9 +1,11 @@
-﻿using Clean.Application.ProcessTrackings.Models;
+﻿using App.Persistence.Service;
+using Clean.Application.ProcessTrackings.Models;
 using Clean.Common.Enums;
 using Clean.Common.Exceptions;
 using Clean.Domain.Entity.prc;
 using Clean.Persistence.Context;
 using Clean.Persistence.Identity;
+using Clean.Persistence.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,18 +34,22 @@ namespace Clean.Application.ProcessTrackings.Commands
 
     public class SaveProcessTracksCommandHandler : IRequestHandler<SaveProcessTracksCommand, List<SearchedProcessTracks>>
     {
-        private readonly BaseContext _context;
-        private readonly AppIdentityDbContext IdentityContext;
-        private readonly IMediator _mediator;
-        public SaveProcessTracksCommandHandler(BaseContext context, AppIdentityDbContext identityDbContext, IMediator mediator)
+        private BaseContext Context { get; }
+        private IMediator Mediator { get; }
+        private ICurrentUser CurrentUser { get; }
+        private IEnumerable<IProcessChangeListener> ChangeListeners { get; set; }
+
+        public SaveProcessTracksCommandHandler(BaseContext context, IMediator mediator,ICurrentUser  current,IEnumerable<IProcessChangeListener> listeners)
         {
-            _context = context;
-            IdentityContext = identityDbContext;
-            _mediator = mediator;
+            Context = context;
+            Mediator = mediator;
+            CurrentUser = current;
+            ChangeListeners = listeners;
         }
 
         public async Task<List<SearchedProcessTracks>> Handle(SaveProcessTracksCommand request, CancellationToken cancellationToken)
         {
+            var UserID = await CurrentUser.GetUserId();
             List<SearchedProcessTracks> result = new List<SearchedProcessTracks>();
             if (request.Id == null)
             {
@@ -56,26 +62,26 @@ namespace Clean.Application.ProcessTrackings.Commands
                     ModuleId = request.ModuleId.Value,
                     ReferedProcessId = request.ReferedProcessId,
                     CreatedOn = DateTime.Now,
-                    UserId = request.UserId,
+                    UserId = UserID,
                     ToUserId = null
                 };
-                _context.ProcessTracking.Add(PT);
-                await _context.SaveChangesAsync(cancellationToken);
+                Context.ProcessTracking.Add(PT);
+                await Context.SaveChangesAsync(cancellationToken);
             }
             else
             {
-                using (var Transaction = _context.Database.BeginTransaction())
+                using (var Transaction = Context.Database.BeginTransaction())
                 {
                     try
                     {
                         int? ToUserId = null;
                         // Update current process track status
-                        ProcessTracking track = await _context.ProcessTracking.Where(pt => pt.Id == request.Id).SingleOrDefaultAsync();
+                        ProcessTracking track = await Context.ProcessTracking.Where(pt => pt.Id == request.Id).SingleOrDefaultAsync();
                         track.ReferedProcessId = request.ReferedProcessId;
 
                         // find the refered and previous process id sorter to check for approve and reject
-                        string ProcessSorter = _context.Process.Where(e => e.Id == track.ProcessId).SingleOrDefault().Sorter;
-                        string ReferedProcessSorter = _context.Process.Where(e => e.Id == request.ReferedProcessId).SingleOrDefault().Sorter;
+                        string ProcessSorter = Context.Process.Where(e => e.Id == track.ProcessId).SingleOrDefault().Sorter;
+                        string ReferedProcessSorter = Context.Process.Where(e => e.Id == request.ReferedProcessId).SingleOrDefault().Sorter;
 
                         track.StatusId = (ReferedProcessSorter.CompareTo(ProcessSorter) > 1) ? ProcessStatus.Rejected : ProcessStatus.Processed; // 102 rad shuda. 4 Tayeed shuda. Check se.Status
 
@@ -83,12 +89,12 @@ namespace Clean.Application.ProcessTrackings.Commands
                         int? ModuleID;
                         if (request.ReferedProcessId != 0)
                         {
-                            int? screedID = _context.Process.Where(e => e.Id == request.ReferedProcessId).SingleOrDefault().ScreenId;
+                            int? screedID = Context.Process.Where(e => e.Id == request.ReferedProcessId).SingleOrDefault().ScreenId;
 
                             if (screedID == null && request.ReferedProcessId == SystemProcess.Close)
-                                ModuleID = (int)SystemModules.Payment;
+                                ModuleID = (int)SystemModules.Passport;
                             else
-                                ModuleID = _context.Screens.Where(e => e.Id == screedID).SingleOrDefault().ModuleId ;
+                                ModuleID = Context.Screens.Where(e => e.Id == screedID).SingleOrDefault().ModuleId ;
                         }
                         else
                         {
@@ -110,11 +116,16 @@ namespace Clean.Application.ProcessTrackings.Commands
                             Remarks = request.Remarks,
                             ModuleId = ModuleID.Value,
                             CreatedOn = DateTime.Now,
-                            UserId = request.UserId,
+                            UserId = UserID,
                             ToUserId = ToUserId
                         };
-                        _context.ProcessTracking.Add(PT);
-                        await _context.SaveChangesAsync(cancellationToken);
+                        Context.ProcessTracking.Add(PT);
+                        await Context.SaveChangesAsync(cancellationToken);
+
+                        foreach (var item in ChangeListeners.Where(e => e.ModuleID == ModuleID))
+                        {
+                            await item.ProcessChangedAsync(request.RecordId,track.ReferedProcessId,track.ProcessId, Context);
+                        } 
 
                         Transaction.Commit();
                     }
@@ -125,7 +136,7 @@ namespace Clean.Application.ProcessTrackings.Commands
                     }
                 }
             }
-            result = await _mediator.Send(new SearchProcessTrackQuery()
+            result = await Mediator.Send(new SearchProcessTrackQuery()
             {
                 RecordId = request.RecordId,
                 ModuleId = request.ModuleId

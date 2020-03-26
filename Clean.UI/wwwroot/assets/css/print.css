@@ -73,9 +73,12 @@
     }
     
     .div-form *  {
-        border-color:transparent;
-        border-width:0px;
+        
         background-color:transparent;
+    }
+    .div-form .no-border-print {
+        border-color: transparent;
+        border-width: 0px;
     }
     input {
         border:none;

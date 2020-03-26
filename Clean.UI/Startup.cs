@@ -4,8 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using App.Application.Events;
 using App.Application.Lookup.Queries;
+using App.Application.Service;
 using App.Persistence.Context;
+using App.Persistence.Service;
 using Clean.Application.System.Queries;
 using Clean.Common;
 using Clean.Common.Service;
@@ -30,6 +33,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Clean.UI
 {
@@ -47,7 +51,6 @@ namespace Clean.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -85,6 +88,8 @@ namespace Clean.UI
 
 
             services.AddScoped<ICurrentUser, CurrentUser>();
+            services.AddScoped<IProcessChangeListener, PassportChangeListener>();
+
 
             services.AddScoped<IAuthorizationHandler, NewlyRegisteredUsersHandler>();
             services.AddScoped<IAuthorizationHandler, SuperAdminOnlyHandler>();
@@ -133,7 +138,9 @@ namespace Clean.UI
 
 
             services.AddRazorPages()
-                .AddNewtonsoftJson()
+                .AddNewtonsoftJson(opts => {
+                    
+                })
                    //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProfileCommandValidator>())
                 .AddRazorPagesOptions(o => { o.Conventions.Add(new CultureTemplateRouteModelConvention()); })
                 .AddRazorPagesOptions(options =>
@@ -183,7 +190,7 @@ namespace Clean.UI
                 )
                 .AddNewtonsoftJson(opts =>
                 {
-
+                    
                 })
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.SubFolder)
                 .AddDataAnnotationsLocalization()
@@ -192,10 +199,10 @@ namespace Clean.UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager,RoleManager<AppRole> role,BaseContext ctx,AppIdentityDbContext identityDbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager,RoleManager<AppRole> role,BaseContext ctx,AppIdentityDbContext identityDbContext,ILoggerFactory loggerFactory)
         {
             Initializer.InitializeAsync(userManager, role, identityDbContext, ctx).Wait();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

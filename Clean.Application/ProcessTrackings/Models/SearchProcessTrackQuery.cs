@@ -41,7 +41,7 @@ namespace Clean.Application.ProcessTrackings.Models
                                 from ModuleResult in Modules.DefaultIfEmpty()
                                 join S in _context.SystemStatus on new { TypeId = PT.StatusId, StatusType = StatusTypes.ProcessTracking } equals new { S.TypeId ,S.StatusType } into Status
                                 from StatusResult in Status.DefaultIfEmpty()
-                                where PT.RecordId == request.RecordId// && PT.ModuleId==  request.ModuleId
+                                where PT.RecordId == request.RecordId && PT.ModuleId == request.ModuleId
                                 select new SearchedProcessTracks
                                 {
                                     Id = PT.Id,

@@ -17,6 +17,10 @@ namespace App.Persistence.Configuration.Look
                 .HasColumnName("ID")
                 .UseIdentityAlwaysColumn();
 
+            entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+            entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
+
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasColumnType("character varying");
@@ -25,6 +29,12 @@ namespace App.Persistence.Configuration.Look
                 .IsRequired()
                 .HasColumnName("TitleEN")
                 .HasColumnType("character varying");
+
+            entity.HasOne(d => d.Organization)
+                .WithMany()
+                .HasForeignKey(d => d.OrganizationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("occupation_fk");
         }
     }
 }

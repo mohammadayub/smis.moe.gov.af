@@ -1,0 +1,266 @@
+﻿.signholder {
+    border: 2px solid #808080;
+    margin-top: 100px;
+    height: 0px;
+    width: 300px;
+    margin: 0px 0px;
+    margin-top: -10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+@@media print {
+    /*body {
+                margin: 0 auto;
+                padding: 0;
+                background: #fff;
+            }*/
+    .rtl .div-form {
+        float: none !important;
+        right: auto !important;
+        left: auto !important;
+        position: relative;
+        top: auto !important;
+        width: 100%;
+        margin: auto;
+        box-shadow: none !important;
+    }
+
+    table thead {
+        border-bottom: 1px solid #ccc;
+    }
+
+    hr {
+        display: block;
+        border-style: inset;
+        border-color: #cccccc;
+        border-width: 1px;
+    }
+}
+
+.div-row, .div-row label {
+    font-size: 16px;
+}
+
+    .div-row label {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+.form-title {
+    border-width: 2px;
+    font-size: 11px;
+    padding-bottom: 15px;
+    color: #222;
+    border-bottom: 3px solid #222;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.col-50 {
+    width: 49% !important;
+    float: right;
+}
+
+.border-right {
+    border-right: 1px solid #eee;
+}
+
+margin-right-2 {
+    margin-right: 2px;
+}
+
+.div-row .eng {
+    width: 49% !important;
+    min-width: 0px;
+    font-size: 14px !important;
+    font-family: sans-serif;
+    float: left !important;
+    direction: ltr;
+}
+
+.eng label, .eng label {
+    float: left !important;
+    direction: ltr;
+    width: auto !important;
+}
+
+.div-photo {
+    margin-top: 10px;
+}
+
+.div-photo {
+    background: #fff;
+    box-shadow: none;
+}
+
+.div-mainform .title {
+    border-bottom: none !important;
+}
+
+    .div-mainform .title .div-logo img {
+        height: 130px;
+        width: auto;
+    }
+
+    .div-mainform .title .div-logo {
+        left: 45px;
+        position: absolute;
+    }
+
+.pull-right {
+    float: right;
+}
+
+.div-mainform .title .div-bottom .div-truck div span {
+    font-size: 12px;
+}
+
+h1 {
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #000;
+    align-content: center;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.div-logo-right {
+    position: absolute;
+    right: 45px;
+}
+
+.div-logo {
+    top: 20px;
+}
+
+.div-logo-right {
+    position: absolute;
+    left: 45px;
+}
+
+.title {
+    height: 150px !important;
+    position: relative;
+}
+
+    .title .div-text {
+        width: 50%;
+        position: relative;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+
+.div-queue {
+    height: 80px;
+    position: absolute;
+    width: 30%;
+    top: 150px;
+    right: 34%;
+}
+
+.col-25 {
+    width: 25%;
+    float: right;
+}
+
+.col-30 {
+    width: 30%;
+    float: right;
+}
+
+.col-40 {
+    width: 40%;
+    float: right;
+}
+
+.col-20 {
+    width: 20%;
+    float: right;
+}
+
+.col-100 {
+    width: 100%;
+    float: right;
+}
+
+.col-80 {
+    width: 80%;
+    float: right;
+}
+
+.top-10 {
+    margin-top: 10px;
+}
+
+.section-title {
+    margin-top: 5px;
+    border-top: 3px solid #777;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #777;
+    font-size: 11px;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    vertical-align: middle;
+}
+
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border: 1px solid #ddd;
+    border-top-color: rgb(221, 221, 221);
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+td, th {
+    font-size: 12px !important;
+    padding: 5px;
+}
+
+body {
+    background: #737373;
+}
+
+table thead {
+    border-bottom: 1px solid #ccc;
+}
+
+table tfoot {
+    padding-bottom: 24px;
+}

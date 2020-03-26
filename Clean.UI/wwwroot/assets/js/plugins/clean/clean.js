@@ -188,9 +188,7 @@ var clean = window.clean = {};
 
                 oReq.send(JSON.stringify(opt.data));
             }
-
         },
-       
         widget: {
             message: function (type, msg, body, messagelife) {
                 if (!msg) return;

@@ -44,6 +44,9 @@
     @*Treetable Css file*@
     <link href="~/custom/css/jquery.treetable.css" rel="stylesheet" />
     <style>
+        tr.row-selected button.btn-link{
+            color: white;
+        }
         .modal-width {
             width: 70%;
         }
@@ -103,8 +106,10 @@
                         <div class="col-md-12 pull-right">
 
                             <div class="col-md-10 col-md-offset-1 main-content">
-                                    @RenderBody()
+                                @RenderBody()
                                 <div class="dependent-screens">
+                                </div>
+                                <div class="modal-screens">
                                 </div>
                             </div>
                         </div>

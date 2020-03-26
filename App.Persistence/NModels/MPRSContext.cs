@@ -27,6 +27,7 @@ namespace App.Persistence.NModels
         public virtual DbSet<AttachmentType> AttachmentType { get; set; }
         public virtual DbSet<Attachments> Attachments { get; set; }
         public virtual DbSet<Audit> Audit { get; set; }
+        public virtual DbSet<AuthorizationQueue> AuthorizationQueue { get; set; }
         public virtual DbSet<Bank> Bank { get; set; }
         public virtual DbSet<BioData> BioData { get; set; }
         public virtual DbSet<Biometric> Biometric { get; set; }
@@ -69,6 +70,7 @@ namespace App.Persistence.NModels
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<QualityControl> QualityControl { get; set; }
         public virtual DbSet<RequestType> RequestType { get; set; }
+        public virtual DbSet<ResearchQueue> ResearchQueue { get; set; }
         public virtual DbSet<RoleScreen> RoleScreen { get; set; }
         public virtual DbSet<Screen> Screen { get; set; }
         public virtual DbSet<ScreenDocument> ScreenDocument { get; set; }
@@ -287,7 +289,19 @@ namespace App.Persistence.NModels
 
                 entity.Property(e => e.AttachmentTypeId).HasColumnName("AttachmentTypeID");
 
+                entity.Property(e => e.ContentType)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+
                 entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.Description).HasColumnType("character varying");
+
+                entity.Property(e => e.DocumentDate).HasColumnType("date");
+
+                entity.Property(e => e.DocumentNumber).HasColumnType("character varying");
+
+                entity.Property(e => e.EncryptionKey).HasColumnType("character varying");
 
                 entity.Property(e => e.Name).HasColumnType("character varying");
 
@@ -340,6 +354,29 @@ namespace App.Persistence.NModels
                     .WithMany(p => p.Audit)
                     .HasForeignKey(d => d.OperationTypeId)
                     .HasConstraintName("audit_fk");
+            });
+
+            modelBuilder.Entity<AuthorizationQueue>(entity =>
+            {
+                entity.ToTable("AuthorizationQueue", "prc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ApplicationId).HasColumnName("ApplicationID");
+
+                entity.Property(e => e.AssignedDate).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.ProcessedDate).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Application)
+                    .WithMany(p => p.AuthorizationQueue)
+                    .HasForeignKey(d => d.ApplicationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_AuthorizationQueue__FK");
             });
 
             modelBuilder.Entity<Bank>(entity =>
@@ -632,13 +669,15 @@ namespace App.Persistence.NModels
 
                 entity.Property(e => e.ActiveTo).HasColumnType("date");
 
-                entity.Property(e => e.Amount)
-                    .IsRequired()
-                    .HasColumnType("character varying");
-
                 entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
 
                 entity.Property(e => e.DiscountTypeId).HasColumnName("DiscountTypeID");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.OfficeId).HasColumnName("OfficeID");
 
@@ -651,6 +690,7 @@ namespace App.Persistence.NModels
                 entity.HasOne(d => d.Office)
                     .WithMany(p => p.Discounts)
                     .HasForeignKey(d => d.OfficeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("discounts_office_fk");
             });
 
@@ -783,6 +823,8 @@ namespace App.Persistence.NModels
 
                 entity.Property(e => e.OccupationId).HasColumnName("OccupationID");
 
+                entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
+
                 entity.Property(e => e.PrevEmployer).HasColumnType("character varying");
 
                 entity.Property(e => e.PrevEmployerAddress).HasColumnType("character varying");
@@ -798,6 +840,12 @@ namespace App.Persistence.NModels
                     .HasForeignKey(d => d.OccupationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("job_occ_fk");
+
+                entity.HasOne(d => d.Organization)
+                    .WithMany(p => p.Job)
+                    .HasForeignKey(d => d.OrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_job_organization");
 
                 entity.HasOne(d => d.Profile)
                     .WithMany(p => p.Job)
@@ -842,6 +890,10 @@ namespace App.Persistence.NModels
                     .HasColumnName("ID")
                     .UseIdentityAlwaysColumn();
 
+                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
+
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("character varying");
@@ -850,6 +902,12 @@ namespace App.Persistence.NModels
                     .IsRequired()
                     .HasColumnName("TitleEN")
                     .HasColumnType("character varying");
+
+                entity.HasOne(d => d.Organization)
+                    .WithMany(p => p.Occupation)
+                    .HasForeignKey(d => d.OrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("occupation_fk");
             });
 
             modelBuilder.Entity<Office>(entity =>
@@ -959,6 +1017,8 @@ namespace App.Persistence.NModels
                 entity.Property(e => e.PaymentPenaltyId).HasColumnName("PaymentPenaltyID");
 
                 entity.Property(e => e.PhotoPath).HasColumnType("character varying");
+
+                entity.Property(e => e.Prefix).HasColumnType("character varying");
 
                 entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
 
@@ -1170,6 +1230,8 @@ namespace App.Persistence.NModels
 
                 entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
 
+                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
+
                 entity.Property(e => e.OfficeId).HasColumnName("OfficeID");
 
                 entity.Property(e => e.PassportDurationId).HasColumnName("PassportDurationID");
@@ -1207,7 +1269,9 @@ namespace App.Persistence.NModels
                     .HasColumnName("ID")
                     .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.Title).HasColumnType("character varying");
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<PaymentPenalty>(entity =>
@@ -1219,6 +1283,8 @@ namespace App.Persistence.NModels
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
 
                 entity.Property(e => e.OfficeId).HasColumnName("OfficeID");
 
@@ -1354,16 +1420,10 @@ namespace App.Persistence.NModels
                     .HasConstraintName("_ProcessTracking__FK_2");
 
                 entity.HasOne(d => d.Process)
-                    .WithMany(p => p.ProcessTrackingProcess)
+                    .WithMany(p => p.ProcessTracking)
                     .HasForeignKey(d => d.ProcessId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("_ProcessTracking__FK");
-
-                entity.HasOne(d => d.ReferedProcess)
-                    .WithMany(p => p.ProcessTrackingReferedProcess)
-                    .HasForeignKey(d => d.ReferedProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("_ProcessTracking__FK_1");
             });
 
             modelBuilder.Entity<Profile>(entity =>
@@ -1549,6 +1609,29 @@ namespace App.Persistence.NModels
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("character varying");
+            });
+
+            modelBuilder.Entity<ResearchQueue>(entity =>
+            {
+                entity.ToTable("ResearchQueue", "prc");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ApplicationId).HasColumnName("ApplicationID");
+
+                entity.Property(e => e.AssignedDate).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.ProcessedDate).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Application)
+                    .WithMany(p => p.ResearchQueue)
+                    .HasForeignKey(d => d.ApplicationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_ResearchQueue__FK");
             });
 
             modelBuilder.Entity<RoleScreen>(entity =>

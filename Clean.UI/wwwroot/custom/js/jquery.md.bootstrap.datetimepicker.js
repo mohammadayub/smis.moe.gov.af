@@ -1805,7 +1805,7 @@
                                 selectedDateString = $(calendarHtml).find('[data-selecteddatestring]').text().trim();
                             $('#' + $this.attr('aria-describedby')).find('[data-name="mds-datetimepicker-title"]').html(selectedDateString);
                             $('#' + $this.attr('aria-describedby')).find('[data-name="mds-datetimepicker-popoverbody"]').html(calendarHtml);
-                            $this.popover('update');
+                            //$this.popover('update');
                             triggerStart = false;
                         }, 0);
                     });

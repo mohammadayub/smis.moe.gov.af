@@ -18,6 +18,5 @@ namespace App.Persistence.NModels
 
         public virtual Module Module { get; set; }
         public virtual Process Process { get; set; }
-        public virtual Process ReferedProcess { get; set; }
     }
 }

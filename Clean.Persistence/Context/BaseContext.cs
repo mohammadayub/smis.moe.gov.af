@@ -54,7 +54,7 @@ namespace Clean.Persistence.Context
         #region AuditionSetting
 
         //   private CurrentUser currentUser;
-        public new async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken),bool track = true)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken),bool track = true)
         {
             if (track)
             {

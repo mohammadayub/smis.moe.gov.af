@@ -7,7 +7,9 @@ namespace App.Persistence.NModels
     {
         public PassportApplication()
         {
+            AuthorizationQueue = new HashSet<AuthorizationQueue>();
             PrintQueue = new HashSet<PrintQueue>();
+            ResearchQueue = new HashSet<ResearchQueue>();
         }
 
         public int Id { get; set; }
@@ -36,6 +38,8 @@ namespace App.Persistence.NModels
         public int? ActiveJobId { get; set; }
         public string PhotoPath { get; set; }
         public string SignaturePath { get; set; }
+        public int? Suffix { get; set; }
+        public string Prefix { get; set; }
 
         public virtual Address ActiveAddress { get; set; }
         public virtual BioData ActiveBioData { get; set; }
@@ -49,6 +53,8 @@ namespace App.Persistence.NModels
         public virtual PaymentPenalty PaymentPenalty { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual RequestType RequestType { get; set; }
+        public virtual ICollection<AuthorizationQueue> AuthorizationQueue { get; set; }
         public virtual ICollection<PrintQueue> PrintQueue { get; set; }
+        public virtual ICollection<ResearchQueue> ResearchQueue { get; set; }
     }
 }

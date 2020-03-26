@@ -21,13 +21,15 @@ namespace App.Persistence.Configuration.Pas
 
             entity.Property(e => e.ActiveTo).HasColumnType("date");
 
-            entity.Property(e => e.Amount)
-                .IsRequired()
-                .HasColumnType("character varying");
-
             entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
 
             entity.Property(e => e.DiscountTypeId).HasColumnName("DiscountTypeID");
+
+            entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasColumnType("character varying");
 
             entity.Property(e => e.OfficeId).HasColumnName("OfficeID");
 
@@ -40,6 +42,7 @@ namespace App.Persistence.Configuration.Pas
             entity.HasOne(d => d.Office)
                 .WithMany(p => p.Discounts)
                 .HasForeignKey(d => d.OfficeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("discounts_office_fk");
         }
     }

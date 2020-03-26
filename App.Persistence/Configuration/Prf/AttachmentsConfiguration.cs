@@ -19,7 +19,19 @@ namespace App.Persistence.Configuration.Prf
 
             entity.Property(e => e.AttachmentTypeId).HasColumnName("AttachmentTypeID");
 
+            entity.Property(e => e.ContentType)
+                .IsRequired()
+                .HasColumnType("character varying");
+
             entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+            entity.Property(e => e.Description).HasColumnType("character varying");
+
+            entity.Property(e => e.DocumentDate).HasColumnType("date");
+
+            entity.Property(e => e.DocumentNumber).HasColumnType("character varying");
+
+            entity.Property(e => e.EncryptionKey).HasColumnType("character varying");
 
             entity.Property(e => e.Name).HasColumnType("character varying");
 

@@ -9,8 +9,7 @@ namespace App.Persistence.NModels
         {
             ProcessConnectionConnectedToNavigation = new HashSet<ProcessConnection>();
             ProcessConnectionProcess = new HashSet<ProcessConnection>();
-            ProcessTrackingProcess = new HashSet<ProcessTracking>();
-            ProcessTrackingReferedProcess = new HashSet<ProcessTracking>();
+            ProcessTracking = new HashSet<ProcessTracking>();
         }
 
         public int Id { get; set; }
@@ -22,7 +21,6 @@ namespace App.Persistence.NModels
         public virtual Screen Screen { get; set; }
         public virtual ICollection<ProcessConnection> ProcessConnectionConnectedToNavigation { get; set; }
         public virtual ICollection<ProcessConnection> ProcessConnectionProcess { get; set; }
-        public virtual ICollection<ProcessTracking> ProcessTrackingProcess { get; set; }
-        public virtual ICollection<ProcessTracking> ProcessTrackingReferedProcess { get; set; }
+        public virtual ICollection<ProcessTracking> ProcessTracking { get; set; }
     }
 }

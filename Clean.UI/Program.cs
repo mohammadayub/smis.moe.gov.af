@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Application.Service;
+using App.Persistence.Context;
+using Clean.Persistence.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +25,16 @@ namespace Clean.UI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureServices(services => {
+                    services.AddHostedService(opts =>
+                    {
+                        var scope = opts.CreateScope();
+                        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                        var idcontext = scope.ServiceProvider.GetRequiredService<AppIdentityDbContext>();
+                        var logger = opts.GetRequiredService<ILogger<ResearchQueueService>>();
+                        return new ResearchQueueService(logger, context,idcontext);
+                        
+                    });
                 });
     }
 }

@@ -1,6 +1,7 @@
 ﻿using App.Domain.Entity.doc;
 using App.Domain.Entity.look;
 using App.Domain.Entity.pas;
+using App.Domain.Entity.prc;
 using App.Domain.Entity.prf;
 using App.Domain.Entity.prt;
 using App.Domain.Entity.qc;
@@ -10,6 +11,8 @@ using Clean.Persistence.Context;
 using Clean.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +21,7 @@ namespace App.Persistence.Context
 {
     public class AppDbContext : BaseContext
     {
+        public static readonly ILoggerFactory DbLogger = LoggerFactory.Create(ex => ex.AddConsole());
 
         public AppDbContext(DbContextOptions<AppDbContext> options, UserManager<AppUser> manager) : base(options, manager)
         {
@@ -28,7 +32,7 @@ namespace App.Persistence.Context
         public virtual DbSet<AddressType> AddressTypes { get; set; }
         public virtual DbSet<AttachmentType> AttachmentTypes { get; set; }
         public virtual DbSet<Attachments> Attachments { get; set; }
-        
+        public virtual DbSet<AuthorizationQueue> AuthorizationQueues { get; set; }
         public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<BioData> BioDatas { get; set; }
         public virtual DbSet<Biometric> Biometrics { get; set; }
@@ -63,6 +67,7 @@ namespace App.Persistence.Context
         public virtual DbSet<ProfileHash>  ProfileHashes { get; set; }
         public virtual DbSet<Clean.Domain.Entity.look.Province> Provinces { get; set; }
         public virtual DbSet<QualityControl> QualityControls { get; set; }
+        public virtual DbSet<ResearchQueue> ResearchQueues { get; set; }
         public virtual DbSet<RequestType> RequestType { get; set; }
         public virtual DbSet<StockIn> StockIns { get; set; }
         public virtual DbSet<UserOfficePrinter> UserOfficePrinters { get; set; }
@@ -76,9 +81,11 @@ namespace App.Persistence.Context
         {
             if (!options.IsConfigured)
             {
+                options.UseLoggerFactory(DbLogger);
+                options.EnableSensitiveDataLogging(true);
                 options.UseNpgsql(AppConfig.BaseConnectionString, (opts) =>
                 {
-
+                    
                 });
             }
             base.OnConfiguring(options);

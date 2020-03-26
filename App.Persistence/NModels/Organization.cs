@@ -8,6 +8,8 @@ namespace App.Persistence.NModels
         public Organization()
         {
             AspNetUsers = new HashSet<AspNetUsers>();
+            Job = new HashSet<Job>();
+            Occupation = new HashSet<Occupation>();
         }
 
         public int Id { get; set; }
@@ -19,5 +21,7 @@ namespace App.Persistence.NModels
         public short OrganizationTypeId { get; set; }
 
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<Job> Job { get; set; }
+        public virtual ICollection<Occupation> Occupation { get; set; }
     }
 }

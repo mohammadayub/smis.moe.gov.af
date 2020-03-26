@@ -19,6 +19,8 @@ namespace App.Persistence.Configuration.Pas
 
             entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
 
+            entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
+
             entity.Property(e => e.OfficeId).HasColumnName("OfficeID");
 
             entity.Property(e => e.PassportDurationId).HasColumnName("PassportDurationID");

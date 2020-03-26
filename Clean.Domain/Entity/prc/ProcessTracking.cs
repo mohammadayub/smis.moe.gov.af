@@ -19,6 +19,5 @@ namespace Clean.Domain.Entity.prc
 
         public virtual Module Module { get; set; }
         public virtual Process Process { get; set; }
-        public virtual Process ReferedProcess { get; set; }
     }
 }

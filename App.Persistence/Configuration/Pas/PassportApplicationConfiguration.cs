@@ -51,6 +51,8 @@ namespace App.Persistence.Configuration.Pas
 
             entity.Property(e => e.PhotoPath).HasColumnType("character varying");
 
+            entity.Property(e => e.Prefix).HasColumnType("character varying");
+
             entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
 
             entity.Property(e => e.ReceiptNumer).HasMaxLength(50);

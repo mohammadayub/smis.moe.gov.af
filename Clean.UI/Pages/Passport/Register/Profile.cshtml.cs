@@ -11,12 +11,14 @@ using Clean.Common.Enums;
 using Clean.Common.Models;
 using Clean.UI.Types;
 using Clean.UI.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Clean.UI.Pages.Passport.Register
 {
+    [Authorize(Roles ="Administrator,Data-Entry")]
     public class ProfileModel : BasePage
     {
         public string SubScreens { get; set; }

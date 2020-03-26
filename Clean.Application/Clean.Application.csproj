@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Persistence\App.Persistence.csproj" />
     <ProjectReference Include="..\Clean.Persistence\Clean.Persistence.csproj" />
   </ItemGroup>
 

@@ -290,6 +290,12 @@ td .label {
     box-shadow: 0 0 4px #808080;
 }
 
+    .img-uploader[data-type=photo] {
+        background-image: url("../images/nophoto.png");
+    }
+    .img-uploader[data-type=signature] {
+        background-image: url("../images/signature.png");
+    }
 .dataTables_scrollHeadInner {
     background: #e5e5e5;
 }

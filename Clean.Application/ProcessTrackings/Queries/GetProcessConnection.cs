@@ -28,14 +28,20 @@ namespace Clean.Application.ProcessTrackings.Queries
         }
         public async Task<List<SearchedProcessConnection>> Handle(GetProcessConnection request, CancellationToken cancellationToken)
         {
-
-
-            List<SearchedProcessConnection> result = new List<SearchedProcessConnection>();
-            result = await _context.ProcessConnection
+            var query = _context.ProcessConnection
                 .Include(e => e.Process)
                     .ThenInclude(e => e.Screen)
                 .Include(e => e.ConnectedToNavigation)
-                .Select(e => new SearchedProcessConnection
+                .AsQueryable();
+
+            if (request.ScreenId.HasValue)
+            {
+                query = query.Where(e => e.Process.ScreenId == request.ScreenId);
+            }
+
+            List<SearchedProcessConnection> result = new List<SearchedProcessConnection>();
+            result = await 
+                query.Select(e => new SearchedProcessConnection
                 {
                     Id = e.Id,
                     ProcessId = e.ProcessId,

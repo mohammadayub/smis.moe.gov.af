@@ -14,84 +14,70 @@
         <h1 class="panel-title">@_localizer["ثبت معلومات وظیفه"]</h1>
     </div>
     <div class="panel-body">
-        <form id="dv_Passport_Register_Employment" class="form sub-form page-component" type="form" parent="dv_Passport_Register_Profile" parentcol="ProfileId" prefix="uxad">
+        <form id="dv_Passport_Register_Employment" class="form sub-form page-component" type="form" parent="dv_Passport_Register_Profile" parentcol="ProfileId" prefix="uxem">
             <fieldset class="content-group">
                 <legend>@_localizer["جهت ثبت معلومات وظیفه از این بخش استفاده نمایید"]</legend>
                 <div class="row">
                     <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label class="text-bold">
-                                @_localizer["نوعیت آدرس"]
-                                <span class="text-danger">&nbsp;*</span>
-                            </label>
-                            <select id="uxadaddresstypeid" name="uxadAddressTypeID" asp-items="@Model.ListOfAddressType" class="select search" required>
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label class="text-bold">
-                                @_localizer["کشور"]
-                                <span class="text-danger">&nbsp;*</span>
-                            </label>
-                            <select id="uxadcountryid" name="uxadCountryID" child="uxadprovinceid" asp-items="@Model.ListOfCountry" class="select search" required>
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label class="text-bold">
-                                @_localizer["ولایت"]
-                                <span class="text-danger">&nbsp;*</span>
-                            </label>
-                            <select id="uxadprovinceid" name="uxadProvinceID" data-type="Province" child="uxaddistrictid" class="select search" required>
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
-                        <div class="form-group has-feedback has-feedback-left">
-                            <label class="text-bold">
-                                @_localizer["ولسوالی"]
-                                <span class="text-danger">&nbsp;*</span>
-                            </label>
-                            <select id="uxaddistrictid" name="uxadDistrictID" data-type="District" class="select search" required>
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
                         <div class="form-group">
                             <label class="text-bold">
-                                @_localizer["شهر"]
+                                @_localizer["اداره‌ی مربوطه"]
+                                <span class="text-danger">&nbsp;*</span>
                             </label>
-                            <input type="text" id="uxadcity" name="uxadCity" class="form-control">
+                            <select id="uxemorganizationid" name="uxemOrganizationID" child="uxemoccupationid" asp-items="@Model.ListOfOrganization" class="select" required>
+                                <option></option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
                         <div class="form-group">
                             <label class="text-bold">
-                                @_localizer["قریه"]
+                                @_localizer["وظیفه"]
+                                <span class="text-danger">&nbsp;*</span>
                             </label>
-                            <input type="text" id="uxadvillage" name="uxadVillage" class="form-control">
+                            <select id="uxemoccupationid" name="uxemOccupationID" data-type="Occupation" asp-items="@Model.ListOfOccupation" class="select" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["کارگزار فعلی"]
+                            </label>
+                            <input type="text" id="uxememployer" name="uxemEmployer" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["آدرس کارگزار فعلی"]
+                            </label>
+                            <input type="text" id="uxememployeraddress" name="uxemEmployerAddress" class="form-control">
                         </div>
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-md-12 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
                         <div class="form-group">
                             <label class="text-bold">
-                                @_localizer["آدرس مکمل"]
-                                <span class="text-danger">&nbsp;*</span>
+                                @_localizer["کارگزار قبلی"]
                             </label>
-                            <textarea rows="5" id="uxaddetail" name="uxadDetail" class="form-control" required></textarea>
+                            <input type="text" id="uxemprevemployer" name="uxemPrevEmployer" class="form-control">
                         </div>
                     </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["آدرس کارگزار قبلی"]
+                            </label>
+                            <input type="text" id="uxemprevemployeraddress" name="uxemPrevEmployerAddress" class="form-control">
+                        </div>
+                    </div>
+
                 </div>
 
             </fieldset>
@@ -99,8 +85,8 @@
             <div class="row div-form-control">
                 <div class="col-md-12">
                     <div class="form-group actions">
-                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>ثبت کاربر</button>
-                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>جدید</button>
+                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>@_localizer["ثبت معلومات"]</button>
+                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>@_localizer["صفحه جدید"]</button>
                     </div>
                 </div>
             </div>
@@ -109,11 +95,10 @@
                 <table style="direction:rtl" bindonclick="true">
                     <thead>
                         <tr>
-                            <th colname="addresstype">@_localizer["نوعیت"]</th>
-                            <th colname="country">@_localizer["کشور"]</th>
-                            <th colname="province">@_localizer["ولایت"]</th>
-                            <th colname="city">@_localizer["شهر"]</th>
-                            <th colname="detail">@_localizer["آدرس مکمل"]</th>
+                            <th colname="organization">@_localizer["اداره"]</th>
+                            <th colname="occupation">@_localizer["وظیفه"]</th>
+                            <th colname="employer">@_localizer["کارگزار"]</th>
+                            <th colname="prevemployer">@_localizer["کارگزار قبلی"]</th>
                         </tr>
                     </thead>
                 </table>

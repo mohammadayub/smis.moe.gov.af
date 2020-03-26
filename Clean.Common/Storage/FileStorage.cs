@@ -8,10 +8,24 @@ namespace Clean.Common.Storage
 {
     public class FileStorage
     {
+        public class CropResult
+        {
+            public string BasePath { get; set; }
+            public string FromPath { get; set; }
+            public string ToPath { get; set; }
+            public string ErrorMsg { get; set; }
+            public bool Success { get; set; }
+        }
+
         public async System.Threading.Tasks.Task<string> CreateAsync(Stream file, string fileextension, string path)
         {
             var filename = GenerateFileName(fileextension);
             var filepath = path + filename;
+            var finfo = new FileInfo(filepath);
+            if (!finfo.Directory.Exists)
+            {
+                finfo.Directory.Create();
+            }
             using (var stream = new FileStream(filepath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
@@ -64,30 +78,36 @@ namespace Clean.Common.Storage
         }
 
 
-        public async System.Threading.Tasks.Task<string> Crop(CropRequest cropmodel, string path)
+        public async System.Threading.Tasks.Task<CropResult> Crop(CropRequest cropmodel, string path,string addition)
         {
             //// extract original image ID and generate a new filename for the cropped result
             var extension = Path.GetExtension(cropmodel.imgUrl);
             var croppedId = GenerateFileName(extension);
-            var result = new object();
+            var result = new CropResult
+            {
+                BasePath = path,
+                FromPath = cropmodel.imgUrl,
+                ToPath = croppedId
+            };
             try
             {
                 // load the original picture and resample it to the scaled values
-                Stream imgstream = await GetAsync(path + cropmodel.imgUrl);
-
-                var img = System.Drawing.Image.FromStream(imgstream);
-
-                var bitmap = ImageUtils.Resize(img, (int)cropmodel.imgW, (int)cropmodel.imgH);
-                System.Drawing.Image croppedBitmap = ImageUtils.Crop(bitmap, cropmodel.imgX1, cropmodel.imgY1, (int)cropmodel.cropW, (int)cropmodel.cropH);
-                croppedBitmap.Save(path + croppedId);
+                using (Stream imgstream = await GetAsync(path + cropmodel.imgUrl))
+                {
+                    using var img = System.Drawing.Image.FromStream(imgstream);
+                    using var bitmap = ImageUtils.Resize(img, (int)cropmodel.imgW, (int)cropmodel.imgH);
+                    using System.Drawing.Image croppedBitmap = ImageUtils.Crop(bitmap, cropmodel.imgX1, cropmodel.imgY1, (int)cropmodel.cropW, (int)cropmodel.cropH);
+                    croppedBitmap.Save(path + (String.IsNullOrEmpty(addition) ? "" : addition) + croppedId);
+                }
                 File.Delete(path + cropmodel.imgUrl);
-
-                return croppedId;
+                result.Success = true;
             }
             catch (Exception e)
             {
-                return e.Message + "//" + e.StackTrace;
+                result.Success = false;
+                result.ErrorMsg =  e.Message + "//" + e.StackTrace;
             }
+            return result;
         }
 
         private void EncryptFile(string inputFile, string outputFile)
