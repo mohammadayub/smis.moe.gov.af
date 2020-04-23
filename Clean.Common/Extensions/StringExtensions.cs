@@ -20,6 +20,7 @@ namespace Clean.Common.Extensions
             return System.Text.Encoding.UTF8.GetBytes(cur);
         }
 
+
         public static string CleanValue(this string val)
         {
             return !string.IsNullOrWhiteSpace(val) ? val.Trim() : "درج نگردیده";

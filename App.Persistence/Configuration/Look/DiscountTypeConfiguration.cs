@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<DiscountType> entity)
         {
-            entity.ToTable("DiscountType", "Look");
+            entity.ToTable("DiscountType", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

@@ -227,9 +227,9 @@ namespace App.Application.Registration.Commands
         private byte[] GenerateProfileHash(Profile profile, BioData bio)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(bio.NameEn);
-            sb.Append(bio.FatherNameEn);
-            sb.Append(bio.GrandFatherNameEn);
+            sb.Append(CleanString(bio.Name));
+            sb.Append(CleanString(bio.FatherName));
+            sb.Append(CleanString(bio.GrandFatherName));
             sb.Append(bio.DateOfBirth.Year);
             sb.Append(bio.DateOfBirth.Month);
             sb.Append(profile.BirthCountryId);
@@ -241,19 +241,27 @@ namespace App.Application.Registration.Commands
         private byte[] GeneratBioDataHash(BioData bio)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(bio.Name.Trim());
-            sb.Append(bio.FatherName.Trim());
-            sb.Append(bio.GrandFatherName.Trim());
-            sb.Append(bio.FamilyName.Trim());
-            sb.Append(bio.NameEn.Trim());
-            sb.Append(bio.FatherNameEn.Trim());
-            sb.Append(bio.GrandFatherNameEn.Trim());
-            sb.Append(bio.FamilyNameEn.Trim());
+            sb.Append(CleanString(bio.Name));
+            sb.Append(CleanString(bio.FatherName));
+            sb.Append(CleanString(bio.GrandFatherName));
+            sb.Append(CleanString(bio.FamilyName));
+            sb.Append(CleanString(bio.NameEn));
+            sb.Append(CleanString(bio.FatherNameEn));
+            sb.Append(CleanString(bio.GrandFatherNameEn));
+            sb.Append(CleanString(bio.FamilyNameEn));
             sb.Append(bio.DateOfBirth.ToString("yyyy-MM-dd"));
             sb.Append(String.IsNullOrEmpty(bio.Email) ? "NE" : bio.Email);
             sb.Append(String.IsNullOrEmpty(bio.PhoneNumber) ? "NN" : bio.Email);
             using MD5 md = MD5.Create();
             return md.ComputeHash(sb.ToString().GetBytes());
+        }
+
+        public string CleanString(string text)
+        {
+            return text.Replace(" ", "")
+                .Replace("‌", "")
+                .Replace("ګ", "گ")
+                .Replace("ي", "ی");
         }
 
         public async Task<Tuple<string,int?,string>> GenerateCodeAsync(DateTime birthDate,int birthProvince)

@@ -11,7 +11,7 @@ namespace Clean.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Screen> entity)
         {
-            entity.ToTable("Screen", "Look");
+            entity.ToTable("Screen", "look");
 
             entity.HasIndex(e => e.ModuleId);
 

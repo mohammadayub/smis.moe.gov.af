@@ -12,7 +12,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Province> entity)
         {
-            entity.ToTable("Province", "Look");
+            entity.ToTable("Province", "look");
 
             entity.HasIndex(e => e.CountryId);
 

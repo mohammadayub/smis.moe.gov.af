@@ -11,7 +11,7 @@ namespace Clean.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Module> entity)
         {
-            entity.ToTable("Module", "Look");
+            entity.ToTable("Module", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

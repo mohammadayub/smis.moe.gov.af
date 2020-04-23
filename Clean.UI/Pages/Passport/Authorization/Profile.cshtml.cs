@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Application.Lookup.Queries;
-using App.Application.Registration.Commands;
-using App.Application.Research.Queries;
+using App.Application.Authorization.Queries;
 using Clean.Application.Documents.Queries;
 using Clean.Application.System.Queries;
 using Clean.Common.Enums;
@@ -18,13 +17,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Clean.UI.Pages.Passport.Authorization
 {
-    [Authorize(Roles ="Administrator,Research")]
+    [Authorize(Roles ="Administrator,Authorization")]
     public class ProfileModel : BasePage
     {
-        public string SubScreens { get; set; }
-        private string htmlTemplate = @"
-                         <li><a href='#' data='$id' page='$path' class='sidebar-items' action='subscreen'><i class='$icon'></i>$title</a></li>";
-
+        
         public async Task OnGetAsync()
         {
             ListOfGenders = new List<SelectListItem>();

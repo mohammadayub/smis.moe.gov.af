@@ -50,7 +50,6 @@ namespace App.Application.Registration.Queries
                 Organization = e.Organization.Name,
                 Occupation = e.Occupation.TitleEn
             }).ToListAsync();
-            throw new NotImplementedException();
         }
     }
 }

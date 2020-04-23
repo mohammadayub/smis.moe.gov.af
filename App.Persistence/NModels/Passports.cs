@@ -11,13 +11,13 @@ namespace App.Persistence.NModels
         }
 
         public long Id { get; set; }
-        public int? StockInId { get; set; }
-        public int? SerialNumber { get; set; }
+        public int StockInId { get; set; }
+        public int SerialNumber { get; set; }
         public string PassportNumber { get; set; }
-        public int? StatusId { get; set; }
-        public int? UserId { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
+        public int StatusId { get; set; }
+        public int UserId { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public int? ModfiedBy { get; set; }
 

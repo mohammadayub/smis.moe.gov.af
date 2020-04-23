@@ -26,6 +26,20 @@ namespace App.Persistence.Configuration.Stc
             entity.Property(e => e.PassportTypeId).HasColumnName("PassportTypeID");
 
             entity.Property(e => e.StatusId).HasColumnName("StatusID");
+
+            entity.Property(e => e.ToUserId).HasColumnName("ToUserID");
+
+            entity.HasOne(d => d.PassportDuration)
+                .WithMany()
+                .HasForeignKey(d => d.PassportDurationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("stockin_fk_1");
+
+            entity.HasOne(d => d.PassportType)
+                .WithMany()
+                .HasForeignKey(d => d.PassportTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("stockin_fk");
         }
     }
 }

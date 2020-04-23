@@ -16,6 +16,7 @@ namespace App.Application.Lookup.Commands
         public int? ID { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
+        public string TitleLocal { get; set; }
     }
     public class SaveCountryCommandHandler : IRequestHandler<SaveCountryCommand, List<CountryModel>>
     {
@@ -30,7 +31,8 @@ namespace App.Application.Lookup.Commands
         {
             var country = request.ID.HasValue ? Context.Countries.Where(e => e.Id == request.ID).Single() : new Clean.Domain.Entity.look.Country();
             country.Code = request.Code;
-            country.Title = request.Title;
+            country.TitleEn = request.Title;
+            country.Title = request.TitleLocal;
             if (!request.ID.HasValue)
             {
                 Context.Countries.Add(country);

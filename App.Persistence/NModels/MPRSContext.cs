@@ -568,6 +568,11 @@ namespace App.Persistence.NModels
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("character varying");
+
+                entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnName("TitleEN")
+                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<CrimeType>(entity =>
@@ -799,6 +804,10 @@ namespace App.Persistence.NModels
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
                     .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -1129,13 +1138,7 @@ namespace App.Persistence.NModels
                     .HasColumnName("ID")
                     .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.CreatedBy)
-                    .IsRequired()
-                    .HasColumnType("character varying");
-
-                entity.Property(e => e.CreatedOn)
-                    .IsRequired()
-                    .HasColumnType("character varying");
+                entity.Property(e => e.CreatedOn).HasColumnType("timestamp(0) with time zone");
 
                 entity.Property(e => e.PassportId).HasColumnName("PassportID");
 
@@ -1193,7 +1196,9 @@ namespace App.Persistence.NModels
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
 
-                entity.Property(e => e.PassportNumber).HasColumnType("character varying");
+                entity.Property(e => e.PassportNumber)
+                    .IsRequired()
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
@@ -1204,6 +1209,7 @@ namespace App.Persistence.NModels
                 entity.HasOne(d => d.StockIn)
                     .WithMany(p => p.Passports)
                     .HasForeignKey(d => d.StockInId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("_Passports__FK");
             });
 
@@ -1739,6 +1745,20 @@ namespace App.Persistence.NModels
                 entity.Property(e => e.PassportTypeId).HasColumnName("PassportTypeID");
 
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
+
+                entity.Property(e => e.ToUserId).HasColumnName("ToUserID");
+
+                entity.HasOne(d => d.PassportDuration)
+                    .WithMany(p => p.StockIn)
+                    .HasForeignKey(d => d.PassportDurationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("stockin_fk_1");
+
+                entity.HasOne(d => d.PassportType)
+                    .WithMany(p => p.StockIn)
+                    .HasForeignKey(d => d.PassportTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("stockin_fk");
             });
 
             modelBuilder.Entity<SystemStatus>(entity =>

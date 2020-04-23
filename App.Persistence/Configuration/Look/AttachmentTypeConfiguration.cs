@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<AttachmentType> entity)
         {
-            entity.ToTable("AttachmentType", "Look");
+            entity.ToTable("AttachmentType", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

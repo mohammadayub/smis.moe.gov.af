@@ -17,6 +17,29 @@ namespace Clean.Common
                 return builder.Build();
             }
         }
+
+        public static string JWTSecret
+        {
+            get
+            {
+                return AppSettings["JWTSecret"];
+            }
+        }
+        public static double JWTExpireDays
+        {
+            get
+            {
+                return AppSettings.GetValue<Double>("JWTExpireDays");
+            }
+        }
+        public static string JWTIssuer
+        {
+            get
+            {
+                return AppSettings.GetValue<String>("JWTIssuer");
+            }
+        }
+
         public static string BaseConnectionString
         {
             get
@@ -134,20 +157,14 @@ namespace Clean.Common
             }
         }
 
-        public static string FiscalYearStart
+        public static string NationalCode
         {
             get
             {
-                return AppSettings["FiscalYearStart"];
+                return AppSettings["NationalCode"];
             }
         }
-        public static string FiscalYearEnd
-        {
-            get
-            {
-                return AppSettings["FiscalYearEnd"];
-            }
-        }
+        
 
         public static string AttachmentsPath
         {

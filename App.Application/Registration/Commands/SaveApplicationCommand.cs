@@ -220,7 +220,7 @@ namespace App.Application.Registration.Commands
                             StatusId = ProcessStatus.InProcess,
                             UserId = UserID,
                             ProcessId = SystemProcess.Registration,
-                            ReferedProcessId = SystemProcess.InitialProcess,
+                            ReferedProcessId = 0,
                             ToUserId = null
                         };
 

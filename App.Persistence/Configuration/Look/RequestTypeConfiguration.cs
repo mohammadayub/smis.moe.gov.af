@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<RequestType> entity)
         {
-            entity.ToTable("RequestType", "Look");
+            entity.ToTable("RequestType", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

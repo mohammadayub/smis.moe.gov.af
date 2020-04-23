@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<UserOfficePrinter> entity)
         {
-            entity.ToTable("UserOfficePrinter", "Look");
+            entity.ToTable("UserOfficePrinter", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

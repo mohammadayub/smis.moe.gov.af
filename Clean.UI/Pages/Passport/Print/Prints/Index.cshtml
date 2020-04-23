@@ -1,0 +1,172 @@
+﻿@page
+@model Clean.UI.Pages.Passport.Print.Prints.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MoFA :: Passport Preview</title>
+
+    <style>
+        @@font-face {
+            font-family: 'OcrB';
+            src: url('/assets/fonts/OCRB/OcrB_Regular.eot') format('eot'),
+            /* IE6–8 */ /* url('fonts/BRoya.woff') format('woff'),*/ /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url('/assets/fonts/OCRB/OcrB_Regular.ttf') format('truetype'); /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+        }
+    
+        .div-form-print {
+            background: #fff url("/assets/img/passport.jpg") 0px -22px /675px auto no-repeat;
+            border: 0 solid #aaa;
+            border-radius: 1px;
+            box-shadow: 0 0 2px #555;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            position: relative;
+            width: 675px;
+            height: 926px;
+        }
+
+        .english {
+            position: absolute;
+            text-transform: uppercase;
+            font-size: 18px;
+            font-family: 'OcrB';
+            letter-spacing: 3px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .dari {
+            position: absolute;
+            text-transform: uppercase;
+            font-size: 18px;
+            font-family: 'OcrB', 'tahoma';
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="form" class="div-form-print Print">
+
+        <span class="english" style="margin-left: 58px;font-size: 19px;margin-top: 35px;width: 235px;">
+            @Model.OfficeNameEn
+        </span>
+
+        <span class="dari" style="right:103px;margin-top: 30px;width: 238px; word-spacing:5px;">
+            @Model.OfficeName
+        </span>
+
+        <span class="english" style="margin-left:58px; margin-top:120px; width:250px;">
+            @Model.OccupationEn
+        </span>
+
+        <span class="dari" style="right:103px; margin-top:120px; width:250px;">
+            @Model.Occupation
+        </span>
+
+        <span class="english" style="margin-left:58px; margin-top:220px; width:250px;">
+            @Model.Height
+        </span>
+        <span class="english" style="margin-left:58px; margin-top:286px; width:250px;">
+            @Model.NIDSerial
+        </span>
+
+        <div style="position: absolute;margin-left: 370px;margin-top: 220px;width: 208px !important;height: 146px;">
+            <center>
+                <img style="max-height:140px; max-width:200px; margin-left:auto; margin-right:auto;" src="@Model.PersonSignature">
+            </center>
+        </div>
+
+        <div style="position: absolute;margin-top: 560px;margin-left: 12px;">
+            <img style="width:188px; height:245px;" src="@Model.PersonPhoto">
+        </div>
+
+        <span class="english" style="margin-left:213px; top:507px; width:200px;">
+            @Model.PassportType
+        </span>
+
+        <span class="english" style="left:325px; top:507px; width:200px;">
+            @Model.CountryCode
+        </span>
+
+        <span class="english" style="left:490px; top:507px; width:200px;">
+            @Model.PassportNumber
+        </span>
+
+        <span class="english" style="margin-left:213px; top:535px; width:280px;">
+            @Model.FamilyNameEn
+        </span>
+
+        <span class="english" style="margin-left:213px; top:574px; width:280px;">
+            @Model.NameEn
+        </span>
+
+        <span class="english" style="margin-left:213px; top:606px; width:200px;">
+            Afghan
+        </span>
+
+        <span class="english" style="margin-left:213px; top:641px; width:200px;">
+            @Model.DateOfBirth
+        </span>
+
+        <span class="english" style="margin-left:213px; top:671px; width:175px;">
+            @Model.BirthCountryEN
+        </span>
+
+        <span class="english" style="margin-left:213px; top:705px; width:175px;">
+            @Model.IssueDate
+        </span>
+
+        <span class="english" style="margin-left:213px; top:741px; width:175px;">
+            @Model.ExpiryDate
+        </span>
+
+        <span class="english" style="margin-left:400px; top:676px; width:175px;">
+            @Model.Gender
+        </span>
+
+        <span class="dari" style="right:25px;top: 531px;width: 200px;">
+            @Model.FamilyName
+        </span>
+
+        <span class="dari" style="right:25px;top: 565px;width: 200px;">
+            @Model.Name
+        </span>
+
+        <span class="dari" style="right:25px;top: 601px;width: 200px;">
+            افغان
+        </span>
+
+        <span class="dari" style="right:25px;top: 635px;width: 200px; direction:rtl; word-spacing:7px;">
+            @Model.DateOfBirthShamsi
+        </span>
+
+        <span class="dari" style="right:25px;top: 671px;width: 175px;">
+            @Model.BirthCountry
+        </span>
+
+        <span class="dari" style="right:25px;top: 703px;width: 200px; direction:rtl; word-spacing:7px;">
+            @Model.IssueDateShamsi
+        </span>
+
+        <span class="dari" style="right:25px;top: 738px;width: 200px; direction:rtl; word-spacing:7px;">
+            @Model.ExpiryDateShamsi
+        </span>
+
+        <span class="english" style="left:32px; bottom:65px; font-size:20px; letter-spacing :2px">
+            @Model.MRZLineOne
+        </span>
+        <span class="english" style="left:32px; bottom:35px; font-size:20px; letter-spacing:2px">
+            @Model.MRZLineTwo
+        </span>
+
+    </div>
+</body>
+</html>

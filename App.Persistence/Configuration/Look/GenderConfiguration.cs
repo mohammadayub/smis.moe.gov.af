@@ -11,11 +11,15 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Gender> entity)
         {
-            entity.ToTable("Gender", "Look");
+            entity.ToTable("Gender", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")
                 .UseIdentityAlwaysColumn();
+
+            entity.Property(e => e.Code)
+                .IsRequired()
+                .HasColumnType("character varying");
 
             entity.Property(e => e.Name)
                 .IsRequired()

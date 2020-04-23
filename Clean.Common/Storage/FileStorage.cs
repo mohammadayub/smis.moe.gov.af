@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Clean.Common.Storage
 {
@@ -15,6 +16,17 @@ namespace Clean.Common.Storage
             public string ToPath { get; set; }
             public string ErrorMsg { get; set; }
             public bool Success { get; set; }
+        }
+
+        public static async Task<string> GetFileContent(String Dir, String FileName)
+        {
+            FileStorage _storage = new FileStorage();
+            var filepath = Dir + FileName;
+            using System.IO.Stream filecontent = await _storage.GetAsync(filepath);
+            byte[] filebytes = new byte[filecontent.Length];
+            filecontent.Read(filebytes, 0, Convert.ToInt32(filecontent.Length));
+            String Result = "data:" + _storage.GetContentType(filepath) + ";base64," + Convert.ToBase64String(filebytes, Base64FormattingOptions.None);
+            return Result;
         }
 
         public async System.Threading.Tasks.Task<string> CreateAsync(Stream file, string fileextension, string path)

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace App.Application.Service
 {
-    public class ResearchQueueService : IHostedService
+    public class ResearchQueueService : BackgroundService
     {
         private ILogger<ResearchQueueService> Logger { get; set; }
         private AppDbContext Context { get; set; }
@@ -24,56 +24,6 @@ namespace App.Application.Service
             Logger = logger;
             Context = context;
             IdentityDbContext = appIdentityDb;
-        }
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            while (true)
-            {
-                try
-                {
-                    var Users = await IdentityDbContext.UserRoles
-                        .Where(e => e.Role.Name == SystemRoles.ResearchAndControl && e.User.Disabled == false)
-                        .Select(e => e.User).ToListAsync();
-                    var UIDs = Users.Select(e => e.Id);
-                    var UserOffices = Users.Select(e => new { e.Id, e.OfficeID });
-                    if (UIDs.Any())
-                    {
-                        var UFiles = Context.ResearchQueues.Where(e => e.Processed == false && UIDs.Contains(e.UserId)).GroupBy(e => e.UserId)
-                            .Select(e => new UserFiles { UserID = e.Key, FilesCount = e.Count() }).ToList(); ;
-
-                        UIDs.Where(e => !UFiles.Any(eF => eF.UserID == e)).ToList().ForEach(e => UFiles.Add(new UserFiles { UserID = e, FilesCount = 0 }));
-
-                        UFiles.ForEach(cur =>
-                        {
-                            var cr = UserOffices.Where(e => e.Id == cur.UserID).Single();
-                            cur.OfficeID = cr.OfficeID;
-                        });
-
-
-                        var NRecs = Context.ProcessTracking.AsNoTracking().Where(e => e.ToUserId == null && e.ProcessId == SystemProcess.ReasearchAndControl).ToList();
-                        foreach(var rec in NRecs)
-                        {
-                            try
-                            {
-                                var rid = (int)rec.RecordId;
-                                await ProcessRecordAsync(rid,rec.Id, UFiles);
-                            }
-                            catch(Exception ex)
-                            {
-                                Logger.LogError("App Exception : {0}", ex);
-                            }
-                        }
-                        Logger.LogInformation("Number Of Records Processed {0}",NRecs.Count);
-                    }
-
-                }
-                catch(Exception ex)
-                {
-                    Logger.LogError("App Exception : {0}",ex);
-                }
-
-                await Task.Delay(10000);
-            }
         }
 
         private async Task ProcessRecordAsync(int record,long trackid, List<UserFiles> UFiles)
@@ -101,9 +51,59 @@ namespace App.Application.Service
             }
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            return Task.CompletedTask;
+            while (true)
+            {
+                try
+                {
+                    var Users = await IdentityDbContext.UserRoles
+                        .Where(e => e.Role.Name == SystemRoles.ResearchAndControl && e.User.Disabled == false)
+                        .Select(e => e.User).ToListAsync();
+                    var UIDs = Users.Select(e => e.Id);
+                    var UserOffices = Users.Select(e => new { e.Id, e.OfficeID });
+                    if (UIDs.Any())
+                    {
+                        var UFiles = Context.ResearchQueues.Where(e => e.Processed == false && UIDs.Contains(e.UserId)).GroupBy(e => e.UserId)
+                            .Select(e => new UserFiles { UserID = e.Key, FilesCount = e.Count() }).ToList(); ;
+
+                        UIDs.Where(e => !UFiles.Any(eF => eF.UserID == e)).ToList().ForEach(e => UFiles.Add(new UserFiles { UserID = e, FilesCount = 0 }));
+
+                        UFiles.ForEach(cur =>
+                        {
+                            var cr = UserOffices.Where(e => e.Id == cur.UserID).Single();
+                            cur.OfficeID = cr.OfficeID;
+                        });
+
+
+                        var NRecs = Context.ProcessTracking.AsNoTracking()
+                            .Where(e => e.ToUserId == null && e.ProcessId == SystemProcess.ReasearchAndControl && e.StatusId == ProcessStatus.InProcess)
+                            .ToList();
+                        foreach (var rec in NRecs)
+                        {
+                            try
+                            {
+                                var rid = (int)rec.RecordId;
+                                await ProcessRecordAsync(rid, rec.Id, UFiles);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.LogError("App Exception : {0}", ex);
+                            }
+                        }
+                        Logger.LogInformation("Number Of Records Processed {0}", NRecs.Count);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError("App Exception : {0}", ex);
+                }
+
+                await Task.Delay(60000);
+            }
         }
 
         private class UserFiles

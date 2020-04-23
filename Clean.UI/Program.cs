@@ -34,6 +34,23 @@ namespace Clean.UI
                         var logger = opts.GetRequiredService<ILogger<ResearchQueueService>>();
                         return new ResearchQueueService(logger, context,idcontext);
                         
+                    }); 
+                    services.AddHostedService(opts =>
+                    {
+                        var scope = opts.CreateScope();
+                        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                        var idcontext = scope.ServiceProvider.GetRequiredService<AppIdentityDbContext>();
+                        var logger = opts.GetRequiredService<ILogger<AuthorizationQueueService>>();
+                        return new AuthorizationQueueService(logger, context, idcontext);
+
+                    });
+                    services.AddHostedService(opts =>
+                    {
+                        var scope = opts.CreateScope();
+                        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                        var idcontext = scope.ServiceProvider.GetRequiredService<AppIdentityDbContext>();
+                        var logger = opts.GetRequiredService<ILogger<PrintQueueService>>();
+                        return new PrintQueueService(logger, context, idcontext);
                     });
                 });
     }

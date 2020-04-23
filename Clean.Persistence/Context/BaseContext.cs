@@ -60,7 +60,8 @@ namespace Clean.Persistence.Context
             {
 
                 List<AuditEntry> AuditEntries = new List<AuditEntry>();
-                var User = await UserManager.FindByNameAsync(ContextHelper.Current.User.Identity.Name);
+                var User = await UserManager.GetUserAsync(ContextHelper.Current.User);
+                //var User = await UserManager.FindByNameAsync(ContextHelper.Current.User.Identity.Name);
                 AuditEntries = OnBeforeSaveChanges(User.Id);
                 var result = await base.SaveChangesAsync(cancellationToken);
                 await OnAfterSaveChanges(AuditEntries);
@@ -164,7 +165,7 @@ namespace Clean.Persistence.Context
                 Audits.Add(auditEntry.ToAudit());
             }
 
-            return SaveChangesAsync();
+            return base.SaveChangesAsync();
         }
 
         #endregion AuditionSettig

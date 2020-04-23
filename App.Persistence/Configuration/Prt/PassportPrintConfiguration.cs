@@ -17,13 +17,7 @@ namespace App.Persistence.Configuration.Prt
                 .HasColumnName("ID")
                 .UseIdentityAlwaysColumn();
 
-            entity.Property(e => e.CreatedBy)
-                .IsRequired()
-                .HasColumnType("character varying");
-
-            entity.Property(e => e.CreatedOn)
-                .IsRequired()
-                .HasColumnType("character varying");
+            entity.Property(e => e.CreatedOn).HasColumnType("timestamp(0) with time zone");
 
             entity.Property(e => e.PassportId).HasColumnName("PassportID");
 

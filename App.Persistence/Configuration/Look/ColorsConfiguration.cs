@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Color> entity)
         {
-            entity.ToTable("Color", "Look");
+            entity.ToTable("Color", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

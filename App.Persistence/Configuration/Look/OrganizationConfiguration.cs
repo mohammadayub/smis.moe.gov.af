@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Organization> entity)
         {
-            entity.ToTable("Organization", "Look");
+            entity.ToTable("Organization", "look");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<PaymentMethod> entity)
         {
-            entity.ToTable("PaymentMethod", "Look");
+            entity.ToTable("PaymentMethod", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

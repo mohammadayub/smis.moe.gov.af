@@ -12,7 +12,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<Country> entity)
         {
-            entity.ToTable("Country", "Look");
+            entity.ToTable("Country", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")
@@ -25,6 +25,11 @@ namespace App.Persistence.Configuration.Look
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasColumnType("character varying");
+
+            entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnName("TitleEN")
+                    .HasColumnType("character varying");
         }
     }
 }

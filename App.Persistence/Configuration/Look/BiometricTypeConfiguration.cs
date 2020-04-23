@@ -11,7 +11,7 @@ namespace App.Persistence.Configuration.Look
     {
         public void Configure(EntityTypeBuilder<BiometricType> entity)
         {
-            entity.ToTable("BiometricType", "Look");
+            entity.ToTable("BiometricType", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")

@@ -17,7 +17,7 @@ namespace Clean.Application.ProcessTrackings.Models
     
     public class SearchProcessTrackQuery : IRequest<List<SearchedProcessTracks>>
     {
-        public int RecordId { get; set; }
+        public long RecordId { get; set; }
         public int? ModuleId { get; set; }
     }
 

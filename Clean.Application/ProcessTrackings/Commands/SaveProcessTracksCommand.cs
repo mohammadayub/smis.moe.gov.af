@@ -19,10 +19,10 @@ namespace Clean.Application.ProcessTrackings.Commands
 {
     public class SaveProcessTracksCommand : IRequest<List<SearchedProcessTracks>>
     {
-        public int? Id { get; set; }
-        public int RecordId { get; set; }
+        public long? Id { get; set; }
+        public long RecordId { get; set; }
         public int? ProcessId { get; set; }
-        public short ReferedProcessId { get; set; }
+        public int ReferedProcessId { get; set; }
         public short StatusId { get; set; }
         public string Remarks { get; set; }
         public int? ModuleId { get; set; }
@@ -80,10 +80,10 @@ namespace Clean.Application.ProcessTrackings.Commands
                         track.ReferedProcessId = request.ReferedProcessId;
 
                         // find the refered and previous process id sorter to check for approve and reject
-                        string ProcessSorter = Context.Process.Where(e => e.Id == track.ProcessId).SingleOrDefault().Sorter;
-                        string ReferedProcessSorter = Context.Process.Where(e => e.Id == request.ReferedProcessId).SingleOrDefault().Sorter;
+                        int ProcessSorter = Convert.ToInt32(Context.Process.Where(e => e.Id == track.ProcessId).SingleOrDefault().Sorter);
+                        int ReferedProcessSorter = Convert.ToInt32(Context.Process.Where(e => e.Id == request.ReferedProcessId).SingleOrDefault().Sorter);
 
-                        track.StatusId = (ReferedProcessSorter.CompareTo(ProcessSorter) > 1) ? ProcessStatus.Rejected : ProcessStatus.Processed; // 102 rad shuda. 4 Tayeed shuda. Check se.Status
+                        track.StatusId = (ReferedProcessSorter < ProcessSorter) ? ProcessStatus.Rejected : ProcessStatus.Processed; // 102 rad shuda. 4 Tayeed shuda. Check se.Status
 
                         // find next or previouse ModuleId from referedProcessId
                         int? ModuleID;

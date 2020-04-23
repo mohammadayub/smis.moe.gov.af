@@ -14,6 +14,7 @@ namespace App.Application.Registration.Queries
     public class SearchAddressQuery : IRequest<List<SearchAddressModel>>
     {
         public int? ID { get; set; }
+        public int? ProfileID { get; set; }
     }
 
     public class SearchAddressQueryHandler : IRequestHandler<SearchAddressQuery, List<SearchAddressModel>>
@@ -34,6 +35,13 @@ namespace App.Application.Registration.Queries
             if(request.ID.HasValue)
             {
                 query = query.Where(e => e.Id == request.ID);
+            }
+            else
+            {
+                if (request.ProfileID.HasValue)
+                {
+                    query = query.Where(e => e.ProfileId == request.ProfileID);
+                }
             }
 
             return await query.Select(e => new SearchAddressModel

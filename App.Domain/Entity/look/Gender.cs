@@ -13,6 +13,7 @@ namespace App.Domain.Entity.look
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
 
         public virtual ICollection<Profile> Profile { get; set; }
     }

@@ -8,6 +8,7 @@ namespace App.Application.Lookup.Models
     {
         public int ID { get; set; }
         public string Title { get; set; }
+        public string TitleLocal { get; set; }
         public string Code { get; set; }
     }
 }

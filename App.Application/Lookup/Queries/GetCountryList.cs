@@ -39,7 +39,8 @@ namespace App.Application.Lookup.Queries
             return await query.Select(e => new CountryModel
             {
                 ID = e.Id,
-                Title = e.Title,
+                Title = e.TitleEn,
+                TitleLocal = e.Title,
                 Code = e.Code
             }).ToListAsync();
         }

@@ -44,7 +44,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<Country>(entity =>
             {
-                entity.ToTable("Country", "Look");
+                entity.ToTable("Country", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -57,11 +57,16 @@ namespace Clean.Persistence.Identity
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("character varying");
+
+                entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnName("TitleEN")
+                    .HasColumnType("character varying");
             });
 
             builder.Entity<Province>(entity =>
             {
-                entity.ToTable("Province", "Look");
+                entity.ToTable("Province", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -86,7 +91,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<Currency>(entity =>
             {
-                entity.ToTable("Currency", "Look");
+                entity.ToTable("Currency", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -108,7 +113,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<Office>(entity =>
             {
-                entity.ToTable("Office", "Look");
+                entity.ToTable("Office", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -118,17 +123,24 @@ namespace Clean.Persistence.Identity
                     .IsRequired()
                     .HasMaxLength(5);
 
-                entity.Property(e => e.OfficeTypeId).HasColumnName("OfficeTypeID");
-
-                entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
-
                 entity.Property(e => e.CountryId).HasColumnName("CountryID");
+
+                entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
+
+                entity.Property(e => e.OfficeTypeId).HasColumnName("OfficeTypeID");
+                entity.Property(e => e.OrganizationId).HasColumnName("OrganizationID");
 
                 entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(500);
+
+                entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnName("TitleEN")
+                    .HasColumnType("character varying");
+
             });
 
 
@@ -215,7 +227,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<Module>(entity =>
             {
-                entity.ToTable("Module", "Look");
+                entity.ToTable("Module", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -232,7 +244,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<Screen>(entity =>
             {
-                entity.ToTable("Screen", "Look");
+                entity.ToTable("Screen", "look");
 
                 entity.HasIndex(e => e.ModuleId);
 
@@ -276,7 +288,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<RoleScreen>(entity =>
             {
-                entity.ToTable("RoleScreen", "Look");
+                entity.ToTable("RoleScreen", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -295,7 +307,7 @@ namespace Clean.Persistence.Identity
 
             builder.Entity<Organization>(ent =>
             {
-                ent.ToTable("Organization", "Look");
+                ent.ToTable("Organization", "look");
             });
 
 

@@ -9,6 +9,7 @@ namespace App.Persistence.NModels
         {
             PassportApplication = new HashSet<PassportApplication>();
             PaymentConfig = new HashSet<PaymentConfig>();
+            StockIn = new HashSet<StockIn>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace App.Persistence.NModels
         public virtual PassportType PassportType { get; set; }
         public virtual ICollection<PassportApplication> PassportApplication { get; set; }
         public virtual ICollection<PaymentConfig> PaymentConfig { get; set; }
+        public virtual ICollection<StockIn> StockIn { get; set; }
     }
 }

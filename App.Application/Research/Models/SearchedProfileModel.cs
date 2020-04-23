@@ -6,7 +6,9 @@ namespace App.Application.Research.Models
 {
     public class SearchedProfileModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public int ProfileID { get; set; }
+        public int ApplicationID { get; set; }
         public string Code { get; set; }
         public string ProfileCode { get; set; }
         public int MaritalStatusId { get; set; }

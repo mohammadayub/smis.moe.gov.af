@@ -78,6 +78,8 @@ namespace Clean.Common.Service
             }
 
         }
+
+
         public static string GetTazkiraNumber(String JSON, String Type)
         {
             if (!string.IsNullOrEmpty(JSON))

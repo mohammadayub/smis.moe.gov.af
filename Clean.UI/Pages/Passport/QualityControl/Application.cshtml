@@ -1,0 +1,208 @@
+﻿@page "{handler?}/{id?}"
+@model Clean.UI.Pages.Passport.QualityControl.ApplicationModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewData["Title"] = "Application";
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+<div class="panel panel-flat" style="direction: rtl;">
+    <div class="panel-heading">
+        <h1 class="panel-title">@_localizer["ثبت درخواستی متقاضی"]</h1>
+    </div>
+    <div class="panel-body">
+
+        <form id="dv_Passport_QualityControl_Application" class="form sub-form page-component read-only" type="form" parent="dv_Passport_QualityControl_Index" parentcol="PassportPrintId" prefix="uxa" hasprocess="true">
+            <input id="uxapageid" type="hidden" static="true" asp-for="@Model.ScreenIDEncrypted" />
+            <fieldset class="content-group">
+                <legend>@_localizer["جهت ثبت درخواستی متقاضی از این بخش استفاده نمایید"]</legend>
+                <div class="row">
+                    <div class="col-lg-8 pull-right">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نوعیت پاسپورت"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxapassporttypeid" name="uxaPassportTypeID" child="uxapassportdurationid" asp-items="@Model.ListOfPassportType" class="select calc" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["مدت اعتبار پاسپورت"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxapassportdurationid" name="uxaPassportDurationID" data-type="PassportDuration" class="select calc" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["بخش پرداخت"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxapaymentcategoryid" name="uxaPaymentCategoryID" asp-items="@Model.ListOfPaymentCategory" class="select calc" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["تخفیف پرداخت"]
+                                    </label>
+                                    <select id="uxadiscountid" name="uxaDiscountID" asp-items="@Model.ListOfDiscount" class="select calc">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["جریمه"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxapaymentpenaltyid" name="uxaPaymentPenaltyID" asp-items="@Model.ListOfPaymentPenalty" class="select calc" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نوع درخواست"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxarequesttypeid" name="uxaRequestTypeID" asp-items="@Model.ListOfRequestType" class="select" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["نوع پرداخت"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxapaymentmethodid" name="uxaPaymentMethodID" class="select" required>
+                                        <option></option>
+                                        @foreach (var item in Model.PaymentMethodsList)
+                                        {
+                                            <option value="@item.ID" data-hasReciept="@item.HasReceipt">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["بانک"]
+                                        <span class="text-danger">&nbsp;*</span>
+                                    </label>
+                                    <select id="uxabankid" name="uxaBankID" asp-items="@Model.ListOfBanks" class="select" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["تاریخ پرداخت شمسی"]
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                        <input type="text" id="uxapaymentdateshamsi" name="uxaPaymentDateShamsi" class="form-control Shamsi" sibling="uxapaymentdate" placeholder="@_localizer["تارخ پرداخت شمسی"]" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                                <div class="form-group">
+                                    <label class="text-bold">
+                                        @_localizer["تاریخ پرداخت"]
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                        <input type="text" id="uxapaymentdate" name="uxaPaymentDate" class="form-control Miladi" sibling="uxapaymentdateshamsi" placeholder="@_localizer["تاریخ پرداخت میلادی"]" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 pull-right">
+                        <div id="uxaPhoto" class="img-uploader" data-ref="uxaphotopath" data-type="photo" style="width:190px;height:210px;">
+                        </div>
+                        <input type="hidden" class="output" id="uxaphotopath" />
+                    </div>
+                    <div class="col-lg-2 pull-right">
+                        <div id="uxaSignature" class="img-uploader" data-ref="uxasignaturepath" data-type="signature" style="width:190px;height:210px;">
+                        </div>
+                        <input type="hidden" class="output" id="uxasignaturepath" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["مقدار پرداخت"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="number" id="uxapaidamount" name="uxaPaidAmount" class="form-control" readonly required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["نمبر بل"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxareceiptnumer" name="uxaReceiptNumer" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            <hr />
+            <div class="row div-form-control">
+                <div class="col-md-12">
+                    <div class="form-group actions">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid main-form-details">
+                <table style="direction:rtl" bindonclick="true">
+                    <thead>
+                        <tr>
+                            <th colname="PassportType">@_localizer["نوعیت"]</th>
+                            <th colname="PassportDuration">@_localizer["مدت اعتباد"]</th>
+                            <th colname="PaymentCategory">@_localizer["بخش پرداخت"]</th>
+                            <th colname="PaymentPenalty">@_localizer["جریمه"]</th>
+                            <th colname="PaymentDateShamsi">@_localizer["تاریخ پرداخت"]</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -496,5 +496,20 @@ namespace Clean.Common.Dates
                 .Replace("9", "۹");
             return persianDate;
         }
+
+        public static string ToPassportFormat(DateTime? gregorianDate)
+        {
+            if (gregorianDate.HasValue)
+            {
+                var pDate = PersianDate.Convert(gregorianDate.Value);
+
+                return String.Concat(pDate.Day.ToString().PadLeft(2,'0') ," ", pDate.MonthString," ",pDate.Year);
+
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

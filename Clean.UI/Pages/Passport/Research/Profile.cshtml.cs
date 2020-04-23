@@ -21,10 +21,6 @@ namespace Clean.UI.Pages.Passport.Research
     [Authorize(Roles ="Administrator,Research")]
     public class ProfileModel : BasePage
     {
-        public string SubScreens { get; set; }
-        private string htmlTemplate = @"
-                         <li><a href='#' data='$id' page='$path' class='sidebar-items' action='subscreen'><i class='$icon'></i>$title</a></li>";
-
         public async Task OnGetAsync()
         {
             ListOfGenders = new List<SelectListItem>();

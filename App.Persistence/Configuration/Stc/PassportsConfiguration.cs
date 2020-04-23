@@ -21,7 +21,9 @@ namespace App.Persistence.Configuration.Stc
 
             entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
 
-            entity.Property(e => e.PassportNumber).HasColumnType("character varying");
+            entity.Property(e => e.PassportNumber)
+                .IsRequired()
+                .HasColumnType("character varying");
 
             entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
@@ -32,6 +34,7 @@ namespace App.Persistence.Configuration.Stc
             entity.HasOne(d => d.StockIn)
                 .WithMany(p => p.Passports)
                 .HasForeignKey(d => d.StockInId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("_Passports__FK");
         }
     }

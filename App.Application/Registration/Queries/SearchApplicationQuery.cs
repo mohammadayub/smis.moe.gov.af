@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace App.Application.Registration.Queries
 {
+    
     public class SearchApplicationQuery : IRequest<List<PassportApplicationModel>>
     {
         public int? ID { get; set; }

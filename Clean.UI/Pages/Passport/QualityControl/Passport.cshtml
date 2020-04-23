@@ -1,0 +1,92 @@
+﻿@page "{handler?}/{id?}"
+@model Clean.UI.Pages.Passport.QualityControl.PassportModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewData["Title"] = "Passport";
+    Layout = null;
+}
+<div class="panel panel-flat" style="direction: rtl;">
+    <div class="panel-heading">
+        <h1 class="panel-title">@_localizer["ثبت پاسپورت"]</h1>
+    </div>
+    <div class="panel-body">
+        <form id="dv_Passport_QualityControl_Passport" class="form sub-form page-component" type="form" parent="dv_Passport_QualityControl_Index" parentcol="ID" prefix="uxp">
+            <fieldset class="content-group">
+                <legend>@_localizer["جهت اختصاص پاسپورت برای درخواستی از این بخش استفاده نمایید"]</legend>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["شماره‌ی پاسپورت"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxppassportnumber" name="uxpPassportNumber" class="form-control" readonly required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["تاریخ صدور"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxpissuedateshamsi" name="uxpIssueDateShamsi" class="form-control" readonly required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["تاریخ انقضا"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxpexpirydateshamsi" name="uxpExpiryDateShamsi" class="form-control" readonly required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["تاریخ صدور"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxpissuedate" name="uxpIssueDate" class="form-control" readonly required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["تاریخ انقضا"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input type="text" id="uxpexpirydate" name="uxpExpiryDate" class="form-control" readonly required />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <hr />
+            <div class="row div-form-control">
+                <div class="col-md-12">
+                    <div class="form-group actions">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid main-form-details">
+                <table style="direction:rtl" bindonclick="true">
+                    <thead>
+                        <tr>
+                            <th colname="PassportNumber">@_localizer["نمبر پاسپورت"]</th>
+                            <th colname="ExpiryDateShamsi">@_localizer["تاریخ انقضا"]</th>
+                            <th colname="IssueDateShamsi">@_localizer["تاریخ صدور"]</th>
+                            <th colname="Status">@_localizer["حالت"]</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>

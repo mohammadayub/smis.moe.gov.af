@@ -9,6 +9,6 @@ namespace App.Persistence.Service
     public interface IProcessChangeListener
     {
         public int ModuleID { get; set; }
-        public Task ProcessChangedAsync(int RecordID,int ToProcess,int FromProcess,BaseContext baseContext);
+        public Task ProcessChangedAsync(long RecordID,int ToProcess,int FromProcess,BaseContext baseContext);
     }
 }

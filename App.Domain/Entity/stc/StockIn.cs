@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.Domain.Entity.pas;
+using System;
 using System.Collections.Generic;
 
 namespace App.Domain.Entity.stc
@@ -11,17 +12,21 @@ namespace App.Domain.Entity.stc
         }
 
         public int Id { get; set; }
-        public int? PassportTypeId { get; set; }
-        public int? PassportDurationId { get; set; }
-        public int? StartSerial { get; set; }
-        public int? EndSerial { get; set; }
-        public int? PassportCount { get; set; }
-        public int? StatusId { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public int? CreatedBy { get; set; }
+        public int PassportTypeId { get; set; }
+        public int PassportDurationId { get; set; }
+        public int StartSerial { get; set; }
+        public int EndSerial { get; set; }
+        public int PassportCount { get; set; }
+        public int StatusId { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public int CreatedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public int? ModifiedBy { get; set; }
+        public int ToUserId { get; set; }
+        public int UsedCount { get; set; }
 
+        public virtual PassportDuration PassportDuration { get; set; }
+        public virtual PassportType PassportType { get; set; }
         public virtual ICollection<Passports> Passports { get; set; }
     }
 }

@@ -1,0 +1,644 @@
+﻿@page "{handler?}"
+@model Clean.UI.Pages.Passport.Print.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="panel panel-flat" style="direction: rtl;">
+    @Html.AntiForgeryToken()
+    <div class="panel-heading">
+        <h1 class="panel-title">@_localizer["درخواستی پاسپورت"]</h1>
+    </div>
+    <div class="panel-body" style="padding-bottom:5px;">
+        <form id="dv_Passport_Print_Index" class="form main-form page-component read-only" type="form" prefix="ux">
+            <fieldset class="content-group">
+                <legend class="text-bold">@_localizer["مشخصات شخص را وارد کنید"] </legend>
+                <input type="hidden" id="uxbid" />
+                <div class="row">
+                    <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["کود درخواست"]
+                            </label>
+                            <input id="uxcode" name="uxCode" type="text" class="form-control no-disabled search" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["کود شخص"]
+                            </label>
+                            <input id="uxprofilecode" name="uxProfileCode" type="text" class="form-control no-disabled search" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["عنوان"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <select id="uxtitleid" name="uxTitleId" class="select" asp-items="@Model.ListOfTitles" required>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["نام"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxname" name="uxName" type="text" class="form-control no-disabled search" lang="ps" required />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["تخلص"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxfamilyname" name="uxFamilyName" type="text" class="form-control no-disabled search" lang="ps" required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["نام پدر"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxfathername" name="uxFatherName" type="text" class="form-control no-disabled " lang="ps" required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["نام پدرکلان"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxgrandfathername" name="uxGrandFatherName" type="text" class="form-control no-disabled " lang="ps" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["نام (انگلیسی)"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxnameen" name="uxNameEN" type="text" class="form-control no-disabled search" lang="en" uppercase required />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["تخلص (انگلیسی)"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxfamilynameen" name="uxFamilyNameEN" type="text" class="form-control no-disabled search" lang="en" uppercase required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["نام پدر (انگلیسی)"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxfathernameen" name="uxFatherNameEN" type="text" class="form-control no-disabled " lang="en" uppercase required />
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["نام پدرکلان (انگلیسی)"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxgrandfathernameen" name="uxGrandFatherNameEN" type="text" class="form-control no-disabled " lang="en" uppercase required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["تاریخ تولد شمسی"]
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                <input type="text" id="uxdobshamsi" name="uxDobShamsi" class="form-control Shamsi" sibling="uxdateofbirth" placeholder="@_localizer["تارخ تولد شمسی"]" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label class="text-bold">
+                                @_localizer["تاریخ تولد"]
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                <input type="text" id="uxdateofbirth" name="uxDateOfBirth" class="form-control Miladi" sibling="uxdobshamsi" placeholder="@_localizer["تاریخ تولد میلادی"]" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["ایمیل"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxemail" name="uxFirstName" type="text" class="form-control search" required />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group has-feedback has-feedback-left">
+                            <label class="text-bold">
+                                @_localizer["نمبر تلفن"]
+                                <span class="text-danger">&nbsp;*</span>
+                            </label>
+                            <input id="uxphonenumber" name="uxPhoneNumber" type="text" class="form-control search" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-form-details">
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["جنسیت"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxgenderid" name="uxGenderId" class="select" asp-items="@Model.ListOfGenders" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["حالت مدنی"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxmaritalstatusid" name="uxMaritalStatusId" class="select" asp-items="@Model.ListOfMaritalStatus" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["قد"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input id="uxheight" name="uxHeight" type="text" class="form-control" required />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["رنگ موی"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxhaircolorid" name="uxHairColorID" class="select" asp-items="@Model.ListOfHairColors" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["رنگ چشم"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxeyecolorid" name="uxEyeColorID" class="select" asp-items="@Model.ListOfEyeColors" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["جزئیات دیگر"]
+                                </label>
+                                <input id="uxotherdetail" name="uxOtherDetail" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row nid-row">
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right national-id">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["نوع تذکره"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxdocumenttypeid" name="uxdocumenttypeid" asp-items="@Model.ListOfDocumentTypes" class="select" required>
+                                    <option></option>
+                                </select>
+                                <input type="hidden" id="uxnid" class="national-id-input" sibling="uxdocumenttypeid" name="uxnid" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["محل زندگی (کشور)"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxresidencecountryid" name="uxResidenceCountryID" asp-items="@Model.ListOfCountry" class="select" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["تابعیت دیگر"]
+                                </label>
+                                <select id="uxothernationalityid" name="uxOtherNationalityID" asp-items="@Model.ListOfCountry" class="select">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["محل تولد (کشور)"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxbirthcountryid" name="uxBirthCountryID" child="uxbirthprovinceid" asp-items="@Model.ListOfCountry" class="select" required>
+                                    <option></option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["محل تولد (ولایت)"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxbirthprovinceid" name="uxBirthProvinceID" data-type="Province" class="select" required>
+                                    <option></option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <hr />
+            <div class="row div-form-control main-form-details">
+                <div class="col-md-12">
+                    <div class="form-group actions">
+                        <button type="button" class="btn btn-primary" action="search"><i class="icon-search4 position-right"></i>@_localizer["جستجو"] </button>
+                        <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-right"></i>@_localizer["صفحه جدید"]</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-grid main-form-details">
+                <table style="direction: rtl;" bindonclick="true">
+                    <thead>
+                        <tr>
+                            <th colname="code">@_localizer["کود"]</th>
+                            <th colname="name">@_localizer["نام"]</th>
+                            <th colname="familyname">@_localizer["تخلص"]</th>
+                            <th colname="fathername">@_localizer["نام پدر"]</th>
+                            <th colname="grandfathername">@_localizer["نام پدر کلان"]</th>
+                            <th colname="gendertext">@_localizer["جنسیت"]</th>
+                            <th colname="ResidenceCountryText">@_localizer["محل زندگی"]</th>
+                            <th colname="DobShamsi">@_localizer["تاریخ تولد"]</th>
+                            <th colname="birthcountrytext">@_localizer["کشور"]</th>
+                            <th colname="birthprovincetext">@_localizer["ولایت"]</th>
+                            <th colname="nidtext">@_localizer["سند هویت"]</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="dependent-screens">
+
+    <div class="panel panel-flat" style="direction: rtl;">
+        <div class="panel-heading">
+            <h1 class="panel-title">@_localizer["ثبت درخواستی متقاضی"]</h1>
+        </div>
+        <div class="panel-body">
+
+            <form id="dv_Passport_Print_Application" class="form sub-form page-component read-only" type="form" parent="dv_Passport_Print_Index" parentcol="PrintQueueID" prefix="uxa" hasprocess="true">
+                <input id="uxapageid" type="hidden" static="true" asp-for="@Model.ScreenIDEncrypted" />
+                <fieldset class="content-group">
+                    <legend>@_localizer["جهت ثبت درخواستی متقاضی از این بخش استفاده نمایید"]</legend>
+                    <div class="row">
+                        <div class="col-lg-8 pull-right">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["نوعیت پاسپورت"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxapassporttypeid" name="uxaPassportTypeID" child="uxapassportdurationid" asp-items="@Model.ListOfPassportType" class="select calc" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["مدت اعتبار پاسپورت"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxapassportdurationid" name="uxaPassportDurationID" data-type="PassportDuration" class="select calc" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["بخش پرداخت"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxapaymentcategoryid" name="uxaPaymentCategoryID" asp-items="@Model.ListOfPaymentCategory" class="select calc" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["تخفیف پرداخت"]
+                                        </label>
+                                        <select id="uxadiscountid" name="uxaDiscountID" asp-items="@Model.ListOfDiscount" class="select calc">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["جریمه"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxapaymentpenaltyid" name="uxaPaymentPenaltyID" asp-items="@Model.ListOfPaymentPenalty" class="select calc" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["نوع درخواست"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxarequesttypeid" name="uxaRequestTypeID" asp-items="@Model.ListOfRequestType" class="select" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["نوع پرداخت"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxapaymentmethodid" name="uxaPaymentMethodID" class="select" required>
+                                            <option></option>
+                                            @foreach (var item in Model.PaymentMethodsList)
+                                            {
+                                                <option value="@item.ID" data-hasReciept="@item.HasReceipt">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["بانک"]
+                                            <span class="text-danger">&nbsp;*</span>
+                                        </label>
+                                        <select id="uxabankid" name="uxaBankID" asp-items="@Model.ListOfBanks" class="select" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["تاریخ پرداخت شمسی"]
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                            <input type="text" id="uxapaymentdateshamsi" name="uxaPaymentDateShamsi" class="form-control Shamsi" sibling="uxapaymentdate" placeholder="@_localizer["تارخ پرداخت شمسی"]" required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                                    <div class="form-group">
+                                        <label class="text-bold">
+                                            @_localizer["تاریخ پرداخت"]
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                                            <input type="text" id="uxapaymentdate" name="uxaPaymentDate" class="form-control Miladi" sibling="uxapaymentdateshamsi" placeholder="@_localizer["تاریخ پرداخت میلادی"]" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 pull-right">
+                            <div id="uxaPhoto" class="img-uploader" data-ref="uxaphotopath" data-type="photo" style="width:190px;height:210px;">
+                            </div>
+                            <input type="hidden" class="output" id="uxaphotopath" />
+                        </div>
+                        <div class="col-lg-2 pull-right">
+                            <div id="uxaSignature" class="img-uploader" data-ref="uxasignaturepath" data-type="signature" style="width:190px;height:210px;">
+                            </div>
+                            <input type="hidden" class="output" id="uxasignaturepath" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["مقدار پرداخت"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="number" id="uxapaidamount" name="uxaPaidAmount" class="form-control" readonly required />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["نمبر بل"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxareceiptnumer" name="uxaReceiptNumer" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+                <hr />
+                <div class="row div-form-control">
+                    <div class="col-md-12">
+                        <div class="form-group actions">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid main-form-details">
+                    <table style="direction:rtl" bindonclick="true">
+                        <thead>
+                            <tr>
+                                <th colname="PassportType">@_localizer["نوعیت"]</th>
+                                <th colname="PassportDuration">@_localizer["مدت اعتباد"]</th>
+                                <th colname="PaymentCategory">@_localizer["بخش پرداخت"]</th>
+                                <th colname="PaymentPenalty">@_localizer["جریمه"]</th>
+                                <th colname="PaymentDateShamsi">@_localizer["تاریخ پرداخت"]</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div class="panel panel-flat" style="direction: rtl;">
+        <div class="panel-heading">
+            <h1 class="panel-title">@_localizer["ثبت پاسپورت"]</h1>
+        </div>
+        <div class="panel-body">
+
+            <form id="dv_Passport_Print_AssignPassport" class="form sub-form page-component" type="form" parent="dv_Passport_Print_Index" attach-parent="1" parentcol="PrintQueueID" prefix="uxp">
+                <fieldset class="content-group">
+                    <legend>@_localizer["جهت اختصاص پاسپورت برای درخواستی از این بخش استفاده نمایید"]</legend>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["شماره‌ی پاسپورت"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxppassportnumber" name="uxpPassportNumber" class="form-control" readonly required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["تاریخ صدور"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxpissuedateshamsi" name="uxpIssueDateShamsi" class="form-control" readonly required />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["تاریخ انقضا"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxpexpirydateshamsi" name="uxpExpiryDateShamsi" class="form-control" readonly required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["تاریخ صدور"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxpissuedate" name="uxpIssueDate" class="form-control" readonly required />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["تاریخ انقضا"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <input type="text" id="uxpexpirydate" name="uxpExpiryDate" class="form-control" readonly required />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <hr />
+                <div class="row div-form-control">
+                    <div class="col-md-12">
+                        <div class="form-group actions">
+                            <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>@_localizer["ثبت معلومات"]</button>
+                            <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>@_localizer["صفحه جدید"]</button>
+                            <button type="button" action="print" class="btn btn-primary pull-left"><i class="icon-new-tab position-right"></i>@_localizer["مشاهده پاسپورت"]</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid main-form-details">
+                    <table style="direction:rtl" bindonclick="true">
+                        <thead>
+                            <tr>
+                                <th colname="PassportNumber">@_localizer["نمبر پاسپورت"]</th>
+                                <th colname="ExpiryDateShamsi">@_localizer["تاریخ انقضا"]</th>
+                                <th colname="IssueDateShamsi">@_localizer["تاریخ صدور"]</th>
+                                <th colname="Status">@_localizer["حالت"]</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>

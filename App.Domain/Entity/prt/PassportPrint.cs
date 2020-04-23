@@ -18,8 +18,8 @@ namespace App.Domain.Entity.prt
         public DateTime PrintedDate { get; set; }
         public DateTime ValidTo { get; set; }
         public int StatusId { get; set; }
-        public string CreatedBy { get; set; }
-        public string CreatedOn { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public virtual Passports Passport { get; set; }
         public virtual PrintQueue PrintQueue { get; set; }

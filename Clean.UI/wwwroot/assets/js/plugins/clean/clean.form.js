@@ -62,6 +62,11 @@ var clean = window.clean = window.clean || {};
 
             if (!clean.isEmpty(self.OnInit))
                 clean.invoke(self.OnInit, self);
+
+            if (self.el.hasClass("read-only")) {
+                self.el.find(':text, :radio, :checkbox, input:hidden, select, textarea').not('.no-disabled').attr('disabled', 'disabled');
+                self.el.find('.cropControls').remove();
+            }
         },
         getactions: function () {
             var self = this;
@@ -461,6 +466,9 @@ var clean = window.clean = window.clean || {};
         },
         fetch: function (r) {
             var self = this;
+            if (self.el.hasClass('sub-form') && Number(self.el.attr('attach-parent')) == 1) {
+                r.record[self.el.attr('parentcol')] = self.parent.record.id;
+            }
             self.search(r);
         },
         bindtoform: function (d) {
@@ -555,9 +563,10 @@ var clean = window.clean = window.clean || {};
                     self.page.loadsubscreens(cur.path,cur.id);
                 });
 
-                //var formname = self.el.attr('subform');
-                //var id = self.el.attr('subform-id');
-                //self.page.loadsubscreen(formname, id);
+                var container = $('body');
+                $('html,body').animate({
+                    scrollTop: self.el.offset().top - container.offset().top + container.scrollTop() - 140
+                });
             }
 
             // Bind the toprocessrecordid. ADDED
@@ -585,6 +594,11 @@ var clean = window.clean = window.clean || {};
             if ($('.viewonly').length) {
                 self.el.find(':text, :radio, :checkbox, input:hidden, select, textarea').not('.no-disabled').attr('disabled', 'disabled');
                 $('.cropControls').remove();
+            }
+            if (self.el.hasClass('read-only')) {
+                window.setTimeout(function () {
+                    self.el.find('.cropControls').remove();
+                }, 300);
             }
         },
         clearGrid: function () {
@@ -1458,7 +1472,7 @@ var clean = window.clean = window.clean || {};
 
             58: { ps: ':', dr: ':', en: ':' },
             59: { ps: ':', dr: ':', en: ':' },
-            222: { ps: '؛', dr: '؛', en: '"' },
+            222: { ps: 'گ', dr: '؛', en: '"' },
 
             188: { ps: '،', dr: '>', en: '<' },
             62: { ps: '،', dr: '>', en: '<' },
@@ -1477,17 +1491,20 @@ var clean = window.clean = window.clean || {};
             if (self.IgnoreKeys.hasOwnProperty(charCode)) {
                 return true;
             }
+            else if (e.ctrlKey) {
+                return true;
+            }
             else if (e.shiftKey && self.ShiftKeyCodes[charCode]) {
                 let v = self.ShiftKeyCodes[charCode][self.lang];
                 if (self.specialCharsEnabled) {
-                    $(this).val($(this).val() + v);
+                    self.insertAtCursor(this, v);
                 }
                 else {
                     if (self.AllowedChars.includes(v)) {
-                        $(this).val($(this).val() + v);
+                        self.insertAtCursor(this, v);
                     }
                     else if (!self.InvalidCharacters.includes(v)) {
-                        $(this).val($(this).val() + v);
+                        self.insertAtCursor(this, v);
                     }
                 }
                 
@@ -1498,14 +1515,14 @@ var clean = window.clean = window.clean || {};
                     v = v.toUpperCase();
                 }
                 if (self.specialCharsEnabled) {
-                    $(this).val($(this).val() + v);
+                    self.insertAtCursor(this, v);
                 }
                 else {
                     if (self.AllowedChars.includes(v)) {
-                        $(this).val($(this).val() + v);
+                        self.insertAtCursor(this, v);
                     }
                     else if (!self.InvalidCharacters.includes(v)) {
-                        $(this).val($(this).val() + v);
+                        self.insertAtCursor(this, v);
                     }
                 }
             }
@@ -1513,23 +1530,46 @@ var clean = window.clean = window.clean || {};
                 if (self.NumberShift) {
                     let v = self.NumbersShiftKeyCodes[charCode][self.lang];
                     if (self.AllowedChars.includes(v)) {
-                        $(this).val($(this).val() + v);
+                        self.insertAtCursor(this, v);
                     }
                     else if (!self.InvalidCharacters.includes(v)) {
-                        $(this).val($(this).val() + v);
+                        self.insertAtCursor(this, v);
                     }
                 }
             }
             else if (self.NumbersKeyCodes[charCode]) {
                 let v = self.NumbersKeyCodes[charCode];
-                $(this).val($(this).val() + v);
+                self.insertAtCursor(this, v);
             }
             else {
-                $(this).val($(this).val() + '');
+                self.insertAtCursor(this, '');
             }
 
             return false;
+        },
+        insertAtCursor : function(field,text) {
+            //IE support
+            text = text || '';
+            if (document.selection) {
+                // IE
+                field.focus();
+                var sel = document.selection.createRange();
+                sel.text = text;
+            } else if (field.selectionStart || field.selectionStart === 0) {
+                // Others
+                var startPos = field.selectionStart;
+                var endPos = field.selectionEnd;
+                field.value = field.value.substring(0, startPos) +
+                    text +
+                    field.value.substring(endPos, field.value.length);
+                field.selectionStart = startPos + text.length;
+                field.selectionEnd = startPos + text.length;
+            } else {
+                field.value += text;
+            }
         }
+
+
     }
 
 })();
