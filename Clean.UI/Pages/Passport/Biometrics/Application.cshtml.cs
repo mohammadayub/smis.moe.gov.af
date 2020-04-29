@@ -85,6 +85,7 @@ namespace Clean.UI.Pages.Passport.Biometrics
         {
             try
             {
+                query.CurrentProcessID = SystemProcess.Biometric;
                 var result = await Mediator.Send(query);
                 return new JsonResult(new UIResult()
                 {

@@ -85,6 +85,7 @@ namespace Clean.UI.Pages.Passport.Research
         {
             try
             {
+                query.CurrentProcessID = SystemProcess.ReasearchAndControl;
                 var result = await Mediator.Send(query);
                 return new JsonResult(new UIResult()
                 {

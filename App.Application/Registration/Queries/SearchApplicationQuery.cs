@@ -17,7 +17,7 @@ namespace App.Application.Registration.Queries
     {
         public int? ID { get; set; }
         public int? ProfileID { get; set; }
-
+        public int? CurrentProcessID { get; set; }
     }
 
     public class SearchApplicationQueryHandler : IRequestHandler<SearchApplicationQuery, List<PassportApplicationModel>>
@@ -40,6 +40,10 @@ namespace App.Application.Registration.Queries
                 if (request.ProfileID.HasValue)
                 {
                     query = query.Where(e => e.ProfileId == request.ProfileID);
+                }
+                if (request.CurrentProcessID.HasValue)
+                {
+                    query = query.Where(e => e.CurProcessId == request.CurrentProcessID);
                 }
             }
 

@@ -85,6 +85,7 @@ namespace Clean.UI.Pages.Passport.Authorization
         {
             try
             {
+                query.CurrentProcessID = SystemProcess.Authorization;
                 var result = await Mediator.Send(query);
                 return new JsonResult(new UIResult()
                 {
