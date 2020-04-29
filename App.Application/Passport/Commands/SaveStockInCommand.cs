@@ -92,7 +92,7 @@ namespace App.Application.Passport.Commands
 
                 cur.StartSerial = request.StartSerial;
                 cur.EndSerial = request.EndSerial;
-                cur.PassportCount = request.EndSerial - request.StartSerial + 2;
+                cur.PassportCount = request.EndSerial - request.StartSerial + 1;
                 cur.ToUserId = UserID;
                 cur.StatusId = request.StatusId;
 
