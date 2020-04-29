@@ -40,6 +40,7 @@ namespace App.Application.Registration.Queries
                 var cur = await Context.PassportApplications.Where(e => e.Id == request.ApplicationID).SingleAsync();
                 if(cur.CurProcessId != SystemProcess.Registration)
                 {
+                    config.Exists = true;
                     config.Amount = cur.PaidAmount;
                 }
                 else

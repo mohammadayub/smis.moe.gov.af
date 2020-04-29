@@ -11,19 +11,19 @@
     </a>
 
     <ul class="dropdown-menu dropdown-menu-right">
-        <li class=" @(C.Name.Equals("prs-AF") ? " active" : "")">
-            <a asp-controller="language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="prs-AF" class="dropdown-item">
+        <li class=" @(C.Name.Equals("prs") ? " active" : "")">
+            <a asp-controller="Language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="prs" class="dropdown-item">
                 <i class="icon-code"></i>دری
             </a>
         </li>
-        <li class="@(C.Name.Equals("ps-AF") ? " active" : "")">
-            <a asp-controller="language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="ps-AF" class="dropdown-item">
+        <li class="@(C.Name.Equals("ps") ? " active" : "")">
+            <a asp-controller="Language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="ps" class="dropdown-item">
                 <i class="icon-code"></i>پښتو
             </a>
         </li>
 
-        <li class="@(C.Name.Equals("eng-US") ? " active" : "")">
-            <a asp-controller="language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="eng-AF" class="dropdown-item">
+        <li class="@(C.Name.Equals("en") ? " active" : "")">
+            <a asp-controller="Language" asp-action="Change" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" asp-route-language="en" class="dropdown-item">
                 <i class="icon-code"></i>English
             </a>
         </li>

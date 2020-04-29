@@ -9,7 +9,7 @@
 
 @Html.AntiForgeryToken()
 
-<div class="panel panel-flat" style="direction: rtl;">
+<div class="panel panel-flat" >
     <div class="panel-heading">
         <h1 class="panel-title">@_localizer["ثبت سابقه جرمی"]</h1>
     </div>
@@ -19,7 +19,7 @@
             <fieldset class="content-group">
                 <legend>@_localizer["جهت ثبت سابقه جرمی متقاضی از این بخش استفاده نمایید"]</legend>
                 <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["نوعیت جرم"]
@@ -30,7 +30,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["تاریخ جرم شمسی"]
@@ -43,7 +43,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["تاریخ جرم"]
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-9 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["جزئیات جرم"]
@@ -73,14 +73,14 @@
             <div class="row div-form-control">
                 <div class="col-md-12">
                     <div class="form-group actions">
-                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>@_localizer["ثبت معلومات"]</button>
-                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>@_localizer["صفحه جدید"]</button>
+                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-left"></i>@_localizer["ثبت معلومات"]</button>
+                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-left"></i>@_localizer["صفحه جدید"]</button>
                     </div>
                 </div>
             </div>
 
             <div class="form-grid main-form-details">
-                <table style="direction:rtl" bindonclick="true">
+                <table  bindonclick="true">
                     <thead>
                         <tr>
                             <th colname="crimetype">@_localizer["نوعیت"]</th>

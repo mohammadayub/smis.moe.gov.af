@@ -66,8 +66,6 @@ namespace App.Application.Printing.Commands
                                 ReferedProcessId = SystemProcess.QualityControl,
                                 ModuleId = SystemModules.Passport
                             });
-                            pp.StatusId = PassportPrintStatus.Printed;
-                            await Context.SaveChangesAsync();
                             model.Processed = true;
                         }
                     }

@@ -90,9 +90,8 @@ namespace Clean.UI.Pages.Passport.Register
                 {
                     Data = new { list = result },
                     Status = UIStatus.Success,
-                    Text = "نمایندگی موفقانه ثبت شد!",
+                    Text = "موفقانه ثبت گردید!",
                     Description = string.Empty
-
                 });
             }
             catch (Exception ex)

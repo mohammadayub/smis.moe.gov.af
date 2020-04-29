@@ -9,8 +9,10 @@ namespace App.Application.Registration.Models
         public int Id { get; set; }
         public string Code { get; set; }
         public int MaritalStatusId { get; set; }
+        public string MaritalStatusText { get; set; }
         public int GenderId { get; set; }
         public string GenderText { get; set; }
+        public string GenderCode { get; set; }
         public int ResidenceCountryId { get; set; }
         public string ResidenceCountryText { get; set; }
         public int Height { get; set; }
@@ -24,6 +26,7 @@ namespace App.Application.Registration.Models
         public int DocumentTypeId { get; set; }
         public string NID { get; set; }
         public string NIDText { get; set; }
+        public string NIDSerial { get; set; }
         public int TitleId { get; set; }
         public int? OtherNationalityId { get; set; }
 

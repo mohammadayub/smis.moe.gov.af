@@ -329,9 +329,9 @@ function getHeirData(path, data, page, dirctory,screenname) {
                             <fieldset class="content-group">\
                                 <h3 class="text-bold">معلومات ورثه | وکیل شرعی</h3>\
                                 <div class="row">\
-                                <div class="col-md-10 pull-right">\
+                                <div class="col-md-10 ">\
                                     <div class="row">\
-                                                <div class="col-md-3 pull-right">\
+                                                <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     نوعیت\
@@ -339,7 +339,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input id="he_heirtypetext" type="text" class="form-control" disabled value="'+ heirTypeText + '" />\
                                             </div>\
                                         </div>\
-                                              <div class="col-md-3 pull-right">\
+                                              <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     قرابت\
@@ -347,7 +347,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_relativetext" class="form-control" disabled value="'+ relativeText + '" >\
                                             </div>\
                                         </div>\
-                                            <div class="col-md-3 pull-right">\
+                                            <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     تاریخ تولد\
@@ -355,7 +355,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_dob" class="form-control" disabled value="'+ dob + '" />\
                                             </div>\
                                         </div>\
-                                            <div class="col-md-3 pull-right">\
+                                            <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     اسم\
@@ -365,7 +365,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                         </div>\
                                     </div>\
                                     <div class="row">\
-                                                 <div class="col-md-3 pull-right">\
+                                                 <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     تخلص\
@@ -373,7 +373,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_lastname" class="form-control" disabled value="'+ lastName + '" />\
                                             </div>\
                                         </div>\
-                                             <div class="col-md-3 pull-right">\
+                                             <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     ولد\
@@ -381,7 +381,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_fathername" class="form-control" disabled value="'+ fatherName + '" />\
                                             </div>\
                                         </div>\
-                                            <div class="col-md-3 pull-right">\
+                                            <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     ولدیت\
@@ -389,7 +389,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_grandfathername" class="form-control" disabled value="'+ grandFatherName + '" />\
                                             </div>\
                                         </div>\
-                                            <div class="col-md-3 pull-right">\
+                                            <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     جنسیت\
@@ -399,7 +399,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                         </div>\
                                     </div>\
                                     <div class="row">\
-                                             <div class="col-md-6 pull-right">\
+                                             <div class="col-md-6 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                    تذکره\
@@ -407,7 +407,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" class="form-control" disabled value="'+ nid + '" />\
                                             </div>\
                                         </div>\
-                                            <div class="col-md-3 pull-right">\
+                                            <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     نمبر وثیقه | وکالت\
@@ -415,7 +415,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_documentno" class="form-control" disabled value="'+ documentNo + '" />\
                                             </div>\
                                         </div>\
-                                               <div class="col-md-3 pull-right">\
+                                               <div class="col-md-3 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                    محکمه\
@@ -425,7 +425,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                         </div>\
                                     </div>\
                                     <div class="row">\
-                                            <div class="col-md-6 pull-right">\
+                                            <div class="col-md-6 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     تاریخ صدور\
@@ -433,7 +433,7 @@ function getHeirData(path, data, page, dirctory,screenname) {
                                                 <input type="text" id="he_docnoissuedate" class="form-control" disabled value="'+ docNoIssueDate + '"/>\
                                             </div>\
                                         </div>\
-                                            <div class="col-md-6 pull-right">\
+                                            <div class="col-md-6 ">\
                                             <div class="form-group">\
                                                 <label class="text-bold">\
                                                     محل صدور\
@@ -641,7 +641,7 @@ function getDocumentData(path, data, page) {
 
                     for (let i = 0; i < list.length; i++) {
 
-                        $('#tbl_documents').find('tbody').append('<tr role="row"><td>' + list[i].documentTypeText + '</td><td>' + list[i].uploadDateText + '</td><td>' + list[i].downloadDateText + '</td><td>' + '<button type="button" downloadpath="$path" onclick="download(\'' + list[i].path + '\');"><i class="icon-download position-right"></i>دریافت فایل</button>' + '</td></tr>');
+                        $('#tbl_documents').find('tbody').append('<tr role="row"><td>' + list[i].documentTypeText + '</td><td>' + list[i].uploadDateText + '</td><td>' + list[i].downloadDateText + '</td><td>' + '<button type="button" downloadpath="$path" onclick="download(\'' + list[i].path + '\');"><i class="icon-download position-left"></i>دریافت فایل</button>' + '</td></tr>');
                     }
                     $('#' + page + '_Modal').modal();
                 }

@@ -1,6 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    bool IsRtl = true;
+    IsRtl = System.Globalization.CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+}
+<!DOCTYPE html>
 
-<html>
+<html dir="@(IsRtl ? "rtl" : "ltr")">
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
@@ -25,10 +29,20 @@
     <title>@Clean.Common.AppConfig.ApplicationTitle</title>
     @* Template css references *@
     <link href="~/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    @if (IsRtl)
+    {
+        <link href="~/assets/css/minified/bootstrap.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/core.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/components.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    }
+    else
+    {
+        <link href="~/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    }
     <link href="~/assets/css/croppic.css" rel="stylesheet" />
 
 
@@ -44,9 +58,10 @@
     @*Treetable Css file*@
     <link href="~/custom/css/jquery.treetable.css" rel="stylesheet" />
     <style>
-        tr.row-selected button.btn-link{
+        tr.row-selected button.btn-link {
             color: white;
         }
+
         .modal-width {
             width: 70%;
         }
@@ -67,9 +82,18 @@
             position: fixed;
             width: 14%;
         }
+
+        .nav .dropdown-toggle {
+            height: 50px;
+        }
+        .mds-bootstrap-persian-datetime-picker-container .btn {
+            box-shadow: none;
+            border: 1px solid #cfd3df;
+            height: 27px;
+        }
     </style>
 </head>
-<body class="rtl" dir="rtl">
+<body>
     <div id="overlay">
         <div class="centered">
             <img src="~/custom/images/iarcsc.gif" class="centered" style="margin-left: auto; margin-right: auto;" />
@@ -86,12 +110,12 @@
                     @Clean.Common.AppConfig.ApplicationTitle
                 </span>
             </a>
-            <ul class="nav navbar-nav pull-right visible-xs-block">
+            <ul class="nav navbar-nav visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
                 <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
             </ul>
         </div>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-right">
             <partial name="_LanguagePartial" />
             <partial name="_LoginPartial" />
         </ul>
@@ -103,7 +127,7 @@
             <div class="content-wrapper">
                 <div class="content">
                     <div class="row">
-                        <div class="col-md-12 pull-right">
+                        <div class="col-md-12">
 
                             <div class="col-md-10 col-md-offset-1 main-content">
                                 @RenderBody()

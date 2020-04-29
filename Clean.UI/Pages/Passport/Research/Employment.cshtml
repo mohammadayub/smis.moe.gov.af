@@ -9,7 +9,7 @@
 
 @Html.AntiForgeryToken()
 
-<div class="panel panel-flat" style="direction: rtl;">
+<div class="panel panel-flat" >
     <div class="panel-heading">
         <h1 class="panel-title">@_localizer["ثبت معلومات وظیفه"]</h1>
     </div>
@@ -18,7 +18,7 @@
             <fieldset class="content-group">
                 <legend>@_localizer["جهت ثبت معلومات وظیفه از این بخش استفاده نمایید"]</legend>
                 <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["اداره‌ی مربوطه"]
@@ -29,7 +29,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["وظیفه"]
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["کارگزار فعلی"]
@@ -50,7 +50,7 @@
                             <input type="text" id="uxememployer" name="uxemEmployer" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-8 col-xs-12 pull-right">
+                    <div class="col-md-6 col-sm-8 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["آدرس کارگزار فعلی"]
@@ -61,7 +61,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["کارگزار قبلی"]
@@ -69,7 +69,7 @@
                             <input type="text" id="uxemprevemployer" name="uxemPrevEmployer" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-8 col-xs-12 pull-right">
+                    <div class="col-md-6 col-sm-8 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["آدرس کارگزار قبلی"]
@@ -87,7 +87,7 @@
             </div>
 
             <div class="form-grid main-form-details">
-                <table style="direction:rtl" bindonclick="true">
+                <table  bindonclick="true">
                     <thead>
                         <tr>
                             <th colname="organization">@_localizer["اداره"]</th>

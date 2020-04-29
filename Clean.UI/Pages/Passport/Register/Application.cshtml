@@ -9,7 +9,7 @@
 
 @Html.AntiForgeryToken()
 
-<div class="panel panel-flat" style="direction: rtl;">
+<div class="panel panel-flat" >
     <div class="panel-heading">
         <h1 class="panel-title">@_localizer["ثبت درخواستی متقاضی"]</h1>
     </div>
@@ -20,9 +20,9 @@
             <fieldset class="content-group">
                 <legend>@_localizer["جهت ثبت درخواستی متقاضی از این بخش استفاده نمایید"]</legend>
                 <div class="row">
-                    <div class="col-lg-8 pull-right">
+                    <div class="col-lg-8 ">
                         <div class="row">
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["کود درخواست"]
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["نوعیت پاسپورت"]
@@ -43,7 +43,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["مدت اعتبار پاسپورت"]
@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["بخش پرداخت"]
@@ -65,7 +65,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["تخفیف پرداخت"]
@@ -79,7 +79,7 @@
                             
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["جریمه"]
@@ -90,7 +90,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["نوع درخواست"]
@@ -101,7 +101,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["نوع پرداخت"]
@@ -116,7 +116,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["بانک"]
@@ -130,7 +130,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-12 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["تاریخ پرداخت شمسی"]
@@ -143,7 +143,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                            <div class="col-md-3 col-sm-12 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["تاریخ پرداخت"]
@@ -157,19 +157,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 pull-right">
+                    <div class="col-lg-2 ">
                         <div id="uxaPhoto" class="img-uploader" data-ref="uxaphotopath" data-type="photo" style="width:190px;height:210px;">
                         </div>
                         <input type="hidden" class="output" id="uxaphotopath" />
                     </div>
-                    <div class="col-lg-2 pull-right">
+                    <div class="col-lg-2 ">
                         <div id="uxaSignature" class="img-uploader" data-ref="uxasignaturepath" data-type="signature" style="width:190px;height:210px;">
                         </div>
                         <input type="hidden" class="output" id="uxasignaturepath" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["مقدار پرداخت"]
@@ -178,7 +178,7 @@
                             <input type="number" id="uxapaidamount" name="uxaPaidAmount" class="form-control" readonly required />
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-4 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["نمبر بل"]
@@ -194,15 +194,15 @@
             <div class="row div-form-control">
                 <div class="col-md-12">
                     <div class="form-group actions">
-                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i>@_localizer["ثبت معلومات"]</button>
-                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-right"></i>@_localizer["صفحه جدید"]</button>
-                        <button type="button" action="print" class="btn btn-primary pull-left"><i class="icon-new-tab position-right"></i>@_localizer["پرنت درخواست"]</button>
+                        <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-left"></i>@_localizer["ثبت معلومات"]</button>
+                        <button type="button" action="new" class="btn btn-primary"><i class="icon-new-tab position-left"></i>@_localizer["صفحه جدید"]</button>
+                        <button type="button" action="print" class="btn btn-primary pull-left"><i class="icon-new-tab position-left"></i>@_localizer["پرنت درخواست"]</button>
                     </div>
                 </div>
             </div>
 
             <div class="form-grid main-form-details">
-                <table style="direction:rtl" bindonclick="true">
+                <table  bindonclick="true">
                     <thead>
                         <tr>
                             <th colname="Code">@_localizer["کود درخواست"]</th>

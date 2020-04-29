@@ -558,7 +558,7 @@
 
                             else if (colname == 'path') {
 
-                                var temp = '<button type="button" downloadpath="$path" class="btn-link download-on-click"><i class="icon-download position-right"></i>دریافت فایل</button>'
+                                var temp = '<button type="button" downloadpath="$path" class="btn-link download-on-click"><i class="icon-download position-left"></i>دریافت فایل</button>'
                                 column = column + "<td col='" + key.toLowerCase() + "'>" + temp.replace('$path', ob[key]) + "</td>";
                             }
                             else if (colname == 'remarks') {

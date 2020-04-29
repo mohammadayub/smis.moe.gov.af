@@ -6,7 +6,7 @@
         this.sib.val = '';
         this.form = opt.form;
         this.row = {};
-        this.template = "<div class='col-md-$width col-sm-12 col-xs-12 pull-right tazkira-group $g-class'><div class='form-group'><label class='text-bold'><span class='text-danger pull-left'>&nbsp;*</span>$Label</label>$Control</div></div>";
+        this.template = "<div class='col-md-$width col-sm-12 col-xs-12 tazkira-group $g-class'><div class='form-group'><label class='text-bold'><span class='text-danger pull-left'>&nbsp;*</span>$Label</label>$Control</div></div>";
         this.serialNo = {};
         this.juldNumber = {};
         this.juldType = {};

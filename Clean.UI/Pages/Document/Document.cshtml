@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<div class="panel panel-flat" style="direction: rtl;">
+<div class="panel panel-flat" >
     <div class="panel-heading">
         <h1 class="panel-title">اسناد و ضمایم</h1>
     </div>
@@ -14,47 +14,47 @@
             <fieldset class="content-group">
                 <legend class="text-bold">اسناد و ضمایم کارمند را ثبت، تغیر و حذف نمائید</legend>
                 <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-4 col-sm-12 col-xs-12 ">
                         <label class="text-bold">
                             نوع سند/ضمیمه
                             <span class="text-danger">&nbsp;*</span>
                         </label>
-                        <div class="form-group" style="direction:rtl;">
+                        <div class="form-group" >
                             <select id="uxpddocumenttypeid" name="uxpdDocumentTypeId" asp-items="@Model.ListOfDocumentTypes" class="select" required>
                                 <option></option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-4 col-sm-12 col-xs-12 ">
                         <label class="text-bold">
                             منبع سند
 
                         </label>
-                        <div class="form-group" style="direction:rtl;">
+                        <div class="form-group" >
 
                             <input type="text" id="uxpddocumentsource" name="uxpdDocumentSource" class="form-control " />
                         </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-4 col-sm-12 col-xs-12 ">
                         <label class="text-bold">
                             نمبر سند
 
                         </label>
-                        <div class="form-group" style="direction:rtl;">
+                        <div class="form-group" >
 
                             <input type="text" id="uxpddocumentnumber" name="uxpdDocumentNumber" class="form-control " />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-4 col-sm-12 col-xs-12 ">
                         <label class="text-bold">
                             تاریخ سند
                             <span class="text-danger">&nbsp;*</span>
                         </label>
-                        <div class="form-group" style="direction:rtl;">
+                        <div class="form-group" >
 
                             <input type="text" id="uxpddocumentdateshamsi" sibling="uxpddocumentdate" name="uxpdDocumentDateShamsi" class="form-control Shamsi" />
                             <input type="hidden" id="uxpddocumentdate" sibling="uxpddocumentdateshamsi" name="uxpdDocumentDate" class="form-control Miladi" />
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-12 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">ملاحضات </label>
                             <textarea id="uxpddescription" name="uxpddescription" rows="2" cols="2" class="form-control remarks"></textarea>
@@ -86,14 +86,14 @@
             <div class="row div-form-control">
                 <div class="col-md-12">
                     <div class="form-group actions">
-                        <button type="button" class="btn btn-primary" action="save"><i class="icon-floppy-disk position-right"></i>ثبت معلومات</button>
-                        <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-right"></i>صفحه جدید </button>
-                        <button type="button" class="btn btn-primary" action="search"><i class="icon-new-tab position-right"></i>جستجو </button>
+                        <button type="button" class="btn btn-primary" action="save"><i class="icon-floppy-disk position-left"></i>ثبت معلومات</button>
+                        <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-left"></i>صفحه جدید </button>
+                        <button type="button" class="btn btn-primary" action="search"><i class="icon-new-tab position-left"></i>جستجو </button>
                     </div>
                 </div>
             </div>
             <div class="form-grid">
-                <table style="direction: rtl;" bindonclick="true">
+                <table  bindonclick="true">
                     <thead>
                         <tr>
                             <th colname="DocumentTypeText">نوع سند/ضمیمه</th>

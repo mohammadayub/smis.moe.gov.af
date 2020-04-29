@@ -264,3 +264,7 @@ table thead {
 table tfoot {
     padding-bottom: 24px;
 }
+
+.barcode {
+    margin:auto;
+}

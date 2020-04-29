@@ -6,7 +6,7 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="panel panel-flat" style="direction: rtl;">
+<div class="panel panel-flat" >
     @Html.AntiForgeryToken()
     <div class="panel-heading">
         <h1 class="panel-title">@_localizer["درخواستی پاسپورت"]</h1>
@@ -17,7 +17,7 @@
                 <legend class="text-bold">@_localizer["مشخصات شخص را وارد کنید"] </legend>
                 <input type="hidden" id="uxbid" />
                 <div class="row">
-                    <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["کود درخواست"]
@@ -25,7 +25,7 @@
                             <input id="uxcode" name="uxCode" type="text" class="form-control no-disabled search" />
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["کود شخص"]
@@ -33,7 +33,7 @@
                             <input id="uxprofilecode" name="uxProfileCode" type="text" class="form-control no-disabled search" />
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-2 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["عنوان"]
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["نام"]
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["تخلص"]
@@ -67,7 +67,7 @@
                             <input id="uxfamilyname" name="uxFamilyName" type="text" class="form-control no-disabled search" lang="ps" required />
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["نام پدر"]
@@ -76,7 +76,7 @@
                             <input id="uxfathername" name="uxFatherName" type="text" class="form-control no-disabled " lang="ps" required />
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["نام پدرکلان"]
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["نام (انگلیسی)"]
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["تخلص (انگلیسی)"]
@@ -108,7 +108,7 @@
                             <input id="uxfamilynameen" name="uxFamilyNameEN" type="text" class="form-control no-disabled search" lang="en" uppercase required />
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["نام پدر (انگلیسی)"]
@@ -117,7 +117,7 @@
                             <input id="uxfathernameen" name="uxFatherNameEN" type="text" class="form-control no-disabled " lang="en" uppercase required />
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["نام پدرکلان (انگلیسی)"]
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["تاریخ تولد شمسی"]
@@ -141,7 +141,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group">
                             <label class="text-bold">
                                 @_localizer["تاریخ تولد"]
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["ایمیل"]
@@ -167,7 +167,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                    <div class="col-md-3 col-sm-12 col-xs-12 ">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="text-bold">
                                 @_localizer["نمبر تلفن"]
@@ -182,7 +182,7 @@
                     <hr />
                     <div class="row">
 
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["جنسیت"]
@@ -194,7 +194,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["حالت مدنی"]
@@ -206,7 +206,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-3 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["قد"]
@@ -219,7 +219,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["رنگ موی"]
@@ -231,7 +231,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["رنگ چشم"]
@@ -242,7 +242,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-6 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["جزئیات دیگر"]
@@ -253,7 +253,7 @@
 
                     </div>
                     <div class="row nid-row">
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right national-id">
+                        <div class="col-md-2 col-sm-12 col-xs-12  national-id">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["نوع تذکره"]
@@ -266,7 +266,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["محل زندگی (کشور)"]
@@ -277,7 +277,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["تابعیت دیگر"]
@@ -289,7 +289,7 @@
                         </div>
 
 
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["محل تولد (کشور)"]
@@ -302,7 +302,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
                                     @_localizer["محل تولد (ولایت)"]
@@ -322,13 +322,13 @@
             <div class="row div-form-control main-form-details">
                 <div class="col-md-12">
                     <div class="form-group actions">
-                        <button type="button" class="btn btn-primary" action="search"><i class="icon-search4 position-right"></i>@_localizer["جستجو"] </button>
-                        <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-right"></i>@_localizer["صفحه جدید"]</button>
+                        <button type="button" class="btn btn-primary" action="search"><i class="icon-search4 position-left"></i>@_localizer["جستجو"] </button>
+                        <button type="button" class="btn btn-primary" action="new"><i class="icon-new-tab position-left"></i>@_localizer["صفحه جدید"]</button>
                     </div>
                 </div>
             </div>
             <div class="form-grid main-form-details">
-                <table style="direction: rtl;" bindonclick="true">
+                <table  bindonclick="true">
                     <thead>
                         <tr>
                             <th colname="code">@_localizer["کود"]</th>

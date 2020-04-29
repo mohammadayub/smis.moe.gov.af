@@ -25,75 +25,75 @@ namespace Clean.UI.Types
 
         [BindProperty]
         public string PageID { get; set; }
-        public List<SelectListItem> ListOfAttachmentType;
-        public List<SelectListItem> ListOfPaymentMethod;
-        public List<SelectListItem> ListOfRequestType;
-        public List<SelectListItem> ListOfPaymentPenalty;
-        public List<SelectListItem> ListOfDiscount;
-        public List<SelectListItem> ListOfPaymentCategory;
-        public List<SelectListItem> ListOfPassportType;
-        public List<SelectListItem> ListOfDiscountType;
-        public List<SelectListItem> ListOfCrimeType;
-        public List<SelectListItem> ListOfOccupation;
-        public List<SelectListItem> ListOfAddressType;
-        public List<SelectListItem> ListOfTitles;
-        public List<SelectListItem> ListOfEyeColors;
-        public List<SelectListItem> ListOfHairColors;
-        public List<SelectListItem> ListOfCountry;
-        public List<SelectListItem> ListOfProvinces;
-        public List<SelectListItem> ListOfCurrency;
-        public List<SelectListItem> ListOfOfficeTypes;
-        public List<SelectListItem> ListOfOffices;
-        public List<SelectListItem> ListOfProcessesConnection;
-        public List<SelectListItem> ListOfScreens;
-        public List<SelectListItem> ListOfRoles;
-        public List<SelectListItem> ListOfStatuses;
-        public List<SelectListItem> ListOfCalculation;
-        public List<SelectListItem> ListOfFiscalYears;
-        public List<SelectListItem> ListOfHeritageJobs;
-        public List<SelectListItem> ListOfEventReasons;
-        public List<SelectListItem> ListOfLawyerTypes;
-        public List<SelectListItem> ListOfAppReasons;
-        public List<SelectListItem> ListOfCategoryTypes;
-        public List<SelectListItem> ListOfMaritalStatus;
-        public List<SelectListItem> ListOfGenders;
-        public List<SelectListItem> ListOfLocations;
-        public List<SelectListItem> ListOfBloodGroups;
-        public List<SelectListItem> ListOfEthnicities;
-        public List<SelectListItem> ListOfReligions;
-        public List<SelectListItem> ListOfLanguages;
-        public List<SelectListItem> ListOfJobStatus;
-        public List<SelectListItem> ListOfResult = new List<SelectListItem>();
-        public List<SelectListItem> ListOfRanks;
-        public List<SelectListItem> ListOfBanks;
-        public List<SelectListItem> ListOfOrganizationType;
-        public List<SelectListItem> ListOfCertification;
-        public List<SelectListItem> ListOfExperienceType;
-        public List<SelectListItem> ListOfRelationShip;
-        public List<SelectListItem> ListOfExpertise;
-        public List<SelectListItem> ListOfSkillType;
-        public List<SelectListItem> ListOfDistricts;
-        public List<SelectListItem> ListOfEducationLevels;
-        public List<SelectListItem> ListOfStatus;
-        public List<SelectListItem> ListOfAssetType;
-        public List<SelectListItem> ListOfReferenceType;
-        public List<SelectListItem> ListOfDocumentTypes;
-        public List<SelectListItem> ListOfDocumentTypesD;
-        public List<SelectListItem> ListOfPublicationType;
-        public List<SelectListItem> ListOfOrganization;
-        public List<SelectListItem> ListOfOrgUnit = new List<SelectListItem>();
-        public List<SelectListItem> ListOfSalaryType;
-        public List<SelectListItem> ListOfReportTo;
-        public List<SelectListItem> ListOfPlanType;
-        public List<SelectListItem> ListOfPositionType;
-        //public List<EducationLevel> ListOfOrganoGram = new List<EducationLevel>();
-        public List<SelectListItem> ListOfMilitaryServiceType;
-        public List<SelectListItem> ListOfEventType;
-        public List<SelectListItem> ListOfPerson;
-        public List<SelectListItem> ListOfPosition;
-        public List<SelectListItem> ListOfProcesses = new List<SelectListItem>();
-        public List<SelectListItem> ListOfPersianYears = new List<SelectListItem>();
-        public List<SelectListItem> ListOfWorkAreas = new List<SelectListItem>();
+        public List<SelectListItem> ListOfDisabledReasons { get; set; }
+        public List<SelectListItem> ListOfAttachmentType { get; set; }
+        public List<SelectListItem> ListOfPaymentMethod { get; set; }
+        public List<SelectListItem> ListOfRequestType { get; set; }
+        public List<SelectListItem> ListOfPaymentPenalty { get; set; }
+        public List<SelectListItem> ListOfDiscount { get; set; }
+        public List<SelectListItem> ListOfPaymentCategory { get; set; }
+        public List<SelectListItem> ListOfPassportType { get; set; }
+        public List<SelectListItem> ListOfDiscountType { get; set; }
+        public List<SelectListItem> ListOfCrimeType { get; set; }
+        public List<SelectListItem> ListOfOccupation { get; set; }
+        public List<SelectListItem> ListOfAddressType { get; set; }
+        public List<SelectListItem> ListOfTitles { get; set; }
+        public List<SelectListItem> ListOfEyeColors { get; set; }
+        public List<SelectListItem> ListOfHairColors { get; set; }
+        public List<SelectListItem> ListOfCountry { get; set; }
+        public List<SelectListItem> ListOfProvinces { get; set; }
+        public List<SelectListItem> ListOfCurrency { get; set; }
+        public List<SelectListItem> ListOfOfficeTypes { get; set; }
+        public List<SelectListItem> ListOfOffices { get; set; }
+        public List<SelectListItem> ListOfProcessesConnection { get; set; }
+        public List<SelectListItem> ListOfScreens { get; set; }
+        public List<SelectListItem> ListOfRoles { get; set; }
+        public List<SelectListItem> ListOfStatuses { get; set; }
+        public List<SelectListItem> ListOfCalculation { get; set; }
+        public List<SelectListItem> ListOfFiscalYears { get; set; }
+        public List<SelectListItem> ListOfHeritageJobs { get; set; }
+        public List<SelectListItem> ListOfEventReasons { get; set; }
+        public List<SelectListItem> ListOfLawyerTypes { get; set; }
+        public List<SelectListItem> ListOfAppReasons { get; set; }
+        public List<SelectListItem> ListOfCategoryTypes { get; set; }
+        public List<SelectListItem> ListOfMaritalStatus { get; set; }
+        public List<SelectListItem> ListOfGenders { get; set; }
+        public List<SelectListItem> ListOfLocations { get; set; }
+        public List<SelectListItem> ListOfBloodGroups { get; set; }
+        public List<SelectListItem> ListOfEthnicities { get; set; }
+        public List<SelectListItem> ListOfReligions { get; set; }
+        public List<SelectListItem> ListOfLanguages { get; set; }
+        public List<SelectListItem> ListOfJobStatus { get; set; }
+        public List<SelectListItem> ListOfResult { get; set; }
+        public List<SelectListItem> ListOfRanks { get; set; }
+        public List<SelectListItem> ListOfBanks { get; set; }
+        public List<SelectListItem> ListOfOrganizationType { get; set; }
+        public List<SelectListItem> ListOfCertification { get; set; }
+        public List<SelectListItem> ListOfExperienceType { get; set; }
+        public List<SelectListItem> ListOfRelationShip { get; set; }
+        public List<SelectListItem> ListOfExpertise { get; set; }
+        public List<SelectListItem> ListOfSkillType { get; set; }
+        public List<SelectListItem> ListOfDistricts { get; set; }
+        public List<SelectListItem> ListOfEducationLevels { get; set; }
+        public List<SelectListItem> ListOfStatus { get; set; }
+        public List<SelectListItem> ListOfAssetType { get; set; }
+        public List<SelectListItem> ListOfReferenceType { get; set; }
+        public List<SelectListItem> ListOfDocumentTypes { get; set; }
+        public List<SelectListItem> ListOfDocumentTypesD { get; set; }
+        public List<SelectListItem> ListOfPublicationType { get; set; }
+        public List<SelectListItem> ListOfOrganization { get; set; }
+        public List<SelectListItem> ListOfOrgUnit { get; set; }
+        public List<SelectListItem> ListOfSalaryType { get; set; }
+        public List<SelectListItem> ListOfReportTo { get; set; }
+        public List<SelectListItem> ListOfPlanType { get; set; }
+        public List<SelectListItem> ListOfPositionType { get; set; }
+        public List<SelectListItem> ListOfMilitaryServiceType { get; set; }
+        public List<SelectListItem> ListOfEventType { get; set; }
+        public List<SelectListItem> ListOfPerson { get; set; }
+        public List<SelectListItem> ListOfPosition { get; set; }
+        public List<SelectListItem> ListOfProcesses { get; set; }
+        public List<SelectListItem> ListOfPersianYears { get; set; }
+        public List<SelectListItem> ListOfWorkAreas { get; set; }
 
         public List<SelectListItem> ListOfserviecetype;
 

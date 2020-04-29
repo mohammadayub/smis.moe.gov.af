@@ -5,10 +5,11 @@
 }
 @{
     Layout = null;
+    bool IsRtl = true;
 }
 
 <!DOCTYPE html>
-<html>
+<html dir="@(IsRtl ? "rtl" : "ltr")">
 <head>
     <meta name="viewport" content="width=device-width" />
     <link rel="apple-touch-icon" sizes="57x57" href="~/assets/favicon/apple-icon-57x57-nsia.png">
@@ -37,10 +38,21 @@
     <title>ورودی سیستم</title>
     <!-- Global stylesheets -->
     <link href="~/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    @if (IsRtl)
+    {
+
+        <link href="~/assets/css/minified/bootstrap.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/core.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/components.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    }
+    else
+    {
+        <link href="~/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    }
     <!-- /global stylesheets -->
     <!-- Core JS files -->
     <script type="text/javascript" src="~/assets/js/plugins/loaders/pace.min.js"></script>
@@ -107,7 +119,7 @@
                                     {
                                         foreach (var item in error.Errors)
                                         {
-                                            <lable class="pull-right text-danger control-label">
+                                            <lable class=" text-danger control-label">
                                                 @item.ErrorMessage
                                             </lable>
                                             <br />

@@ -35,7 +35,7 @@ namespace Clean.UI.Pages.Passport.Register
                     Data = new { list = dbResult },
                     Status = UIStatus.Success,
 
-                    Text = "اسناد و ضمایم موفقانه ثبت گردید",
+                    Text = "موفقانه ثبت گردید",
                     Description = string.Empty
                 });
             }

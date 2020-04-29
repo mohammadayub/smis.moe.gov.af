@@ -8,7 +8,7 @@
 }
 
 @Html.AntiForgeryToken()
-    <div class="panel panel-flat" style="direction: rtl;">
+    <div class="panel panel-flat" >
         <div class="panel-heading">
             <h1 class="panel-title">تنظیمات حقوق و نقش ها</h1>
         </div>
@@ -18,7 +18,7 @@
                 <fieldset class="content-group">
                     <legend>برای ایجاد نقش ها از این فورم استفاده نمائید</legend>
                     <div class="row">
-                        <div class="col-md-6 col-sm-12 col-xs-12 pull-right">
+                        <div class="col-md-6 col-sm-12 col-xs-12 ">
 
 
 
@@ -41,8 +41,8 @@
                     <div class="col-md-12">
                         <div class="form-group actions">
 
-                            <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-right"></i> ثبت @ViewData["Title"]  </button>
-                            <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-right"></i>جستجو @ViewData["Title"]</button>
+                            <button type="button" action="save" class="btn btn-primary"><i class="icon-floppy-disk position-left"></i> ثبت @ViewData["Title"]  </button>
+                            <button type="button" action="search" class="btn btn-primary"><i class="icon-search4 position-left"></i>جستجو @ViewData["Title"]</button>
 
                         </div>
                     </div>
@@ -50,7 +50,7 @@
 
 
                 <div class="form-grid main-form-details">
-                    <table style="direction:rtl" bindonclick="true">
+                    <table  bindonclick="true">
                         <thead>
                             <tr>
                                 <th colname="rolename">نام نقش</th>

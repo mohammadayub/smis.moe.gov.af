@@ -123,13 +123,13 @@ var clean = window.clean = window.clean || {};
 
             if (self.el.attr('attachment')) {
                 self.attachmentpath = self.el.attr('attachment-path');
-                self.el.find('.actions').append('<button type="button" class="btn btn-primary" action="attach" style="float:left;"><i class="icon-attachment position-right"></i>اسناد و ضمایم </button>');
+                self.el.find('.actions').append('<button type="button" class="btn btn-primary" action="attach" style="float:left;"><i class="icon-attachment position-left"></i>اسناد و ضمایم </button>');
                 self.getactions();
 
             }
 
             if (self.el.attr('hasprocess')) {
-                self.el.find('.actions').append('<button type="button" class="btn btn-primary" action="process" style="float:left; margin-left: 5px;"><i class="icon-loop position-right"></i>طی مراحل </button>');
+                self.el.find('.actions').append('<button type="button" class="btn btn-primary" action="process" style="float:left; margin-left: 5px;"><i class="icon-loop position-left"></i>طی مراحل </button>');
                 self.getactions();
             }
 
@@ -244,7 +244,7 @@ var clean = window.clean = window.clean || {};
 
             if ($('#' + self.grid.table).attr('organogram') == 'true') {
                 var bttntext = $('#' + self.grid.table).attr('action-button');
-                self.el.find('.div-form-control').find('.form-group').append('<button type="button" class="btn btn-primary" action="chart" showongrid="true"><i class="icon-tree6 position-right"></i>' + bttntext + '</button>');
+                self.el.find('.div-form-control').find('.form-group').append('<button type="button" class="btn btn-primary" action="chart" showongrid="true"><i class="icon-tree6 position-left"></i>' + bttntext + '</button>');
                 self.getactions();
             }
             self.validationrule = self.validation();
@@ -421,6 +421,7 @@ var clean = window.clean = window.clean || {};
         new: function (opt) {
             let self = this;
             self.cleanFields(opt);
+            self.record = {};
             if (self.OnNew && window[self.OnNew]) {
                 window[self.OnNew](self);
             }
@@ -694,7 +695,7 @@ var clean = window.clean = window.clean || {};
                             }
                             else if (colname == 'path') {
 
-                                var temp = '<button type="button" downloadpath="$path" class="btn-link download-on-click"><i class="icon-download position-right"></i>دریافت فایل</button>'
+                                var temp = '<button type="button" downloadpath="$path" class="btn-link download-on-click"><i class="icon-download position-left"></i>دریافت فایل</button>'
                                 column = column + "<td col='" + key.toLowerCase() + "'>" + temp.replace('$path', ob[key]) + "</td>";
                             }
                             //else if (colname == 'remarks') {
@@ -834,7 +835,7 @@ var clean = window.clean = window.clean || {};
                 var modalid = self.prefix + self.el.attr('id') + '_Modal';
                 if ($.isEmptyObject(self.modal)) {
                     var modal = '<div id="' + modalid + '" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>';
-                    var close = '<button type="button" class="btn btn-link close-bttn" data-dismiss="modal"><i class="icon-close2 position-right"></i>صرف نظر</button>'
+                    var close = '<button type="button" class="btn btn-link close-bttn" data-dismiss="modal"><i class="icon-close2 position-left"></i>صرف نظر</button>'
                     $('.dependent-screens').append(modal);
                     self.modal = $('#' + modalid);
                     var data = { ScreenID: self.EncryptedID };
@@ -1016,7 +1017,7 @@ var clean = window.clean = window.clean || {};
             var modal_description = table.attr('modal-description');
             if (table.attr('node-title') && table.attr('node-sub-title') && table.attr('node-description')) {
                 var modalid = self.el.attr('id') + '_chart_Modal';
-                var modal = '<div id="' + modalid + '" class="modal fade"><div class="modal-dialog modal-full"><div class="modal-content"><div class="panel panel-flat" style="direction: rtl;"><div class="panel-heading"><h1 class="panel-title">' + modal_title + '</h1></div><div class="panel-body" style="padding-bottom: 5px; "><legend class="text-bold">' + modal_description + '</legend><fieldset class="content-group"><div id="chart-container"></div><hr /></fieldset><div class="row"><div class="col-md-12 action-bttns" style="padding:5px;"><button type="button" class="btn btn-link close-bttn" data-dismiss="modal"><i class="icon-close2 position-right"></i>صرف نظر</button></div></div></div></div></div></div></div>';
+                var modal = '<div id="' + modalid + '" class="modal fade"><div class="modal-dialog modal-full"><div class="modal-content"><div class="panel panel-flat" ><div class="panel-heading"><h1 class="panel-title">' + modal_title + '</h1></div><div class="panel-body" style="padding-bottom: 5px; "><legend class="text-bold">' + modal_description + '</legend><fieldset class="content-group"><div id="chart-container"></div><hr /></fieldset><div class="row"><div class="col-md-12 action-bttns" style="padding:5px;"><button type="button" class="btn btn-link close-bttn" data-dismiss="modal"><i class="icon-close2 position-left"></i>صرف نظر</button></div></div></div></div></div></div></div>';
                 $('.dependent-screens').append(modal);
                 $('#' + modalid).modal();
                 var nodeTemplate = function (data) {
@@ -1086,7 +1087,7 @@ var clean = window.clean = window.clean || {};
                     $('#chart-container').css('max-height', $(window).height() * 0.7);
                     $('#chart-container').css('height', $(window).height() * 0.7);
                     if ($('#chart-container').find('.oc-export-btn').length && !$('.action-bttns').find('.oc-export-btn').length)
-                        $('.action-bttns').append($('.oc-export-btn').addClass('btn btn-primary').prepend('<i class="icon-tree6 position-right"></i>'));
+                        $('.action-bttns').append($('.oc-export-btn').addClass('btn btn-primary').prepend('<i class="icon-tree6 position-left"></i>'));
 
 
                 }
@@ -1233,7 +1234,7 @@ var clean = window.clean = window.clean || {};
                     var showModal = true;
                     if ($.isEmptyObject(self.processmodal)) {
                         var modal = '<div id="' + modalid + '" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div>';
-                        var close = '<button type="button" class="btn btn-link close-bttn" data-dismiss="modal"><i class="icon-close2 position-right"></i>صرف نظر</button>'
+                        var close = '<button type="button" class="btn btn-link close-bttn" data-dismiss="modal"><i class="icon-close2 position-left"></i>صرف نظر</button>'
                         $('.dependent-screens').append(modal);
                         self.processmodal = $('#' + modalid);
 

@@ -21,18 +21,11 @@ namespace Clean.Application.Accounts.Commands
 
     public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, string>
     {
-        private readonly AppIdentityDbContext _dbContext;
-        private readonly IMediator _mediator;
 
         private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        public ChangePasswordCommandHandler(AppIdentityDbContext identityContext, IMediator mediator, UserManager<AppUser> usermanager, SignInManager<AppUser> signInManager)
+        public ChangePasswordCommandHandler(UserManager<AppUser> usermanager)
         {
-            _dbContext = identityContext;
-            _mediator = mediator;
             _userManager = usermanager;
-            _signInManager = signInManager;
-
         }
         public async Task<string> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {

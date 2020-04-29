@@ -24,7 +24,7 @@ namespace Clean.UI
         public string rowtemplate = @"<div class='row' style='margin-top:5px;'>$cols</div>";
 
         public string htmltemplate = @"
-                                    <div class='col-md-3 pull-right'>
+                                    <div class='col-md-3'>
                                         <a href='$link?p=$id'>
                                             <img src='assets/icons/$icon' />
                                             <h5>$title</h5>

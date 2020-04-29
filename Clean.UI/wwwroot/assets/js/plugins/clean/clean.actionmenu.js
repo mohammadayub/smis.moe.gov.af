@@ -21,7 +21,7 @@
         construct: function () {
             var self = this;
             var sidebar = $('.page-sidebar');
-            var sidetemp = '<div class="col-md-2 pull-right"><div class="sidebar sidebar-secondary sidebar-default sidebar-fixed" ><div class="sidebar-content"><div class="sidebar-category"><div class="category-content no-padding"></div></div></div></div></div>';
+            var sidetemp = '<div class="col-md-2"><div class="sidebar sidebar-secondary sidebar-default sidebar-fixed" ><div class="sidebar-content"><div class="sidebar-category"><div class="category-content no-padding"></div></div></div></div></div>';
             if (sidebar) {
                 $('.main-content').removeClass('col-md-offset-1');
                 $('.main-content').parent().prepend(sidetemp);

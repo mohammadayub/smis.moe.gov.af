@@ -10,5 +10,6 @@ namespace Clean.Common.Enums
         public static string PassportStock { get; } = "PST";
         public static string PassportPrint { get; } = "PSP";
         public static string Passport { get; } = "PAS";
+        public static string Application { get; } = "APS";
     }
 }

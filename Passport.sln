@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Application", "App.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Domain", "App.Domain\App.Domain.csproj", "{D6AC245C-6952-4A04-9172-D61F9BFA1619}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean.API", "Clean.API\Clean.API.csproj", "{E140B649-4889-4609-8ADA-FBADDEF729EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.API", "Clean.API\Clean.API.csproj", "{E140B649-4889-4609-8ADA-FBADDEF729EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

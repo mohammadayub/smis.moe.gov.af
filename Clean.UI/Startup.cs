@@ -62,12 +62,13 @@ namespace Clean.UI
             {
                 var dti = new DateTimeFormatInfo();
                 dti.Calendar = new System.Globalization.GregorianCalendar();
-                var da = new CultureInfo("prs-AF");
-                var ps = new CultureInfo("ps-AF");
+                var da = new CultureInfo("prs");
+                var ps = new CultureInfo("ps");
+                var en = new CultureInfo("en");
                 da.DateTimeFormat = dti;
                 ps.DateTimeFormat = dti;
                 var supportedCultures = new List<CultureInfo> {
-                    da,ps
+                    da,ps,en
                 };
                 o.DefaultRequestCulture = new RequestCulture(da);
                 o.SupportedCultures = supportedCultures;
@@ -216,12 +217,13 @@ namespace Clean.UI
             }
             var dti = new DateTimeFormatInfo();
             dti.Calendar = new System.Globalization.GregorianCalendar();
-            var da = new CultureInfo("prs-AF");
-            var ps = new CultureInfo("ps-AF");
+            var da = new CultureInfo("prs");
+            var ps = new CultureInfo("ps");
+            var en = new CultureInfo("en");
             da.DateTimeFormat = dti;
             ps.DateTimeFormat = dti;
             var supportedCultures = new List<CultureInfo> {
-                da,ps
+                da,ps,en
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {

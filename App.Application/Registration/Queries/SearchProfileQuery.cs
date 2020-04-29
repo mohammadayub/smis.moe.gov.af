@@ -70,20 +70,23 @@ namespace App.Application.Registration.Queries
                                   OtherDetail = p.OtherDetail,
                                   OtherNationalityId = p.OtherNationalityId,
                                   BirthCountryId = p.BirthCountryId,
-                                  BirthCountryText = p.BirthCountry.Title,
+                                  BirthCountryText = p.BirthCountry.TitleEn,
                                   BirthProvinceId = p.BirthProvinceId,
                                   BirthProvinceText = p.BirthProvince.TitleEn,
                                   ResidenceCountryId = p.ResidenceCountryId,
-                                  ResidenceCountryText = p.ResidenceCountry.Title,
+                                  ResidenceCountryText = p.ResidenceCountry.TitleEn,
                                   GenderId = p.GenderId,
                                   GenderText = p.Gender.Name,
+                                  GenderCode = p.Gender.Code,
                                   HairColorId = p.HairColorId,
                                   EyeColorId = p.EyeColorId,
                                   MaritalStatusId = p.MaritalStatusId,
+                                  MaritalStatusText = p.MaritalStatus.Name,
                                   TitleId = p.TitleId,
                                   DocumentTypeId = p.DocumentTypeId,
                                   NID = p.NationalId,
-                                  NIDText = NationalIDReader.ConvertJSONToString(p.NationalId, p.DocumentType.Name)
+                                  NIDText = NationalIDReader.ConvertJSONToString(p.NationalId, p.DocumentType.Name),
+                                  NIDSerial = NationalIDReader.GetTazkiraNumber(p.NationalId,p.DocumentType.Name)
                               }
                         ).ToListAsync();
 

@@ -2,10 +2,11 @@
 @model Clean.UI.IndexModel
 @{
     Layout = null;
+    bool IsRtl = true;
 }
 
 <!DOCTYPE html>
-<html xmlns="http://www.hrmis.gov.af">
+<html dir="@(IsRtl ? "rtl" : "ltr")">
 <head>
 
 
@@ -45,6 +46,9 @@
             .tooltip:hover .tooltiptext {
                 visibility: visible;
             }
+        .dropdown-toggle {
+            height: 50px;
+        }
     </style>
 
 
@@ -69,12 +73,21 @@
 
     <title>@Clean.Common.AppConfig.ApplicationTitle</title>
     @* Template css references *@
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="~/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    @if (IsRtl)
+    {
+        <link href="~/assets/css/minified/bootstrap.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/core.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/components.min.rtl.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    }
+    else
+    {
+        <link href="~/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
+        <link href="~/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    }
     @* CSS for the persian datepicker *@
     <link href="~/custom/css/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
 
@@ -93,12 +106,12 @@
                     @Clean.Common.AppConfig.ApplicationTitle
                 </span>
             </a>
-            <ul class="nav navbar-nav pull-right visible-xs-block">
+            <ul class="nav navbar-nav visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
                 <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
             </ul>
         </div>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-right">
             <partial name="_LoginPartial" />
         </ul>
     </div>
@@ -110,7 +123,7 @@
                 <!-- Content area -->
                 <div class="content">
                     <div class="row">
-                        <div class="col-md-8 col-md-offset-2 dash" style="direction: rtl;">
+                        <div class="col-md-8 col-md-offset-2 dash" >
                             <div class="col-md-12">
                                 @Html.Raw(@Model.HTML)
                             </div>

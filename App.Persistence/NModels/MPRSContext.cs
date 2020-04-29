@@ -38,6 +38,8 @@ namespace App.Persistence.NModels
         public virtual DbSet<CrimeType> CrimeType { get; set; }
         public virtual DbSet<CriminalRecord> CriminalRecord { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
+        public virtual DbSet<DisabledPassport> DisabledPassport { get; set; }
+        public virtual DbSet<DisabledReason> DisabledReason { get; set; }
         public virtual DbSet<DiscountType> DiscountType { get; set; }
         public virtual DbSet<Discounts> Discounts { get; set; }
         public virtual DbSet<District> District { get; set; }
@@ -150,7 +152,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<AddressType>(entity =>
             {
-                entity.ToTable("AddressType", "Look");
+                entity.ToTable("AddressType", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -268,15 +270,23 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<AttachmentType>(entity =>
             {
-                entity.ToTable("AttachmentType", "Look");
+                entity.ToTable("AttachmentType", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
                     .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.Code).HasColumnType("character varying");
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasColumnType("character varying");
 
-                entity.Property(e => e.Title).HasColumnType("character varying");
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<Attachments>(entity =>
@@ -381,7 +391,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Bank>(entity =>
             {
-                entity.ToTable("Bank", "Look");
+                entity.ToTable("Bank", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -520,7 +530,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<BiometricType>(entity =>
             {
-                entity.ToTable("BiometricType", "Look");
+                entity.ToTable("BiometricType", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -533,7 +543,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Color>(entity =>
             {
-                entity.ToTable("Color", "Look");
+                entity.ToTable("Color", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -555,7 +565,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Country>(entity =>
             {
-                entity.ToTable("Country", "Look");
+                entity.ToTable("Country", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -577,7 +587,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<CrimeType>(entity =>
             {
-                entity.ToTable("CrimeType", "Look");
+                entity.ToTable("CrimeType", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -625,7 +635,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Currency>(entity =>
             {
-                entity.ToTable("Currency", "Look");
+                entity.ToTable("Currency", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -645,9 +655,53 @@ namespace App.Persistence.NModels
                     .HasColumnType("character varying");
             });
 
+            modelBuilder.Entity<DisabledPassport>(entity =>
+            {
+                entity.ToTable("DisabledPassport", "pas");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ApplicationId).HasColumnName("ApplicationID");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.DisabledReasonId).HasColumnName("DisabledReasonID");
+
+                entity.HasOne(d => d.Application)
+                    .WithMany(p => p.DisabledPassport)
+                    .HasForeignKey(d => d.ApplicationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_DisabledPassport__FK");
+
+                entity.HasOne(d => d.DisabledReason)
+                    .WithMany(p => p.DisabledPassport)
+                    .HasForeignKey(d => d.DisabledReasonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("_DisabledPassport__FK_1");
+            });
+
+            modelBuilder.Entity<DisabledReason>(entity =>
+            {
+                entity.ToTable("DisabledReason", "look");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.TitleEn)
+                    .IsRequired()
+                    .HasColumnType("character varying");
+            });
+
             modelBuilder.Entity<DiscountType>(entity =>
             {
-                entity.ToTable("DiscountType", "Look");
+                entity.ToTable("DiscountType", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -701,7 +755,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<District>(entity =>
             {
-                entity.ToTable("District", "Look");
+                entity.ToTable("District", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -799,7 +853,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Gender>(entity =>
             {
-                entity.ToTable("Gender", "Look");
+                entity.ToTable("Gender", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -865,18 +919,24 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<MaritalStatus>(entity =>
             {
-                entity.ToTable("MaritalStatus", "Look");
+                entity.ToTable("MaritalStatus", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
                     .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.NameEn)
+                    .IsRequired()
+                    .HasColumnType("character varying");
             });
 
             modelBuilder.Entity<Module>(entity =>
             {
-                entity.ToTable("Module", "Look");
+                entity.ToTable("Module", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -893,7 +953,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Occupation>(entity =>
             {
-                entity.ToTable("Occupation", "Look");
+                entity.ToTable("Occupation", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -921,7 +981,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Office>(entity =>
             {
-                entity.ToTable("Office", "Look");
+                entity.ToTable("Office", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -982,7 +1042,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Organization>(entity =>
             {
-                entity.ToTable("Organization", "Look");
+                entity.ToTable("Organization", "look");
             });
 
             modelBuilder.Entity<PassportApplication>(entity =>
@@ -1269,7 +1329,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<PaymentMethod>(entity =>
             {
-                entity.ToTable("PaymentMethod", "Look");
+                entity.ToTable("PaymentMethod", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -1309,7 +1369,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<PersonTitles>(entity =>
             {
-                entity.ToTable("PersonTitles", "Look");
+                entity.ToTable("PersonTitles", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -1549,7 +1609,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Province>(entity =>
             {
-                entity.ToTable("Province", "Look");
+                entity.ToTable("Province", "look");
 
                 entity.HasIndex(e => e.CountryId);
 
@@ -1606,7 +1666,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<RequestType>(entity =>
             {
-                entity.ToTable("RequestType", "Look");
+                entity.ToTable("RequestType", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -1642,7 +1702,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<RoleScreen>(entity =>
             {
-                entity.ToTable("RoleScreen", "Look");
+                entity.ToTable("RoleScreen", "look");
 
                 entity.HasIndex(e => e.ScreenId);
 
@@ -1663,7 +1723,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<Screen>(entity =>
             {
-                entity.ToTable("Screen", "Look");
+                entity.ToTable("Screen", "look");
 
                 entity.HasIndex(e => e.ModuleId);
 
@@ -1763,7 +1823,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<SystemStatus>(entity =>
             {
-                entity.ToTable("SystemStatus", "Look");
+                entity.ToTable("SystemStatus", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
@@ -1790,7 +1850,7 @@ namespace App.Persistence.NModels
 
             modelBuilder.Entity<UserOfficePrinter>(entity =>
             {
-                entity.ToTable("UserOfficePrinter", "Look");
+                entity.ToTable("UserOfficePrinter", "look");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
