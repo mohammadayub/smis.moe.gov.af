@@ -12,6 +12,7 @@ namespace App.Domain.Entity.pas
         public PassportApplication()
         {
             AuthorizationQueue = new HashSet<AuthorizationQueue>();
+            DisabledPassport = new HashSet<DisabledPassport>();
             PrintQueue = new HashSet<PrintQueue>();
             ResearchQueue = new HashSet<ResearchQueue>();
         }
@@ -58,6 +59,7 @@ namespace App.Domain.Entity.pas
         public virtual Profile Profile { get; set; }
         public virtual RequestType RequestType { get; set; }
         public virtual ICollection<AuthorizationQueue> AuthorizationQueue { get; set; }
+        public virtual ICollection<DisabledPassport> DisabledPassport { get; set; }
         public virtual ICollection<PrintQueue> PrintQueue { get; set; }
         public virtual ICollection<ResearchQueue> ResearchQueue { get; set; }
     }

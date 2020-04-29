@@ -51,7 +51,9 @@ namespace App.Persistence.Context
         public virtual DbSet<MaritalStatus> MaritalStatus { get; set; }
         public virtual DbSet<Occupation> Occupations { get; set; }
         public virtual DbSet<Office> Offices { get; set; }
+        public virtual DbSet<DisabledReason> DisabledReasons { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
+        public virtual DbSet<DisabledPassport> DisabledPassports { get; set; }
         public virtual DbSet<PassportApplication> PassportApplications { get; set; }
         public virtual DbSet<PassportDuration> PassportDurations { get; set; }
         public virtual DbSet<PassportPrint> PassportPrints { get; set; }
