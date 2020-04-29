@@ -17,7 +17,13 @@ namespace App.Persistence.Configuration.Look
                 .HasColumnName("ID")
                 .UseIdentityAlwaysColumn();
 
-            entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(e => e.NameEn)
+                .IsRequired()
+                .HasColumnType("character varying");
         }
     }
 }

@@ -17,9 +17,17 @@ namespace App.Persistence.Configuration.Look
                 .HasColumnName("ID")
                 .UseIdentityAlwaysColumn();
 
-            entity.Property(e => e.Code).HasColumnType("character varying");
+            entity.Property(e => e.Code)
+                .IsRequired()
+                .HasColumnType("character varying");
 
-            entity.Property(e => e.Title).HasColumnType("character varying");
+            entity.Property(e => e.Title)
+                .IsRequired()
+                .HasColumnType("character varying");
+
+            entity.Property(e => e.TitleEn)
+                .IsRequired()
+                .HasColumnType("character varying");
         }
     }
 }

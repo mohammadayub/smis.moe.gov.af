@@ -14,6 +14,7 @@ namespace App.Domain.Entity.look
         public int Id { get; set; }
         public string Title { get; set; }
         public string Code { get; set; }
+        public string TitleEn { get; set; }
 
         public virtual ICollection<Attachments> Attachments { get; set; }
     }
