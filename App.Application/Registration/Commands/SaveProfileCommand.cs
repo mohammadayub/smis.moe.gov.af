@@ -2,6 +2,7 @@
 using App.Application.Registration.Queries;
 using App.Domain.Entity.prf;
 using App.Persistence.Context;
+using Clean.Common.Enums;
 using Clean.Common.Exceptions;
 using Clean.Common.Extensions;
 using Clean.Persistence.Services;
@@ -66,6 +67,16 @@ namespace App.Application.Registration.Commands
             var result = new List<SearchedProfileModel>();
             if (request.Id.HasValue)
             {
+                var apps = await Context.PassportApplications.Where(e => e.ProfileId == request.Id).ToListAsync();
+                if (apps.Any())
+                {
+                    var capp = apps.OrderByDescending(e => e.Id).First();
+                    if(capp.CurProcessId != SystemProcess.Registration && capp.CurProcessId != SystemProcess.Close)
+                    {
+                        throw new BusinessRulesException("این درخواست قابل تغییر نمی باشد!");
+                    }
+                }
+
                 var prf = Context.Profiles.Where(e => e.Id == request.Id).Single();
                 var bio = Context.BioDatas.Where(e => e.Id == request.BId && e.StatusId == 1).Single();
 
@@ -77,7 +88,7 @@ namespace App.Application.Registration.Commands
                 prf.BirthProvinceId = request.BirthProvinceId;
                 prf.DocumentTypeId = request.DocumentTypeId;
                 prf.MaritalStatusId = request.MaritalStatusId;
-                prf.Height = request.HairColorId;
+                prf.Height = request.Height;
                 prf.NationalId = request.NID;
                 prf.OtherNationalityId = request.OtherNationalityId;
                 prf.OtherDetail = request.OtherDetail;

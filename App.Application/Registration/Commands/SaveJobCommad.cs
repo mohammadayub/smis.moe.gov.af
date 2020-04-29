@@ -8,8 +8,11 @@ using App.Application.Registration.Models;
 using App.Application.Registration.Queries;
 using App.Domain.Entity.prf;
 using App.Persistence.Context;
+using Clean.Common.Enums;
+using Clean.Common.Exceptions;
 using Clean.Persistence.Services;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Application.Registration.Commands
 {
@@ -41,6 +44,17 @@ namespace App.Application.Registration.Commands
         public async Task<List<SearchJobModel>> Handle(SaveJobCommad request, CancellationToken cancellationToken)
         {
             var UserID = await CurrentUser.GetUserId();
+            
+            var apps = await Context.PassportApplications.Where(e => e.ProfileId == request.ProfileId).ToListAsync();
+            if (apps.Any())
+            {
+                var capp = apps.OrderByDescending(e => e.Id).First();
+                if (capp.CurProcessId != SystemProcess.Registration && capp.CurProcessId != SystemProcess.Close)
+                {
+                    throw new BusinessRulesException("این درخواست قابل تغییر نمی باشد!");
+                }
+            }
+
             var cad = new Job
             {
                 ProfileId = request.ProfileId,

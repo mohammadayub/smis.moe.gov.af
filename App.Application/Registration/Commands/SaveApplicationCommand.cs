@@ -185,7 +185,7 @@ namespace App.Application.Registration.Commands
                         {
                             throw new BusinessRulesException("این شخص یک درخواست ناتکمیل دارد!");
                         }
-                        if (ex.Where(e => e.CurProcessId == SystemProcess.Close && e.PassportTypeId == request.PassportTypeId && e.StatusId == 1).Any())
+                        if (ex.Where(e => e.CurProcessId == SystemProcess.Close && e.PassportTypeId == request.PassportTypeId && e.StatusId == ApplicationStatus.Active).Any())
                         {
                             throw new BusinessRulesException("این شخص یک پاسپورت فعال دارد،ابتدا پاسپورت را غیرفعال بسازید!");
                         }

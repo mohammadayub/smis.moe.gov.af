@@ -2,9 +2,12 @@
 using App.Application.Registration.Queries;
 using App.Persistence.Context;
 using Clean.Common;
+using Clean.Common.Enums;
+using Clean.Common.Exceptions;
 using Clean.Common.Storage;
 using Clean.Persistence.Services;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +45,15 @@ namespace App.Application.Registration.Commands
         public async Task<List<AttachmentModel>> Handle(SaveAttachmentCommand request, CancellationToken cancellationToken)
         {
             var UserID = await CurrentUser.GetUserId();
+            var apps = await Context.PassportApplications.Where(e => e.ProfileId == request.ProfileId).ToListAsync();
+            if (apps.Any())
+            {
+                var capp = apps.OrderByDescending(e => e.Id).First();
+                if (capp.CurProcessId != SystemProcess.Registration && capp.CurProcessId != SystemProcess.Close)
+                {
+                    throw new BusinessRulesException("این درخواست قابل تغییر نمی باشد!");
+                }
+            }
             var attach = request.Id.HasValue ? Context.Attachments.Where(e => e.Id == request.Id).Single() : new Domain.Entity.prf.Attachments();
 
             attach.AttachmentTypeId = request.AttachmentTypeId;
