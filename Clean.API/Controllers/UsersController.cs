@@ -5,10 +5,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using App.Application.Account.Commands;
+using App.Application.Account.Models;
 using Clean.API.Models.Account;
 using Clean.API.Results;
 using Clean.Common;
 using Clean.Persistence.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +25,12 @@ namespace Clean.API.Controllers
     {
         public SignInManager<AppUser> SignInManager { get; }
         public UserManager<AppUser> UserManager { get; }
-        public UsersController(SignInManager<AppUser> signInManager,UserManager<AppUser> userManager)
+        public IMediator Mediator { get; set; }
+        public UsersController(SignInManager<AppUser> signInManager,UserManager<AppUser> userManager,IMediator mediator)
         {
             SignInManager = signInManager;
             UserManager = userManager;
+            Mediator = mediator;
         }
 
         [HttpPost("authenticate")]
@@ -54,6 +59,13 @@ namespace Clean.API.Controllers
             {
                 return NotFound(rs);
             }
+        }
+
+        [HttpPost("changepassword")]
+        public async Task<ActionResult<ChangeAccountPasswordModel>> ChangePassword(ChangeAccountPasswordCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return result;
         }
 
 
