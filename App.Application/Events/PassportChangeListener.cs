@@ -94,6 +94,11 @@ namespace App.Application.Events
                     ps.StatusId = PassportStatus.Spoiled;
 
                 }
+                else if(ToProcess == SystemProcess.Close)
+                {
+                    var app = AppContext.PassportApplications.Where(e => e.Id == RecordID).Single();
+                    app.StatusId = 1;
+                }
             }
 
             await AppContext.SaveChangesAsync();
