@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Clean.UI.Controllers
 {
     [Route("{controller}/{action}")]
-    public class LanguateController : Controller
+    public class LanguageController : Controller
     {
         public IActionResult Change(string language,string returnUrl)
         {
