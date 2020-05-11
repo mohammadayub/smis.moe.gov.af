@@ -66,7 +66,7 @@ namespace App.Application.Management.Commands
 
             Context.DisabledPassports.Add(DisabledPassport);
             await Context.SaveChangesAsync();
-            return await Mediator.Send(new SearchProfileQuery { ID = request.Id });
+            return await Mediator.Send(new SearchPrintedPassportsQuery { ID = request.Id });
         }
     }
 }

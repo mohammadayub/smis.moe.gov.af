@@ -66,7 +66,7 @@ namespace Clean.UI.Pages.Passport.Management
             }
         }
 
-        public async Task<IActionResult> OnPostSearch([FromBody] SearchProfileQuery query)
+        public async Task<IActionResult> OnPostSearch([FromBody] SearchPrintedPassportsQuery query)
         {
             try
             {
