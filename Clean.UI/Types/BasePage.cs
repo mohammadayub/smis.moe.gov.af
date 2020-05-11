@@ -25,6 +25,7 @@ namespace Clean.UI.Types
 
         [BindProperty]
         public string PageID { get; set; }
+        public List<SelectListItem> ListOfBlackListReasons { get; set; }
         public List<SelectListItem> ListOfDisabledReasons { get; set; }
         public List<SelectListItem> ListOfAttachmentType { get; set; }
         public List<SelectListItem> ListOfPaymentMethod { get; set; }

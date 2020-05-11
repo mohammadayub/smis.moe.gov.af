@@ -1,4 +1,5 @@
-﻿using App.Domain.Entity.doc;
+﻿using App.Domain.Entity.blk;
+using App.Domain.Entity.doc;
 using App.Domain.Entity.look;
 using App.Domain.Entity.pas;
 using App.Domain.Entity.prc;
@@ -73,6 +74,10 @@ namespace App.Persistence.Context
         public virtual DbSet<RequestType> RequestType { get; set; }
         public virtual DbSet<StockIn> StockIns { get; set; }
         public virtual DbSet<UserOfficePrinter> UserOfficePrinters { get; set; }
+
+        public virtual DbSet<BlackListReason> BlackListReasons { get; set; }
+        public virtual DbSet<BlackList> BlackLists { get; set; }
+        public virtual DbSet<BlackListProfile> BlackListProfiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

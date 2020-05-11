@@ -22,10 +22,6 @@ namespace App.Domain.Entity.prf
         }
 
         public int Id { get; set; }
-        public int TitleId { get; set; }
-        public string Code { get; set; }
-        public int? Suffix { get; set; }
-        public byte[] Prefix { get; set; }
         public int MaritalStatusId { get; set; }
         public int GenderId { get; set; }
         public int ResidenceCountryId { get; set; }
@@ -42,7 +38,12 @@ namespace App.Domain.Entity.prf
         public string ReferenceNo { get; set; }
         public string NationalId { get; set; }
         public int DocumentTypeId { get; set; }
+        public string Code { get; set; }
+        public int TitleId { get; set; }
         public int? OtherNationalityId { get; set; }
+        public int? Suffix { get; set; }
+        public byte[] Prefix { get; set; }
+        public int StatusId { get; set; }
 
         public virtual Country OtherNationality { get; set; }
         public virtual PersonTitles Title { get; set; }

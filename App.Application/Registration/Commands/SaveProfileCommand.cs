@@ -164,7 +164,8 @@ namespace App.Application.Registration.Commands
                             OtherDetail = request.OtherDetail,
                             ResidenceCountryId = request.ResidenceCountryId,
                             CreatedBy = UserID,
-                            CreatedOn = DateTime.Now
+                            CreatedOn = DateTime.Now,
+                            StatusId = ProfileStatus.Active
                         };
                         var bio = new BioData
                         {
