@@ -185,6 +185,9 @@
     padding-bottom: 1px;
     cursor: pointer;
     text-align: center;
+    display: block;
+    box-sizing: border-box;
+    text-decoration: none;
 }
 
 .mds-bootstrap-persian-datetime-picker-container .dropdown-item:not(.disabled):hover {

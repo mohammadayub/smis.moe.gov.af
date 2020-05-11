@@ -9,7 +9,7 @@
 }
 
     .navbar-brand img {
-        float: inline-start;
+        float: inherit;
         height: 45px;
         margin-top: -12px;
         margin-inline-end: 12px;

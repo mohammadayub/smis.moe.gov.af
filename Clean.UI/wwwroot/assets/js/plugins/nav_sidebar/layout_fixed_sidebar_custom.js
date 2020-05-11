@@ -24,11 +24,13 @@ var FixedSidebarCustomScroll = function() {
             return;
         }
 
-        // Initialize
-        var ps = new PerfectScrollbar('.sidebar-fixed .sidebar-content', {
-            wheelSpeed: 2,
-            wheelPropagation: true
-        });
+        // Initialize If It Exists
+        if ($('.sidebar-fixed .sidebar-content').length) {
+            var ps = new PerfectScrollbar('.sidebar-fixed .sidebar-content', {
+                wheelSpeed: 2,
+                wheelPropagation: true
+            });
+        }
     };
 
 

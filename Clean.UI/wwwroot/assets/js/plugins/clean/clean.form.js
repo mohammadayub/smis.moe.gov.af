@@ -48,7 +48,9 @@ var clean = window.clean = window.clean || {};
     clean.form.prototype = {
         init: function (opt) {
             var self = this;
-            //if ($('.viewonly').length)
+            window.CleanForms = window.CleanForms || {};
+            window.CleanForms[self.el.attr('id')] = self;
+
             self.construct();
             //Registering the clean form actions -- Save -- Search -- New
             this.actions.bind('click', function () {
@@ -57,8 +59,32 @@ var clean = window.clean = window.clean || {};
                 return false;
             });
 
-            window.CleanForms = window.CleanForms || {};
-            window.CleanForms[self.el.attr('id')] = self;
+            
+            $(window).on('resize', function () {
+                if (!$.fn.DataTable.isDataTable('#' + self.grid.table)) {
+                    var tableheight = !$('#' + self.grid.table).attr('fullheight') ? 150 : null;
+                    var filter = !$('#' + self.grid.table).attr('filter') ? false : true;
+                    var opts = {
+                        "paging": false,
+                        "showExpander": true,
+                        "ordering": false,
+                        "info": false,
+                        "filter": filter,
+                        autoWidth: true,
+                        scrollY: tableheight,
+                        "oLanguage": {
+                            "sSearch": "جستجو",
+                            "sLengthMenu": "تعداد در هر صفحه _MENU_",
+                            "sEmptyTable": "جدول خالی است",
+                            "sInfo": "نمایش صفحه _PAGE_ از _PAGES_ صفحه که مجموعاً شامل _MAX_ ریکارد است"
+                        },
+                    };
+                    $('#' + self.grid.table).DataTable(opts).columns.adjust();
+                }
+                else {
+                    $('#' + self.grid.table).DataTable().columns.adjust();
+                }
+            });
 
             if (!clean.isEmpty(self.OnInit))
                 clean.invoke(self.OnInit, self);
@@ -863,6 +889,9 @@ var clean = window.clean = window.clean || {};
                     });
                 }
                 self.modal.modal();
+                self.modal.on('shown.bs.modal', function () {
+                    self.modal.find('table').DataTable().columns.adjust();
+                });
             }
             else {
                 var title = 'فورم $formname خالی میباشد';
@@ -1272,8 +1301,12 @@ var clean = window.clean = window.clean || {};
                     }
 
 
-                    if (showModal)
+                    if (showModal) {
                         self.processmodal.modal();
+                        self.processmodal.on('shown.bs.modal', function () {
+                            $(this).find('table').DataTable().columns.adjust();
+                        });
+                    }
 
                     self.processmodal = {};
                 }
