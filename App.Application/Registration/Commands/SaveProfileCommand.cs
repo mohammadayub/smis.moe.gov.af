@@ -127,7 +127,10 @@ namespace App.Application.Registration.Commands
                 {
                     arr = GenerateProfileHash(prf, bio);
                 }
-
+                if(Context.BlackListProfiles.Where(e => e.HashKey == arr && e.StatusId == BlackListStatus.Active).Any())
+                {
+                    throw new BusinessRulesException("این فرد شامل لیست سیاه می باشد!");
+                }
                 var hashes = await Context.ProfileHashes.Where(e => e.HashKey == arr).ToListAsync();
 
                 if (!hashes.Any(e => e.ProfileId == prf.Id))
@@ -204,6 +207,10 @@ namespace App.Application.Registration.Commands
                         }
                         else
                         {
+                            if (Context.BlackListProfiles.Where(e => e.HashKey == profileHash.HashKey && e.StatusId == BlackListStatus.Active).Any())
+                            {
+                                throw new BusinessRulesException("این فرد شامل لیست سیاه می باشد!");
+                            }
                             var ex = Context.ProfileHashes.Where(e => e.HashKey == profileHash.HashKey).Select(e => new { e.ProfileId,e.Profile.Code }).FirstOrDefault();
                             
                             if(ex  != null)

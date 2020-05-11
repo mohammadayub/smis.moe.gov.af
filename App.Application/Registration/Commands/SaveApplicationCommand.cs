@@ -190,6 +190,12 @@ namespace App.Application.Registration.Commands
                             throw new BusinessRulesException("این شخص یک پاسپورت فعال دارد،ابتدا پاسپورت را غیرفعال بسازید!");
                         }
 
+                        var prf = Context.Profiles.Where(e => e.Id == cur.ProfileId).Single();
+                        if(prf.StatusId == ProfileStatus.BlackList)
+                        {
+                            throw new BusinessRulesException("این شخص شامل لیست سیاه می باشد!");
+                        }
+
                         var gcode = await GenerateCodeAsync(cur);
                         cur.Code = gcode.Item1;
                         cur.Suffix = gcode.Item2;
