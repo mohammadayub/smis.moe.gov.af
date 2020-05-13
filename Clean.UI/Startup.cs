@@ -73,6 +73,9 @@ namespace Clean.UI
                 o.DefaultRequestCulture = new RequestCulture(da);
                 o.SupportedCultures = supportedCultures;
                 o.SupportedUICultures = supportedCultures;
+                o.RequestCultureProviders.Clear();
+                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+                
             });
 
             services.Configure<IISServerOptions>(options =>
@@ -215,22 +218,8 @@ namespace Clean.UI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            var dti = new DateTimeFormatInfo();
-            dti.Calendar = new System.Globalization.GregorianCalendar();
-            var da = new CultureInfo("prs");
-            var ps = new CultureInfo("ps");
-            var en = new CultureInfo("en");
-            da.DateTimeFormat = dti;
-            ps.DateTimeFormat = dti;
-            var supportedCultures = new List<CultureInfo> {
-                da,ps,en
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture(da),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures,
-            });
+            
+            app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
