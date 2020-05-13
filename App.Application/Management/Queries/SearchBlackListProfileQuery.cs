@@ -16,6 +16,9 @@ namespace App.Application.Management.Queries
     public class SearchBlackListProfileQuery : IRequest<List<SearchBlackListProfileModel>>
     {
         public int? ID { get; set; }
+        public string Name { get; set; }
+        public string FatherName { get; set; }
+        public string GrandFatherName { get; set; }
     }
 
 
@@ -33,6 +36,21 @@ namespace App.Application.Management.Queries
             if (request.ID.HasValue)
             {
                 query = query.Where(e => e.Id == request.ID);
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(request.Name))
+                {
+                    query = query.Where(e => EF.Functions.ILike(e.Name, String.Concat("%", request.Name, "%")));
+                }
+                if (!String.IsNullOrEmpty(request.FatherName))
+                {
+                    query = query.Where(e => EF.Functions.ILike(e.FatherName, String.Concat("%", request.FatherName, "%")));
+                }
+                if (!String.IsNullOrEmpty(request.GrandFatherName))
+                {
+                    query = query.Where(e => EF.Functions.ILike(e.GrandFatherName, String.Concat("%", request.GrandFatherName, "%")));
+                }
             }
 
 

@@ -16,6 +16,7 @@ namespace App.Application.Management.Queries
     public class SearchBlackListQuery : IRequest<List<SearchBlackListModel>>
     {
         public int? ID { get; set; }
+        public int? BlackListProfileID { get; set; }
     }
 
 
@@ -33,6 +34,10 @@ namespace App.Application.Management.Queries
             if (request.ID.HasValue)
             {
                 query = query.Where(e => e.Id == request.ID);
+            }
+            if (request.BlackListProfileID.HasValue)
+            {
+                query = query.Where(e => e.BlackListProfileId == request.BlackListProfileID);
             }
 
 
