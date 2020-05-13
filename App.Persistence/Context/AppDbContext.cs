@@ -78,6 +78,7 @@ namespace App.Persistence.Context
         public virtual DbSet<BlackListReason> BlackListReasons { get; set; }
         public virtual DbSet<BlackList> BlackLists { get; set; }
         public virtual DbSet<BlackListProfile> BlackListProfiles { get; set; }
+        public virtual DbSet<WhiteList> WhiteLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
