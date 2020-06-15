@@ -32,6 +32,8 @@ namespace App.Persistence.Context
         
         public virtual DbSet<App.Domain.Entity.look.Ethnicity> Ethnicities { get; set; }
 
+        public virtual DbSet<App.Domain.Entity.look.Religion> Religions { get; set; }
+
         
         public virtual DbSet<Clean.Domain.Entity.look.Province> Provinces { get; set; }
         public virtual DbSet<App.Domain.Entity.look.Gender> Genders { get; set; }

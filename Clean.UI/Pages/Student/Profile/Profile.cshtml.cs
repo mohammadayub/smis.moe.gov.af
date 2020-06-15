@@ -39,7 +39,10 @@ namespace Clean.UI.Pages.Student.Profile
             foreach (var ethnicity in ethnicities)
                 ListOfEthnicities.Add(new SelectListItem(ethnicity.Name, ethnicity.Id.ToString()));
 
-
+            ListOfReligions = new List<SelectListItem>();
+            var religions = await Mediator.Send(new GetReligionList() { ParentID = 1 });
+            foreach (var religion in religions)
+                ListOfReligions.Add(new SelectListItem(religion.Name, religion.Id.ToString()));
 
             // get list of subscreens
             string Screen = EncryptionHelper.Decrypt(HttpContext.Request.Query["p"]);

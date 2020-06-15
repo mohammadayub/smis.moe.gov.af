@@ -7,7 +7,6 @@ namespace App.Application.Lookup.Models
 {
    public class ReligionModel
     {
-
         public ReligionModel()
         {
             Profiles = new HashSet<Profile>();
