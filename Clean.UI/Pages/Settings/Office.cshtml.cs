@@ -24,10 +24,6 @@ namespace Clean.UI.Pages.Settings
             var countries = await Mediator.Send(new GetCountryList());
             countries.ForEach(e => ListOfCountry.Add(new SelectListItem { Value = e.ID.ToString(),Text = String.Concat(e.Code," - ",e.Title) }));
 
-            ListOfCurrency = new List<SelectListItem>();
-            var currencies = await Mediator.Send(new GetCurrencyList());
-            currencies.ForEach(e => ListOfCurrency.Add(new SelectListItem { Value = e.ID.ToString(), Text = String.Concat(e.Code, " - ", e.Name) }));
-
         }
 
 

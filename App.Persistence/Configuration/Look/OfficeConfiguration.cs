@@ -45,11 +45,6 @@ namespace App.Persistence.Configuration.Look
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("office_fk");
 
-            entity.HasOne(d => d.Currency)
-                .WithMany(p => p.Office)
-                .HasForeignKey(d => d.CurrencyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("office_fk_2");
 
             entity.HasOne(d => d.Province)
                 .WithMany()

@@ -38,7 +38,7 @@ namespace App.Application.Lookup.Queries
                 Title = e.Title,
                 TitleEn = e.TitleEn,
                 CountryId = e.CountryId,
-                CurrencyId = e.CurrencyId,
+                //CurrencyId = e.CurrencyId,
                 OfficeTypeId = e.OfficeTypeId,
                 OrganizationId = e.OrganizationId,
                 ProvinceId = e.ProvinceId,

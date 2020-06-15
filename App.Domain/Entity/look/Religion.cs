@@ -5,17 +5,17 @@ using System.Text;
 
 namespace App.Domain.Entity.look
 {
-    public partial class Gender
+  public partial  class Religion
     {
-        public Gender()
+        public Religion()
         {
-            Profile = new HashSet<Profile>();
+            Profiles = new HashSet<Profile>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Code { get; set; }
+        public int? ParentId { get; set; }
 
-        public virtual ICollection<Profile> Profile { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }

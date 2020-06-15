@@ -14,7 +14,8 @@ namespace App.Application.Lookup.Models
         public string Country { get; set; }
         public int ProvinceId { get; set; }
         public string Province { get; set; }
-        public int CurrencyId { get; set; }
+
+        //public int CurrencyId { get; set; }
         public int OrganizationId { get; set; }
         public int OfficeTypeId { get; set; }
     }

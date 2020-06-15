@@ -1,9 +1,8 @@
 ﻿using App.Domain.Entity.look;
-using App.Domain.Entity.pas;
-using Clean.Domain.Entity.doc;
 using Clean.Domain.Entity.look;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace App.Domain.Entity.prf
 {
@@ -11,57 +10,72 @@ namespace App.Domain.Entity.prf
     {
         public Profile()
         {
-            Address = new HashSet<Address>();
-            Attachments = new HashSet<Attachments>();
-            BioData = new HashSet<BioData>();
-            Biometric = new HashSet<Biometric>();
-            CriminalRecord = new HashSet<CriminalRecord>();
-            Job = new HashSet<Job>();
-            PassportApplication = new HashSet<PassportApplication>();
-            ProfileHash = new HashSet<ProfileHash>();
+
+            //Jobs = new HashSet<Job>();
+
+
         }
 
-        public int Id { get; set; }
-        public int MaritalStatusId { get; set; }
-        public int GenderId { get; set; }
-        public int ResidenceCountryId { get; set; }
-        public int Height { get; set; }
-        public int BirthCountryId { get; set; }
-        public int BirthProvinceId { get; set; }
-        public int HairColorId { get; set; }
-        public int EyeColorId { get; set; }
-        public string OtherDetail { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public int? ModifiedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public string ReferenceNo { get; set; }
-        public string NationalId { get; set; }
-        public int DocumentTypeId { get; set; }
+        public decimal Id { get; set; }
         public string Code { get; set; }
-        public int TitleId { get; set; }
-        public int? OtherNationalityId { get; set; }
+        public string Prefix { get; set; }
         public int? Suffix { get; set; }
-        public byte[] Prefix { get; set; }
-        public int StatusId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FatherName { get; set; }
 
-        public virtual Country OtherNationality { get; set; }
-        public virtual PersonTitles Title { get; set; }
-        public virtual Country BirthCountry { get; set; }
-        public virtual Province BirthProvince { get; set; }
+        public string GrandFatherName { get; set; }
+
+        public string FirstNameEng { get; set; }
+
+        public string LastNameEng { get; set; }
+
+        public string FatherNameEng { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
+        public int BirthLocationId { get; set; }
+        public int GenderId { get; set; }
+        public int MaritalStatusId { get; set; }
+        public int? ReligionId { get; set; }
+        public int DocumentTypeId { get; set; }
+        public string NationalId { get; set; }
+        public int? EthnicityId { get; set; }
+        public int? BloodGroupId { get; set; }
+        public int StatusId { get; set; }
+        public int? EducationId { get; set; }
+        public string PhotoPath { get; set; }
+        public int ServiceTypeId { get; set; }
+        public int OrganizationId { get; set; }
+        public int Province { get; set; }
+        public int District { get; set; }
+        public string Mobile { get; set; }
+        public int? CProvince { get; set; }
+        public int? CDistrict { get; set; }
+        public string CVillage { get; set; }
+        public string ReferenceNo { get; set; }
+        public DateTime ModifiedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public int? CreatedBy { get; set; }
+
+
+
+        public Location BirthLocation { get; set; }
+        public BloodGroup BloodGroup { get; set; }
+        public virtual Location DistrictNavigation { get; set; }
         public virtual DocumentType DocumentType { get; set; }
-        public virtual Color EyeColor { get; set; }
-        public virtual Gender Gender { get; set; }
-        public virtual Color HairColor { get; set; }
-        public virtual MaritalStatus MaritalStatus { get; set; }
-        public virtual Country ResidenceCountry { get; set; }
-        public virtual ICollection<Address> Address { get; set; }
-        public virtual ICollection<Attachments> Attachments { get; set; }
-        public virtual ICollection<BioData> BioData { get; set; }
-        public virtual ICollection<Biometric> Biometric { get; set; }
-        public virtual ICollection<CriminalRecord> CriminalRecord { get; set; }
-        public virtual ICollection<Job> Job { get; set; }
-        public virtual ICollection<PassportApplication> PassportApplication { get; set; }
-        public virtual ICollection<ProfileHash> ProfileHash { get; set; }
+        //public virtual Education Education { get; set; }
+        public Ethnicity Ethnicity { get; set; }
+        public Gender Gender { get; set; }
+        public MaritalStatus MaritalStatus { get; set; }
+        public virtual Clean.Domain.Entity.look.Organization Organization { get; set; }
+        public virtual Location ProvinceNavigation { get; set; }
+        public Religion Religion { get; set; }
+
+        //public ICollection<Job> Jobs { get; set; }
+        public ICollection<Application> Applications { get; set; }
+        //public ICollection<SchoolInformation> SchoolInformations { get; set; }
+
     }
+
 }

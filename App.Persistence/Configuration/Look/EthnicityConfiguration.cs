@@ -7,19 +7,24 @@ using System.Text;
 
 namespace App.Persistence.Configuration.Look
 {
-    public class MaritalStatusConfiguration : IEntityTypeConfiguration<MaritalStatus>
+    public class EthnicityConfiguration : IEntityTypeConfiguration<Ethnicity>
     {
-        public void Configure(EntityTypeBuilder<MaritalStatus> entity)
+        public void Configure(EntityTypeBuilder<Ethnicity> entity)
         {
-            entity.ToTable("MaritalStatus", "look");
+            entity.ToTable("Ethnicity", "look");
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID")
-                .UseIdentityAlwaysColumn();
+                .ValueGeneratedNever();
+
+            entity.Property(e => e.CountryId).HasColumnName("CountryID");
 
             entity.Property(e => e.Name)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(50);
+
+            entity.Property(e => e.ParentId).HasColumnName("ParentID");
+
         }
     }
 }

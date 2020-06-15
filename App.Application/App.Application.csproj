@@ -18,9 +18,4 @@
     <ProjectReference Include="..\Clean.Application\Clean.Application.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Research\Commands\" />
-  </ItemGroup>
-
 </Project>

@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace App.Domain.Entity.look
+namespace App.Application.Lookup.Models
 {
-    public partial class MaritalStatus
+    public partial class MaritalModel
     {
-        public MaritalStatus()
+
+        public MaritalModel()
         {
             Profiles = new HashSet<Profile>();
         }

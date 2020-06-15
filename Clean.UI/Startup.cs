@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using App.Application.Events;
 using App.Application.Lookup.Queries;
-using App.Application.Service;
 using App.Persistence.Context;
 using App.Persistence.Service;
 using Clean.Application.System.Queries;
@@ -18,14 +10,12 @@ using Clean.Persistence.Identity.Policies;
 using Clean.Persistence.Services;
 using Clean.UI.Types;
 using Clean.UI.Utilities;
-using FluentValidation.AspNetCore;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +24,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Clean.UI
 {
@@ -75,7 +67,7 @@ namespace Clean.UI
                 o.SupportedUICultures = supportedCultures;
                 o.RequestCultureProviders.Clear();
                 o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
-                
+
             });
 
             services.Configure<IISServerOptions>(options =>
@@ -92,7 +84,7 @@ namespace Clean.UI
 
 
             services.AddScoped<ICurrentUser, CurrentUser>();
-            services.AddScoped<IProcessChangeListener, PassportChangeListener>();
+            //services.AddScoped<IProcessChangeListener, PassportChangeListener>();
 
 
             services.AddScoped<IAuthorizationHandler, NewlyRegisteredUsersHandler>();
@@ -101,18 +93,19 @@ namespace Clean.UI
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             // Register MediatR Supporting Assemblies
-            services.AddMediatR(typeof(GetScreens).Assembly,typeof(GetOfficesQuery).Assembly);
+            services.AddMediatR(typeof(GetScreens).Assembly, typeof(GetOfficesQuery).Assembly);
 
             services.AddAntiforgery(option => option.HeaderName = "XSRF-TOKEN");
 
             services.AddDbContext<AppDbContext>();
             services.AddDbContext<BaseContext, AppDbContext>();
-            
+
             services.AddDbContext<AppIdentityDbContext>();
             services.AddSession(option => { option.Cookie.IsEssential = true; });
-            services.AddIdentity<AppUser, AppRole>(options => { 
-                options.User.RequireUniqueEmail = true; 
-                
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+
             })
                     .AddRoles<AppRole>()
                     .AddErrorDescriber<IdentityLocalizedErrorDescribers>()
@@ -142,10 +135,11 @@ namespace Clean.UI
 
 
             services.AddRazorPages()
-                .AddNewtonsoftJson(opts => {
-                    
+                .AddNewtonsoftJson(opts =>
+                {
+
                 })
-                   //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProfileCommandValidator>())
+                //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProfileCommandValidator>())
                 .AddRazorPagesOptions(o => { o.Conventions.Add(new CultureTemplateRouteModelConvention()); })
                 .AddRazorPagesOptions(options =>
                     {
@@ -194,7 +188,7 @@ namespace Clean.UI
                 )
                 .AddNewtonsoftJson(opts =>
                 {
-                    
+
                 })
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.SubFolder)
                 .AddDataAnnotationsLocalization()
@@ -203,10 +197,10 @@ namespace Clean.UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,UserManager<AppUser> userManager,RoleManager<AppRole> role,BaseContext ctx,AppIdentityDbContext identityDbContext,ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<AppRole> role, BaseContext ctx, AppIdentityDbContext identityDbContext, ILoggerFactory loggerFactory)
         {
             Initializer.InitializeAsync(userManager, role, identityDbContext, ctx).Wait();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -218,7 +212,7 @@ namespace Clean.UI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -230,7 +224,7 @@ namespace Clean.UI
 
             app.UseCookiePolicy();
             app.UseSession();
-            
+
             ContextHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
             app.UseEndpoints(endpoints =>

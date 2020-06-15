@@ -4,7 +4,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using App.Application.Events;
 using App.Application.Lookup.Queries;
 using App.Persistence.Context;
 using App.Persistence.Service;
@@ -45,7 +44,7 @@ namespace Clean.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<ICurrentUser, CurrentUser>();
-            services.AddScoped<IProcessChangeListener, PassportChangeListener>();
+            //services.AddScoped<IProcessChangeListener, PassportChangeListener>();
 
             services.AddDbContext<AppDbContext>();
             services.AddDbContext<BaseContext, AppDbContext>();
