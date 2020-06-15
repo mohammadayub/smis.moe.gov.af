@@ -44,6 +44,8 @@ namespace Clean.UI.Pages.Student.Profile
             foreach (var religion in religions)
                 ListOfReligions.Add(new SelectListItem(religion.Name, religion.Id.ToString()));
 
+           
+
             // get list of subscreens
             string Screen = EncryptionHelper.Decrypt(HttpContext.Request.Query["p"]);
             int ScreenID = Convert.ToInt32(Screen);

@@ -230,7 +230,7 @@
                         <div class="col-md-2 col-sm-12 col-xs-12 ">
                             <div class="form-group">
                                 <label class="text-bold">
-                                    @_localizer["محل تولد"]
+                                    @_localizer["محل تولد(ولایت)"]
                                     <span class="text-danger">&nbsp;*</span>
                                 </label>
                                 <select id="uxbirthlocationid" name="uxBirthLocationID" child="uxbirthprovinceid" asp-items="@Model.ListOfLocations" class="select" required>
@@ -239,6 +239,20 @@
 
                             </div>
                         </div>
+
+                        <div class="col-md-2 col-sm-12 col-xs-12 ">
+                            <div class="form-group">
+                                <label class="text-bold">
+                                    @_localizer["محل تولد(ولسوالی)"]
+                                    <span class="text-danger">&nbsp;*</span>
+                                </label>
+                                <select id="uxbirthlocationid" name="uxBirthLocationID" child="uxbirthprovinceid" asp-items="@Model.ListOfLocations" class="select" required>
+                                    <option></option>
+                                </select>
+
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row nid-row">
