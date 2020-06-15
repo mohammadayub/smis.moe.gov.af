@@ -1,5 +1,4 @@
 ﻿using App.Application.Lookup.Models;
-using App.Domain.Entity.look;
 using App.Persistence.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace App.Application.Lookup.Queries
 {
-    public class GetEthnicityList : IRequest<List<Ethnicity>>
+    public class GetEthnicityList : IRequest<List<EthnicityModel>>
     {
         public int? ID { get; set; }
         public int? ParentID { get; set; }
     }
 
-    public class GetEthnicityListHandler : IRequestHandler<GetEthnicityList, List<Ethnicity>>
+    public class GetEthnicityListHandler : IRequestHandler<GetEthnicityList, List<EthnicityModel>>
     {
         private readonly AppDbContext Context;
         public GetEthnicityListHandler(AppDbContext context)
         {
             Context = context;
         }
-        public async Task<List<Ethnicity>> Handle(GetEthnicityList request, CancellationToken cancellationToken)
+        public async Task<List<EthnicityModel>> Handle(GetEthnicityList request, CancellationToken cancellationToken)
         {
 
             var query = Context.Ethnicities.AsQueryable();
@@ -37,7 +36,13 @@ namespace App.Application.Lookup.Queries
             {
                 query = query.Where(e => e.ParentId == request.ParentID).AsQueryable();
             }
-            return await query.ToListAsync();
+            return await query.Select(e => new EthnicityModel
+            {
+                Id = e.Id,
+                CountryId = e.CountryId,
+                Name = e.Name,
+                ParentId = e.ParentId
+            }).ToListAsync();
         }
     }
 

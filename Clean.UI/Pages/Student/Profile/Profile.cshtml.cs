@@ -35,24 +35,11 @@ namespace Clean.UI.Pages.Student.Profile
             maritals.ForEach(e => ListOfMaritalStatus.Add(new SelectListItem { Value = e.Id.ToString(), Text = e.Name }));
 
             ListOfEthnicities = new List<SelectListItem>();
-            List<Ethnicity> ethnicities = new List<Ethnicity>();
-            ethnicities = await Mediator.Send(new GetEthnicityList() { ParentID = 1 });
-            foreach (Ethnicity ethnicity in ethnicities)
+            var ethnicities = await Mediator.Send(new GetEthnicityList() { ParentID = 1 });
+            foreach (var ethnicity in ethnicities)
                 ListOfEthnicities.Add(new SelectListItem(ethnicity.Name, ethnicity.Id.ToString()));
 
 
-
-            //ListOfEyeColors = new List<SelectListItem>();
-            //var ecolors = await Mediator.Send(new GetColorsList { ColorType = ColorTypes.EYE });
-            //ecolors.ForEach(e => ListOfEyeColors.Add(new SelectListItem { Value = e.ID.ToString(), Text = String.Concat(e.Name, " (", e.NameEn, ")") }));
-
-            //ListOfCountry = new List<SelectListItem>();
-            //var countries = await Mediator.Send(new GetCountryList());
-            //countries.ForEach(e => ListOfCountry.Add(new SelectListItem { Value = e.ID.ToString(), Text = String.Concat(e.Code, " - ", e.Title) }));
-
-            //ListOfTitles = new List<SelectListItem>();
-            //var titles = await Mediator.Send(new GetTitlesList());
-            //titles.ForEach(e => ListOfTitles.Add(new SelectListItem { Value = e.ID.ToString(), Text = String.Concat(e.Name, " (", e.NameEn, ")") }));
 
             // get list of subscreens
             string Screen = EncryptionHelper.Decrypt(HttpContext.Request.Query["p"]);
