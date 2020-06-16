@@ -9,7 +9,7 @@ namespace Clean.Common.Extensions
 {
     public static class StringExtensions
     {
-        private static string EncryptionKey = "mofa-p@3390rt-P@33word-2020-+++";
+        private static string EncryptionKey = "moe-p@3390rt-P@33word-2020-+++";
         public static string Right(this string sValue, int noOfExtraction)
         {
             return sValue.Substring(sValue.Length - noOfExtraction);

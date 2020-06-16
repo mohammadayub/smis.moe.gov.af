@@ -157,6 +157,60 @@ namespace Clean.UI.Pages.Student.Profile
         }
 
 
+        public async Task<IActionResult> OnPostCrop([FromBody] CropRequest cropmodel)
+        {
+            FileStorage _storage = new FileStorage();
+            var basePath = "";
+            if (cropmodel.uploadType == UploadTypes.Photo)
+            {
+                basePath = AppConfig.ImagesPath;
+            }
+            else if (cropmodel.uploadType == UploadTypes.Signature)
+            {
+                basePath = AppConfig.SignaturesPath;
+            }
+            var additional = DateTime.Now.ToString("yyyy-MM-dd") + "\\";
+            var crs = await _storage.Crop(cropmodel, basePath, additional);
+            object result;
+            if (crs.Success)
+            {
+                result = new
+                {
+                    status = "success",
+                    url = additional + crs.ToPath
+                };
+            }
+            else
+            {
+                result = new
+                {
+                    status = "fail",
+                    url = "",
+                    message = crs.ErrorMsg
+                };
+            }
+            return new JsonResult(result);
+        }
+
+
+        public async Task<IActionResult> OnGetDownload([FromQuery] string file, [FromQuery] string uploadType)
+        {
+            FileStorage _storage = new FileStorage();
+            var basePath = "";
+            if (uploadType == UploadTypes.Photo)
+            {
+                basePath = AppConfig.ImagesPath;
+            }
+            else if (uploadType == UploadTypes.Signature)
+            {
+                basePath = AppConfig.SignaturesPath;
+            }
+            var filepath = basePath + file;
+            System.IO.Stream filecontent = await _storage.GetAsync(filepath);
+            var filetype = _storage.GetContentType(filepath);
+            return File(filecontent, filetype, file);
+        }
+
 
 
 
