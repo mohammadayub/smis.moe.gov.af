@@ -29,6 +29,8 @@ namespace App.Persistence.Context
         public virtual DbSet<Occupation> Occupations { get; set; }
         public virtual DbSet<Office> Offices { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
+
+        public virtual DbSet<App.Domain.Entity.look.Location> Locations { get; set; }
         
         public virtual DbSet<App.Domain.Entity.look.Ethnicity> Ethnicities { get; set; }
 

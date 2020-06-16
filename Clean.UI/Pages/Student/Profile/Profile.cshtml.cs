@@ -44,7 +44,14 @@ namespace Clean.UI.Pages.Student.Profile
             foreach (var religion in religions)
                 ListOfReligions.Add(new SelectListItem(religion.Name, religion.Id.ToString()));
 
+
+            ListOfLocations = new List<SelectListItem>();
            
+            var locations = await Mediator.Send(new GetLocationList() { ParentID = 1 });
+            foreach (var location in locations)
+                ListOfLocations.Add(new SelectListItem(location.Dari, location.Id.ToString()));
+
+
 
             // get list of subscreens
             string Screen = EncryptionHelper.Decrypt(HttpContext.Request.Query["p"]);
