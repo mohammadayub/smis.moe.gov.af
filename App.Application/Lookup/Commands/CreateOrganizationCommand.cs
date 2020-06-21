@@ -38,7 +38,7 @@ namespace App.Application.Lookup.Commands
             List<SearchOrganizationModel> result = new List<SearchOrganizationModel>();
             bool IsUpdate = request.Id.HasValue && request.Id != default(int) ? true : false;
 
-            var o = IsUpdate ? (await Context.Organizations.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken)) : new Domain.Entity.look.Organization();
+            var o = IsUpdate ? (await Context.Organizations.Where(x => x.Id == request.Id).SingleOrDefaultAsync(cancellationToken)) : new Clean.Domain.Entity.look.Organization();
             o.Code = request.Code;
             o.Name = request.Name;
             o.Dari = request.Dari;

@@ -11,7 +11,7 @@
         <h1 class="panel-title">@_localizer["شهرت شاگرد"]</h1>
     </div>
     <div class="panel-body" style="padding-bottom:5px;">
-        <form id="dv_Student_Profile_Profile" class="form main-form page-component" type="form" prefix="ux" attachment="true">
+        <form id="dv_Student_Profile_Profile" class="form main-form page-component" type="form" prefix="ux" attachment="true" attachment-path="Document_Document">
             <fieldset class="content-group">
                 <legend class="text-bold">@_localizer["مشخصات شخص را وارد کنید"] </legend>
                 <input type="hidden" id="uxbid" />
@@ -26,7 +26,7 @@
                                     <input id="uxcode" name="uxCode" type="text" class="form-control search" />
                                 </div>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12 ">
+                            <div class="col-md-10 col-sm-12 col-xs-12 ">
                                 <div class="form-group">
                                     <label class="text-bold">
                                         @_localizer["نوعیت سند ثبت شده"]
@@ -85,7 +85,7 @@
                                         @_localizer["نام انگلیسی"]
                                         <span class="text-danger">&nbsp;*</span>
                                     </label>
-                                    <input id="uxnameen" name="uxNameEN" type="text" class="form-control search" lang="en" uppercase required />
+                                    <input id="uxfirstnameeng" name="uxFirstNameEng" type="text" class="form-control search" lang="en"  />
                                     <div class="form-control-feedback">
                                         <i class="icon-search4 text-size-base"></i>
                                     </div>
@@ -97,7 +97,7 @@
                                         @_localizer["تخلص انگلیسی"]
                                         <span class="text-danger">&nbsp;*</span>
                                     </label>
-                                    <input id="uxfamilynameen" name="uxFamilyNameEN" type="text" class="form-control search" lang="en" uppercase required />
+                                    <input id="uxlastnameeng" name="uxLastNameEng" type="text" class="form-control search" lang="en"  />
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12 col-xs-12 ">
@@ -106,7 +106,7 @@
                                         @_localizer["نام پدر انگلیسی"]
                                         <span class="text-danger">&nbsp;*</span>
                                     </label>
-                                    <input id="uxfathernameen" name="uxFatherNameEN" type="text" class="form-control " lang="en" uppercase required />
+                                    <input id="uxfathernameeng" name="uxFatherNameEng" type="text" class="form-control " lang="en" />
                                 </div>
                             </div>
                       
@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="col-lg-2 pull-right">
-                        <div id="uxPhoto" class="img-uploader ">
+                        <div id="uxPhoto" class="img-uploader" data-type="photo" data-ref="uxphotopath">
                         </div>
                         <input type="hidden" class="output" id="uxphotopath" />
                     </div>
@@ -171,7 +171,7 @@
                                 @_localizer["نمبر تلفن"]
                                 <span class="text-danger">&nbsp;*</span>
                             </label>
-                            <input id="uxphonenumber" name="uxPhoneNumber" type="text" class="form-control search" required />
+                            <input id="uxmobile" name="uxMobile" type="text" class="form-control search" required />
                         </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                                     @_localizer["محل تولد(ولایت)"]
                                     <span class="text-danger">&nbsp;*</span>
                                 </label>
-                                <select id="uxbirthlocationid" name="uxBirthLocationID" child="uxbirthprovinceid" asp-items="@Model.ListOfLocations" class="select" required>
+                                <select id="uxbirthlocationid" name="uxBirthLocationID"  asp-items="@Model.ListOfLocations" class="select" required>
                                     <option></option>
                                 </select>
 
@@ -264,7 +264,7 @@
                                     @_localizer["محل صدور تذکره (ولایت)"]
                                     <span class="text-danger">&nbsp;*</span>
                                 </label>
-                                <select id="uxprovince" name="uxProvince" asp-items="@Model.ListOfLocations" class="select" required>
+                                <select id="uxprovince" name="uxProvince" child="uxdistrict" asp-items="@Model.ListOfLocations" class="select" required>
                                     <option></option>
                                 </select>
                             </div>
@@ -276,7 +276,7 @@
                                     @_localizer["محل صدور تذکره (ولسوالی)"]
                                     <span class="text-danger">&nbsp;*</span>
                                 </label>
-                                <select id="uxdistrict" name="uxDistrict" asp-items="@Model.ListOfLocations" class="select" required>
+                                <select id="uxdistrict" name="uxDistrict" data-type="Province" class="select" required>
                                     <option></option>
                                 </select>
                             </div>
@@ -312,7 +312,7 @@
                             <th colname="grandfathername">@_localizer["نام پدر کلان"]</th>
                             <th colname="gendertext">@_localizer["جنسیت"]</th>
                             <th colname="ethnicitytext">@_localizer["قومیت"]</th>
-                            <th colname="dobtext">@_localizer["تاریخ تولد"]</th>
+                            <th colname="dateofbirth">@_localizer["تاریخ تولد"]</th>
                             <th colname="provincetext">@_localizer["ولایت"]</th>
                             <th colname="districttext">@_localizer["ولسوالی"]</th>
                             <th colname="nidtext">@_localizer["سند هویت"]</th>

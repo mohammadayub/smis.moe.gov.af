@@ -60,16 +60,33 @@ namespace Clean.Common.Service
             if (!string.IsNullOrEmpty(JSON))
             {
                 dynamic item = JsonConvert.DeserializeObject(JSON);
-                string result = Type + " | ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["S"]))) result = result + "نمبر سند هویت: " + item["S"] + "، ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["JN"]))) result = result + "جلد: " +  item["JN"] + " ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["JT"]))) result = result + JuldTypes[Convert.ToInt32(item["JT"])] + " ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["JY"]))) result = result + "سال " + item["JY"] + "، ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["P"]))) result = result + "صفحه: " + item["P"] + "، ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["N"]))) result = result + "نمبر ثبت: " + item["N"] + "، ";
-                if (!String.IsNullOrEmpty(Convert.ToString(item["Y"]))) result = result + "سال: " + item["Y"] + "، ";
+                string result = "";// Type + " | ";
 
-                int last = result.LastIndexOf('،');
+                if (!String.IsNullOrEmpty(Convert.ToString(item["JT"])))
+                {
+                    int JN = Convert.ToInt32(item["JT"]);
+                    string sjt = JuldTypes[JN].Substring(0, 1);
+
+                    string JY = Convert.ToString(item["JY"]);
+                    string sjy = JY.Substring(2, 2);
+                    result += "ج";
+                    if (!String.IsNullOrEmpty(Convert.ToString(item["JN"]))) result = result + item["JN"] + "-";
+                    if (!String.IsNullOrEmpty(Convert.ToString(item["JT"]))) result = result + sjt + "-";
+                    if (!String.IsNullOrEmpty(Convert.ToString(item["JY"]))) result = result + sjy + "-";
+                    if (!String.IsNullOrEmpty(Convert.ToString(item["P"]))) result = result + "ص" + item["P"] + "-";
+                    if (!String.IsNullOrEmpty(Convert.ToString(item["N"]))) result = result + "ث" + item["N"] + "-";
+
+                    if (!String.IsNullOrEmpty(Convert.ToString(item["S"]))) result = result + "صکوک" + item["S"] + "-";
+
+
+                }
+                else
+                {
+                    result = result + item["S"] + "-";
+                }
+
+                int last = result.LastIndexOf('-');
+
                 return result.Remove(last);
             }
             else

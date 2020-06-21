@@ -1,4 +1,5 @@
 ﻿using App.Domain.Entity.look;
+using Clean.Domain.Entity.look;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

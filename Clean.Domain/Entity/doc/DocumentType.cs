@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
 namespace Clean.Domain.Entity.doc
@@ -18,5 +19,8 @@ namespace Clean.Domain.Entity.doc
 
         public virtual ICollection<Documents> Documents { get; set; }
         public virtual ICollection<ScreenDocument> ScreenDocument { get; set; }
+
+     
+
     }
 }

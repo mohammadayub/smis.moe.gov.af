@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.Domain.Entity.prf;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -38,9 +39,9 @@ namespace App.Domain.Entity.look
         //public virtual ICollection<SchoolInformation> SchoolDistricts { get; set; }
 
         //public virtual ICollection<SchoolInformation> SchoolProvinces { get; set; }
-        //public virtual ICollection<Profile> ProfileBirthLocations { get; set; }
-        //public virtual ICollection<Profile> ProfileDistrictNavigations { get; set; }
-        //public virtual ICollection<Profile> ProfileProvinceNavigations { get; set; }
+        public virtual ICollection<Profile> ProfileBirthLocations { get; set; }
+        public virtual ICollection<Profile> ProfileDistrictNavigations { get; set; }
+        public virtual ICollection<Profile> ProfileProvinceNavigations { get; set; }
 
 
 

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using App.Domain.Entity.prf;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace App.Persistence.NModels
+namespace App.Domain.Entity.look
 {
-    public partial class BloodGroup
+    public partial class Education
     {
-        public BloodGroup()
+        public Education()
         {
             Profile = new HashSet<Profile>();
         }

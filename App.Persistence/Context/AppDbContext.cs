@@ -1,6 +1,9 @@
-﻿using App.Domain.Entity.doc;
+﻿
 using App.Domain.Entity.look;
+using App.Domain.Entity.prf;
+using App.Domain.Entity.prf.view;
 using Clean.Common;
+using Clean.Domain.Entity.look;
 using Clean.Persistence.Context;
 using Clean.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -27,8 +30,15 @@ namespace App.Persistence.Context
         public virtual DbSet<Clean.Domain.Entity.look.District> Districts { get; set; }
         
         public virtual DbSet<Occupation> Occupations { get; set; }
-        public virtual DbSet<Office> Offices { get; set; }
+        public virtual DbSet<Domain.Entity.look.Office> Offices { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
+
+        public virtual DbSet<Profile>  Profiles { get; set; }
+
+        public virtual DbSet<Application> Applications { get; set; }
+
+        public virtual DbSet<ProfileProcess> ProfileProcesses { get; set; }
+
 
         public virtual DbSet<App.Domain.Entity.look.Location> Locations { get; set; }
         
@@ -40,7 +50,10 @@ namespace App.Persistence.Context
         public virtual DbSet<Clean.Domain.Entity.look.Province> Provinces { get; set; }
         public virtual DbSet<App.Domain.Entity.look.Gender> Genders { get; set; }
 
+        public virtual DbSet<App.Domain.Entity.look.BloodGroup> BloodGroups { get; set; }
+
         public virtual DbSet<App.Domain.Entity.look.MaritalStatus> MaritalStatus { get; set; }
+
 
 
 

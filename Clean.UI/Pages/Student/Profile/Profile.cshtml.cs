@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Application.Lookup.Queries;
+using App.Application.Prf.Commands;
+using App.Application.Prf.Models;
+using App.Application.Prf.Queries;
 using App.Domain.Entity.look;
 using Castle.Core.Configuration;
 using Clean.Application.Documents.Queries;
@@ -90,13 +93,75 @@ namespace Clean.UI.Pages.Student.Profile
 
 
 
+
+        public async Task<IActionResult> OnPostSave([FromBody] CreateProfileCommand command)
+        {
+            try
+            {
+                IEnumerable<SearchProfileModel> SaveResult = new List<SearchProfileModel>();
+                command.CreatedOn = DateTime.Now;
+                command.ServiceTypeID = ServiceType.Student;
+                SaveResult = await Mediator.Send(command);
+
+                return new JsonResult(new UIResult()
+                {
+                    Data = new { list = SaveResult },
+                    Status = UIStatus.Success,
+                    Text = "شهرت شاگرد موفقانه ثبت و راجستر گردید",
+                    Description = string.Empty
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(CustomMessages.FabricateException(ex));
+            }
+        }
+
+
+        public async Task<IActionResult> OnPostSearch([FromBody] SearchProfileQuery query)
+        {
+            var result = new JsonResult(null);
+            try
+            {
+                query.ProcessID = 1;
+                query.InitialProcess = true;
+                IEnumerable<SearchProfileModel> SaveResult = new List<SearchProfileModel>();
+
+                SaveResult = await Mediator.Send(query);
+
+                return new JsonResult(new UIResult()
+                {
+                    Data = new { list = SaveResult },
+                    Status = UIStatus.Success,
+                    Text = "",
+                    Description = string.Empty
+                });
+
+            }
+            catch (Exception ex)
+            {
+                result.Value = new UIResult
+                {
+                    Status = UIStatus.Failure,
+                    Text = CustomMessages.InternalSystemException,
+                    Description = ex.Message + " \n StackTrace : " + ex.StackTrace,
+                    Data = null
+                };
+            }
+            return result;
+        }
+
+
+
+
         public async Task<IActionResult> OnPostProvince([FromBody] DynamicListModel Data)
         {
             var result = new JsonResult(null);
             try
             {
                 List<object> SearchResult = new List<object>();
-                var location = await Mediator.Send(new GetLocationList() { ID = Data.ID });
+                var location = await Mediator.Send(new GetLocationList() { ParentID = Data.ID });
                 foreach (var l in location)
                     SearchResult.Add(new { id = l.Id, text = l.Dari });
 

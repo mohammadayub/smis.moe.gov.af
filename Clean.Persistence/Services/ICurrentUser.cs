@@ -14,5 +14,6 @@ namespace Clean.Persistence.Services
         Task<List<AppRole>> GetUserRoles();
         Task<int> GetOfficeID();
         Task<bool> IsInRole(string role);
+
     }
 }

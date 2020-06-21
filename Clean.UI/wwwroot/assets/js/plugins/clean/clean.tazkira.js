@@ -47,7 +47,7 @@
 
             options = [];
             for (var i = 1350; i <= 1422; i++) {
-                options.push("<option val='" + i + "'>" + i + "</option>");
+                options.push("<option value='" + i + "'>" + i + "</option>");
             }
             var year = dropdowns.replace('$width', '3').replace('$Label', 'سال کتاب').replace('$id', 'jdy').replace('$g-class', 'old').replace('$Options', options.join(''));
             self.row.append(year);
@@ -56,7 +56,7 @@
 
             options = [];
             for (var i = 1; i <= 500; i++) {
-                options.push("<option val='" + i + "'>" + i + "</option>");
+                options.push("<option value='" + i + "'>" + i + "</option>");
             }
 
             var pg = dropdowns.replace('$width', '3').replace('$Label', 'نمبر صفحه').replace('$id', 'pg').replace('$g-class', 'old').replace('$name', 'Page').replace('$Options', options.join(''));;
@@ -66,7 +66,7 @@
 
             options = [];
             for (var i = 1; i <= 2500; i++) {
-                options.push("<option val='" + i + "'>" + i + "</option>");
+                options.push("<option value='" + i + "'>" + i + "</option>");
             }
 
             var no = dropdowns.replace('$width', '3').replace('$Label', 'نمبر ثبت').replace('$id', 'no').replace('$g-class', 'old').replace('$name', 'No').replace('$Options', options.join(''));

@@ -18,6 +18,7 @@ namespace Clean.Persistence.Identity
         public bool Disabled { get; set; }
         public Office Office { get; set; }
         public Organization Organization { get; set; }
+
     }
 
     public class AppRole : IdentityRole<int>

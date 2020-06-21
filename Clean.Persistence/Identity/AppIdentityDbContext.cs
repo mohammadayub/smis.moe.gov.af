@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Clean.Persistence.Identity
 {
     public class AppIdentityDbContext : IdentityDbContext<AppUser, AppRole, int, AppUserClaims, AppUserRole, AppUserLogin, AppRoleClaim, AppUserToken>

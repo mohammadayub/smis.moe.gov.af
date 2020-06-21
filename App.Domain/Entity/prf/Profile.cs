@@ -1,4 +1,6 @@
-﻿using App.Domain.Entity.look;
+﻿
+using App.Domain.Entity.look;
+using Clean.Domain.Entity.doc;
 using Clean.Domain.Entity.look;
 using System;
 using System.Collections.Generic;
@@ -8,11 +10,11 @@ namespace App.Domain.Entity.prf
 {
     public partial class Profile
     {
+
         public Profile()
         {
 
             //Jobs = new HashSet<Job>();
-
 
         }
 
@@ -23,7 +25,6 @@ namespace App.Domain.Entity.prf
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FatherName { get; set; }
-
         public string GrandFatherName { get; set; }
 
         public string FirstNameEng { get; set; }
@@ -31,7 +32,6 @@ namespace App.Domain.Entity.prf
         public string LastNameEng { get; set; }
 
         public string FatherNameEng { get; set; }
-
         public DateTime DateOfBirth { get; set; }
         public int BirthLocationId { get; set; }
         public int GenderId { get; set; }
@@ -64,16 +64,19 @@ namespace App.Domain.Entity.prf
         public BloodGroup BloodGroup { get; set; }
         public virtual Location DistrictNavigation { get; set; }
         public virtual DocumentType DocumentType { get; set; }
-        //public virtual Education Education { get; set; }
+        public virtual Education Education { get; set; }
         public Ethnicity Ethnicity { get; set; }
         public Gender Gender { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
-        public virtual Clean.Domain.Entity.look.Organization Organization { get; set; }
+        public virtual Organization Organization { get; set; }
         public virtual Location ProvinceNavigation { get; set; }
         public Religion Religion { get; set; }
 
         //public ICollection<Job> Jobs { get; set; }
         public ICollection<Application> Applications { get; set; }
+
+     
+
         //public ICollection<SchoolInformation> SchoolInformations { get; set; }
 
     }

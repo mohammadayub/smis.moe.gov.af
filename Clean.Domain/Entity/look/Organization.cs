@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Clean.Domain.Entity.look
 {
@@ -14,6 +12,9 @@ namespace Clean.Domain.Entity.look
         public string Code { get; set; }
         public short StatusId { get; set; }
         public short OrganizationTypeId { get; set; }
+
+
+        //public virtual ICollection<Profile> Profiles { get; set; }
 
     }
 }
